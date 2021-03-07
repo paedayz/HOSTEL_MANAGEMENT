@@ -137,3 +137,32 @@ exports.booking = async (req, res) => {
         })
     }
 }
+
+exports.cancelBooking = async (req, res) => {
+    let username = req.user.username
+    let booking_id = req.body.bookingId
+    console.log(booking_id)
+
+    let booking = await Booking.findById(booking_id, (err, data) => {
+        if(err) {
+            res.status(500).json({error: 'Not found booking data'})
+        } else {
+            return data
+        }
+    })
+
+    if(booking) {
+        if(booking.booker == username) {
+            Booking.deleteOne({_id: booking_id})
+                .then(() => {
+                    res.status(200).json({data: booking_id})
+                })
+                .catch((err) => {
+                    console.log(err)
+                    res.status(500).json({error: err})
+                })
+        } else {
+            res.status(403).json({error: 'Permission Denied'})
+        }
+    }
+}
