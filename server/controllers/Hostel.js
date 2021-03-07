@@ -122,6 +122,7 @@ exports.editHostel = async (req, res) => {
 
 exports.deleteHostel = async (req, res) => {
     const username = req.user.username
+    const user_status = req.user.status
     const hostel_id = req.params.hostelId
 
     let hostel = await Hostel.findById(hostel_id, (err, data) => {
@@ -132,7 +133,7 @@ exports.deleteHostel = async (req, res) => {
         }
     })
 
-    if(hostel.owner == username) {
+    if(hostel.owner == username || user_status == 'admin') {
         Hostel.deleteOne({_id: hostel_id})
             .then(() => {
                 Booking.deleteMany({hostel_id: hostel_id})
