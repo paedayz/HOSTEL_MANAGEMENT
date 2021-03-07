@@ -59,10 +59,10 @@ exports.register = async (req, res, next) => {
 }
 
 exports.login = (req, res, next) => {
-    let username = req.body.username
+    let email_username = req.body.email_username
     let password = req.body.password
 
-    User.findOne({$or: [{email: username}, {name: username}]})
+    User.findOne({$or: [{email: email_username}, {username: email_username}]})
         .then((user) => {
             if(user) {
                 bcrypt.compare(password, user.password, (err, result) => {
