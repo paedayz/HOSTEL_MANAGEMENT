@@ -154,6 +154,36 @@ exports.deleteHostel = async (req, res) => {
     }
 }
 
+exports.setHostelStatus = async (req, res) => {
+    let username = req.user.username
+    let status = req.body.status
+
+    let hostel = await Hostel.findById(req.body._id, (err, data) => {
+        if(err) {
+            res.status(500).json({error: 'Not found hostel data'})
+        } else {
+            return data
+        }
+    })
+
+    if(hostel.owner == username) {
+        Hostel.findOneAndUpdate({_id: req.body._id}, {$set: {status: status} }, {returnOriginal: false})
+            .then((data) => {
+                let res_data = {
+                    ...data._doc,
+                    status: status
+                }
+                res.status(200).json({data: res_data,})
+            })
+            .catch((err) => {
+                console.log(err)
+                res.status(500).json({error: err})
+            })
+    } else {
+        res.status(403).json({error: 'Permission Denied'})
+    }
+}
+
 exports.booking = async (req, res) => {
     let username = req.user.username
 
