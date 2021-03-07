@@ -64,7 +64,7 @@ exports.addHostel = (req, res) => {
         if(err) {
             res.status(304).json({error: err})
         } else {
-            res.status(200).json({message: 'Add Hostel Success'})
+            res.status(200).json({data: item})
         }
     })
 }
