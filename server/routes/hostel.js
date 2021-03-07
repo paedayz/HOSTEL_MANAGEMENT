@@ -13,7 +13,8 @@ const {
     booking, 
     cancelBooking, 
     getBookingList,
-    setHostelStatus
+    setHostelStatus,
+    adminApproveHostelRequest
 } = require('../controllers/Hostel')
 
 // Router
@@ -28,5 +29,6 @@ router.post('/booking', UserAuth, booking)
 router.post('/cancelBooking', UserAuth, cancelBooking)
 router.get('/getBookingList', UserAuth, getBookingList)
 router.post('/setHostelStatus', UserAuth, setHostelStatus)
+router.post('/adminApproveHostelRequest', UserAuth, adminApproveHostelRequest)
 
 module.exports = router

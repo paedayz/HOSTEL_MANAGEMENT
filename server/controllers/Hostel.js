@@ -109,7 +109,7 @@ exports.editHostel = async (req, res) => {
                     ...data._doc,
                     ...update_data
                 }
-                res.status(200).json({data: res_data,})
+                res.status(200).json({data: res_data})
             })
             .catch((err) => {
                 console.log(err)
@@ -161,6 +161,7 @@ exports.setHostelStatus = async (req, res) => {
     let hostel = await Hostel.findById(req.body._id, (err, data) => {
         if(err) {
             res.status(500).json({error: 'Not found hostel data'})
+            return false
         } else {
             return data
         }
@@ -173,7 +174,7 @@ exports.setHostelStatus = async (req, res) => {
                     ...data._doc,
                     status: status
                 }
-                res.status(200).json({data: res_data,})
+                res.status(200).json({data: res_data})
             })
             .catch((err) => {
                 console.log(err)
@@ -280,5 +281,27 @@ exports.getBookingList = async (req, res) => {
         let res_booking_data = await Promise.all(booking_promise)
 
         res.status(200).json({data: res_booking_data})
+    }
+}
+
+exports.adminApproveHostelRequest = async (req, res) => {
+    let user_status = req.user.status
+    let admin_approve = req.body.admin_approve
+
+    if(user_status == 'admin') {
+        Hostel.findOneAndUpdate({_id: req.body._id}, {$set: {admin_approve: admin_approve} }, {returnOriginal: false})
+            .then((data) => {
+                let res_data = {
+                    ...data._doc,
+                    admin_approve: admin_approve
+                }
+                res.status(200).json({data: res_data})
+            })
+            .catch((err) => {
+                console.log(err)
+                res.status(500).json({error: err})
+            })
+    } else {
+        res.status(403).json({error: 'Permission Denied'})
     }
 }
