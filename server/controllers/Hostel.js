@@ -5,6 +5,21 @@ const path = require('path')
 const Hostel = require('../models/Hostel')
 const Booking = require('../models/Booking')
 
+exports.getHostelDetail = (req, res) => {
+    const hostel_id = req.params.hostelId
+    Hostel.findById(hostel_id, (err, hostel) => {
+        if(err) {
+            res.status(500).json({error: err})
+        } else {
+            if(hostel) {
+                res.status(200).json({data: hostel})
+            } else {
+                res.status(404).json({error: 'Not found hostel data'})
+            }
+        }
+    })
+}
+
 exports.addHostel = (req, res) => {
     const obj = {
         name: req.body.name,
