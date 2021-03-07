@@ -119,6 +119,8 @@ exports.booking = async (req, res) => {
         hostel_id: req.body._id
     }
 
+    console.log(booking_data)
+
     let hostel = await Hostel.findById(req.body._id, (err, data) => {
         if(err) {
             res.status(500).json({error: 'Not found hostel data'})
@@ -141,7 +143,6 @@ exports.booking = async (req, res) => {
 exports.cancelBooking = async (req, res) => {
     let username = req.user.username
     let booking_id = req.body.bookingId
-    console.log(booking_id)
 
     let booking = await Booking.findById(booking_id, (err, data) => {
         if(err) {
@@ -164,5 +165,47 @@ exports.cancelBooking = async (req, res) => {
         } else {
             res.status(403).json({error: 'Permission Denied'})
         }
+    }
+}
+
+exports.getBookingList = async (req, res) => {
+    let username = req.user.username
+
+    let booking = await Booking.find({booker: username}, (err, data) => {
+        if(err) {
+            res.status(500).json({error: 'Not found booking data'})
+        } else {
+            if(data.length != 0) {
+                return data
+            } else {
+                res.status(200).json({data: []})
+                return false
+            }
+            
+        }
+    })
+
+    if(booking) {
+        let booking_promise = booking.map((book) => {
+            return Hostel.findById(book.hostel_id).then((hostel) => {
+                let merge_booking_hostel = {
+                    booker: book.booker,
+                    hostel_id: book.hostel_id,
+                    created_at: book.created_at,
+                    booking_id: book._id,
+                    name: hostel.name,
+                    price: hostel.price,
+                    detail: hostel.detail,
+                    location: hostel.location,
+                    owner: hostel.owner
+                }
+
+                return merge_booking_hostel
+            })
+        })
+
+        let res_booking_data = await Promise.all(booking_promise)
+
+        res.status(200).json({data: res_booking_data})
     }
 }
