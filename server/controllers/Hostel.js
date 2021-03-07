@@ -3,6 +3,7 @@ const path = require('path')
 
 // Model
 const Hostel = require('../models/Hostel')
+const Booking = require('../models/Booking')
 
 exports.addHostel = (req, res) => {
     const obj = {
@@ -99,5 +100,32 @@ exports.deleteHostel = async (req, res) => {
             })
     } else {
         res.status(403).json({error: 'Permission Denied'})
+    }
+}
+
+exports.booking = async (req, res) => {
+    let username = req.user.username
+
+    let booking_data = {
+        booker: username,
+        hostel_id: req.body._id
+    }
+
+    let hostel = await Hostel.findById(req.body._id, (err, data) => {
+        if(err) {
+            res.status(500).json({error: 'Not found hostel data'})
+        } else {
+            return data
+        }
+    })
+
+    if(hostel) {
+        Booking.create(booking_data, (err, item) => {
+            if(err) {
+                res.status(304).json({error: err})
+            } else {
+                res.status(200).json({data: item})
+            }
+        })
     }
 }
