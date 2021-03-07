@@ -3,6 +3,8 @@ const router = express.Router()
 const UserAuth = require('../middlewares/UserAuth')
 
 const {
+    getAllHostelList,
+    getAllAvailableHostelList,
     getHostelDetail,
     addHostel, 
     getOwnerUserHostel, 
@@ -14,6 +16,8 @@ const {
 } = require('../controllers/Hostel')
 
 // Router
+router.get('/getAllHostelList', getAllHostelList)
+router.get('/getAllAvailableHostelList', getAllAvailableHostelList)
 router.get('/getHostelDetail/:hostelId', getHostelDetail)
 router.post('/addHostel', UserAuth, addHostel)
 router.get('/getOwnerUserHostel', UserAuth, getOwnerUserHostel)

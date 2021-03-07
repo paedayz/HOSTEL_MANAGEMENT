@@ -5,6 +5,34 @@ const path = require('path')
 const Hostel = require('../models/Hostel')
 const Booking = require('../models/Booking')
 
+exports.getAllHostelList = (req, res) => {
+    Hostel.find((err, hostels) => {
+        if(err) {
+            res.status(500).json({error: err})
+        } else {
+            if(hostels.length != 0) {
+                res.status(200).json({data: hostels})
+            } else {
+                res.status(404).json({error: 'Not found hostel data'})
+            }
+        }
+    })
+}
+
+exports.getAllAvailableHostelList = (req, res) => {
+    Hostel.find({status: 'available', admin_approve: true},(err, hostels) => {
+        if(err) {
+            res.status(500).json({error: err})
+        } else {
+            if(hostels.length != 0) {
+                res.status(200).json({data: hostels})
+            } else {
+                res.status(200).json({data: []})
+            }
+        }
+    })
+}
+
 exports.getHostelDetail = (req, res) => {
     const hostel_id = req.params.hostelId
     Hostel.findById(hostel_id, (err, hostel) => {
