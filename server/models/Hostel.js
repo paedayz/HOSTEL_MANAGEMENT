@@ -23,10 +23,13 @@ const HostelSchema = mongoose.Schema({
             required: true
         }
     },
+    owner: {
+        type: String,
+        required: true
+    },
     status: {
         type: String,
         default: 'available'
-
     },
     admin_approve: {
         type: Boolean,

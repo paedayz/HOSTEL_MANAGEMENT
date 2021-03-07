@@ -12,16 +12,15 @@ exports.addHostel = (req, res, next) => {
         location: {
             latitude: req.body.latitude,
             longitude: req.body.longitude
-        }
+        },
+        owner: req.user.username
     }
 
-    res.json({message: 'success'})
-
-    // Hostel.create(obj, (err, item) => {
-    //     if(err) {
-    //         res.status(304).json({error: err})
-    //     } else {
-    //         res.status(200).json({message: 'Add Hostel Success'})
-    //     }
-    // })
+    Hostel.create(obj, (err, item) => {
+        if(err) {
+            res.status(304).json({error: err})
+        } else {
+            res.status(200).json({message: 'Add Hostel Success'})
+        }
+    })
 }

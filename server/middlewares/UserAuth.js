@@ -1,6 +1,6 @@
 const jwt_decode = require('jwt-decode')
 
-module.exports = (req, res, next) => {
+module.exports = async (req, res, next) => {
     let token
     if (
         req.headers.authorization &&
@@ -12,8 +12,8 @@ module.exports = (req, res, next) => {
         return res.status(403).json({ error: "Unauthorized" });
       }
     
-    let decoded = jwt_decode(token)
-    console.log(decoded)
+    let decoded = await jwt_decode(token)
+    req.user = decoded.profile
     next()
     
 
