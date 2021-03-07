@@ -92,7 +92,15 @@ exports.deleteHostel = async (req, res) => {
     if(hostel.owner == username) {
         Hostel.deleteOne({_id: hostel_id})
             .then(() => {
-                res.status(200).json({data: hostel_id})
+                Booking.deleteMany({hostel_id: hostel_id})
+                    .then(() => {
+                        res.status(200).json({data: hostel_id})
+                    })
+                    .catch((err) => {
+                        console.log(err)
+                        res.status(500).json({error: err})
+                    })
+                
             })
             .catch((err) => {
                 console.log(err)
