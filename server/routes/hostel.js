@@ -1,9 +1,9 @@
 const express = require('express')
 const router = express.Router()
-const uploadImage = require('../middlewares/UploadImage')
+const UserAuth = require('../middlewares/UserAuth')
 const {addHostel} = require('../controllers/Hostel')
 
 // Router
-router.post('/addHostel', addHostel)
+router.post('/addHostel', UserAuth, addHostel)
 
 module.exports = router

@@ -5,7 +5,6 @@ const path = require('path')
 const Hostel = require('../models/Hostel')
 
 exports.addHostel = (req, res, next) => {
-    console.log(req.file)
     const obj = {
         name: req.body.name,
         price: req.body.price,
@@ -16,11 +15,13 @@ exports.addHostel = (req, res, next) => {
         }
     }
 
-    Hostel.create(obj, (err, item) => {
-        if(err) {
-            res.status(304).json({error: err})
-        } else {
-            res.status(200).json({message: 'Add Hostel Success'})
-        }
-    })
+    res.json({message: 'success'})
+
+    // Hostel.create(obj, (err, item) => {
+    //     if(err) {
+    //         res.status(304).json({error: err})
+    //     } else {
+    //         res.status(200).json({message: 'Add Hostel Success'})
+    //     }
+    // })
 }
