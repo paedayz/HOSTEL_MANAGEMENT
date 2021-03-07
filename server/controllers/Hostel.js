@@ -75,3 +75,29 @@ exports.editHostel = async (req, res) => {
         res.status(403).json({error: 'Permission Denied'})
     }
 }
+
+exports.deleteHostel = async (req, res) => {
+    const username = req.user.username
+    const hostel_id = req.params.hostelId
+
+    let hostel = await Hostel.findById(hostel_id, (err, data) => {
+        if(err) {
+            res.status(500).json({error: 'Not found hostel data'})
+        } else {
+            return data
+        }
+    })
+
+    if(hostel.owner == username) {
+        Hostel.deleteOne({_id: hostel_id})
+            .then(() => {
+                res.status(200).json({data: hostel_id})
+            })
+            .catch((err) => {
+                console.log(err)
+                res.status(500).json({error: err})
+            })
+    } else {
+        res.status(403).json({error: 'Permission Denied'})
+    }
+}
