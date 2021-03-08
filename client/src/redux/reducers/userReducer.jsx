@@ -3,7 +3,8 @@ import {SET_USER_CREDENTIALS} from "../types";
 const initialState = {
     authenticated: false,
     credentials: {},
-    loading: false
+    loading: false,
+    error: null
 };
 // eslint-disable-next-line 
 export default function (state = initialState, action) {
