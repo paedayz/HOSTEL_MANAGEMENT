@@ -1,7 +1,8 @@
 import React, {useState} from 'react'
 
 // redux
-import {useSelector} from 'react-redux'
+import {useSelector, useDispatch} from 'react-redux'
+import {login} from '../redux/actions/userAction'
 
 /**
 * @author
@@ -20,6 +21,8 @@ const Auth = (props) => {
     const [confirmPassword, setConfirmPassword] = useState('')
     
     const error = useSelector(state => state.user.error)
+
+    const dispatch = useDispatch()
 
     const changeMode = (e) => {
         setEmail('')
@@ -41,7 +44,7 @@ const Auth = (props) => {
             password: password
         }
         e.preventDefault()
-        console.log(login_data)
+        dispatch(login(login_data))
     }
 
     const onSubmitRegister = (e) => {

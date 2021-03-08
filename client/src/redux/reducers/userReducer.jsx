@@ -1,4 +1,4 @@
-import {SET_USER_CREDENTIALS} from "../types";
+import {SET_USER_CREDENTIALS, CLEAR_ERRORS, SET_ERRORS} from "../types";
   
 const initialState = {
     authenticated: false,
@@ -9,10 +9,26 @@ const initialState = {
 // eslint-disable-next-line 
 export default function (state = initialState, action) {
     switch (action.type) {
-      case SET_USER_CREDENTIALS :
-          return{
-              ...state
-          }
+
+        case SET_USER_CREDENTIALS :
+            return {
+                ...state,
+                credentials: action.payload,
+                authenticated: true
+            }
+
+        case CLEAR_ERRORS :
+            return {
+                ...state,
+                error: null
+            }
+        
+        case SET_ERRORS :
+            return {
+                ...state,
+                error: action.payload
+            }
+
       default:
         return state;
     }
