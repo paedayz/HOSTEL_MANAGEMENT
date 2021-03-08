@@ -143,3 +143,19 @@ label{
 .menu {
   margin-bottom: 30%;
 }
+
+/* Hostel Card Box */
+.card{
+  width: 18rem;
+  margin-left: 2rem;
+  margin-top: 10%;
+}
+
+.card p {
+  color: #a8a8a8;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* number of lines to show */
+  -webkit-box-orient: vertical;
+}
