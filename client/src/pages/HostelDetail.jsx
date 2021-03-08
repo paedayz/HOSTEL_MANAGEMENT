@@ -3,7 +3,7 @@ import {useParams} from 'react-router-dom'
 
 // Redux
 import {useDispatch, useSelector} from 'react-redux'
-import {getHostelDetail, booking} from '../redux/actions/dataAction'
+import {getHostelDetail, booking, cancelBooking} from '../redux/actions/dataAction'
 
 // Component
 import HostelMap from '../component/hostel/HostelMap'
@@ -17,7 +17,7 @@ const HostelDetail = (props) => {
     const loading = useSelector(state => state.data.loading)
     const single_hostel_detail = useSelector(state => state.data.single_hostel_detail)
     // eslint-disable-next-line
-    const {location, is_booking, image, name, price, detail, owner, _id} = single_hostel_detail
+    const {location, is_booking, image, name, price, detail, owner, _id, booking_id} = single_hostel_detail
 
     const {hostelId} = useParams()
 
@@ -31,6 +31,12 @@ const HostelDetail = (props) => {
     const onBookingClick = () => {
         if (window.confirm("Confirm Booking")) {
             dispatch(booking(_id))
+          }
+    }
+
+    const onCancelBookingClick = () => {
+        if (window.confirm("Cancel Booking")) {
+            dispatch(cancelBooking(booking_id))
           }
     }
 
@@ -51,7 +57,9 @@ const HostelDetail = (props) => {
                             <br/>
                             {is_booking
                             ?
-                            <button type="button">Already Booking</button>
+                            <button type="button" onClick={() => onCancelBookingClick()} class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                Cancel Booking
+                            </button>
                             :
                             <button type="button" onClick={() => onBookingClick()} class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                 Booking

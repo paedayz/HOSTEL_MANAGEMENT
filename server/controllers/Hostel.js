@@ -47,13 +47,15 @@ exports.getAllAvailableHostelList = (req, res) => {
 }
 
 exports.getHostelDetail = (req, res) => {
+    const user_id = req.user._id
     const hostel_id = req.params.hostelId
-    Hostel.findById(hostel_id, (err, hostel) => {
+    Hostel.findById(hostel_id, async (err, hostel) => {
         if(err) {
             res.status(500).json({error: err})
         } else {
             if(hostel) {
-                res.status(200).json({data: hostel})
+                let res_data = await checkBooking(user_id, hostel._id, hostel)
+                res.status(200).json({data: res_data})
             } else {
                 res.status(404).json({error: 'Not found hostel data'})
             }
@@ -65,7 +67,6 @@ const checkBooking = async (user_id, hostel_id, item) => {
     let return_data = await Booking.find({booker: user_id, hostel_id: hostel_id})
                         .then((data) => {
                             if(data.length > 0) {
-                                
                                 let new_data = {
                                     location: item.location,
                                     status: item.status,
@@ -76,7 +77,8 @@ const checkBooking = async (user_id, hostel_id, item) => {
                                     price: item.price,
                                     detail: item.detail,
                                     owner: item.owner,
-                                    is_booking: true
+                                    is_booking: true,
+                                    booking_id: data[0]._id
                                 }
                                 return new_data
                             } else {
@@ -91,7 +93,8 @@ const checkBooking = async (user_id, hostel_id, item) => {
                                     price: item.price,
                                     detail: item.detail,
                                     owner: item.owner,
-                                    is_booking: false
+                                    is_booking: false,
+                                    booking_id: null
                                 }
                                 return new_data
                             }
@@ -259,11 +262,8 @@ exports.booking = async (req, res) => {
         }
     })
 
-    console.log(hostel)
-
     if(hostel) {
         Booking.create(booking_data, (err, item) => {
-            console.log(item)
             if(err) {
                 res.status(304).json({error: err})
             } else {
@@ -274,7 +274,7 @@ exports.booking = async (req, res) => {
 }
 
 exports.cancelBooking = async (req, res) => {
-    let username = req.user.username
+    let user_id = req.user._id
     let booking_id = req.body.bookingId
 
     let booking = await Booking.findById(booking_id, (err, data) => {
@@ -286,7 +286,7 @@ exports.cancelBooking = async (req, res) => {
     })
 
     if(booking) {
-        if(booking.booker == username) {
+        if(booking.booker == user_id) {
             Booking.deleteOne({_id: booking_id})
                 .then(() => {
                     res.status(200).json({data: booking_id})

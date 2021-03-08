@@ -168,5 +168,6 @@ label{
 }
 
 .card .bookingBadge {
-  margin-left: 80%;
+  position: absolute;
+  margin-left: 85%;
 }

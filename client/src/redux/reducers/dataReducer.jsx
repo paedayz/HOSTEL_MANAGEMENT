@@ -1,4 +1,4 @@
-import {SET_AVAILABLE_HOSTEL, DATA_LOADING, SET_SINGLE_HOSTEL_DETAIL, BOOKING} from "../types";
+import {SET_AVAILABLE_HOSTEL, DATA_LOADING, SET_SINGLE_HOSTEL_DETAIL, BOOKING, CANCEL_BOOKING} from "../types";
   
 const initialState = {
     available_hostels: [],
@@ -31,9 +31,18 @@ export default function (state = initialState, action) {
         case BOOKING :
             let new_current_hostel = state.single_hostel_detail
             new_current_hostel.is_booking = true
+            new_current_hostel.booking_id = action.payload
             return {
                 ...state,
                 single_hostel_detail: new_current_hostel,
+                loading: false
+            }
+        case CANCEL_BOOKING :
+            let current_hostel = state.single_hostel_detail
+            current_hostel.is_booking = false
+            return {
+                ...state,
+                single_hostel_detail: current_hostel,
                 loading: false
             }
 
