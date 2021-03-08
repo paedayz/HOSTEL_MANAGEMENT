@@ -20,12 +20,25 @@ exports.getAllHostelList = (req, res) => {
 }
 
 exports.getAllAvailableHostelList = (req, res) => {
-    Hostel.find({status: 'available', admin_approve: true},(err, hostels) => {
+    const user_id = req.user._id
+    Hostel.find({status: 'available', admin_approve: true}, async (err, hostels) => {
         if(err) {
             res.status(500).json({error: err})
         } else {
             if(hostels.length != 0) {
-                res.status(200).json({data: hostels})
+                const res_promise = await hostels.map(async(item) => {
+                    let return_data = await checkBooking(user_id, item._id, item)
+                    return return_data
+                })
+
+                Promise.all(res_promise)
+                    .then((data) => {
+                        res.status(200).json({data: data})
+                    })
+                    .catch((err) => {
+                        res.status(403).json({error: 'Something went wrong'})
+                    })
+                
             } else {
                 res.status(200).json({data: []})
             }
@@ -46,6 +59,48 @@ exports.getHostelDetail = (req, res) => {
             }
         }
     })
+}
+
+const checkBooking = async (user_id, hostel_id, item) => {
+    let return_data = await Booking.find({booker: user_id, hostel_id: hostel_id})
+                        .then((data) => {
+                            if(data.length > 0) {
+                                
+                                let new_data = {
+                                    location: item.location,
+                                    status: item.status,
+                                    admin_approve: item.admin_approve,
+                                    image: item.image,
+                                    _id: item._id,
+                                    name: item.name,
+                                    price: item.price,
+                                    detail: item.detail,
+                                    owner: item.owner,
+                                    is_booking: true
+                                }
+                                return new_data
+                            } else {
+                                
+                                let new_data = {
+                                    location: item.location,
+                                    status: item.status,
+                                    admin_approve: item.admin_approve,
+                                    image: item.image,
+                                    _id: item._id,
+                                    name: item.name,
+                                    price: item.price,
+                                    detail: item.detail,
+                                    owner: item.owner,
+                                    is_booking: false
+                                }
+                                return new_data
+                            }
+                        })
+                        .catch((err) => {
+                            console.log(err)
+                            res.status(403).json({error: 'Something went wrong'})
+                        })
+    return return_data
 }
 
 exports.addHostel = (req, res) => {

@@ -35,6 +35,10 @@ const HostelSchema = mongoose.Schema({
         type: Boolean,
         default: false
     },
+    image : {
+        type: String,
+        default: 'https://image.freepik.com/free-vector/house-building-vector-icon-illustration_138676-208.jpg' 
+    }
 })
 
 module.exports = mongoose.model('hostels', HostelSchema)

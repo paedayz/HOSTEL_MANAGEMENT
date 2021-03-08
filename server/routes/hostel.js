@@ -19,8 +19,8 @@ const {
 
 // Router
 router.get('/getAllHostelList', getAllHostelList)
-router.get('/getAllAvailableHostelList', getAllAvailableHostelList)
-router.get('/getHostelDetail/:hostelId', getHostelDetail)
+router.get('/getAllAvailableHostelList',UserAuth, getAllAvailableHostelList)
+router.get('/getHostelDetail/:hostelId',UserAuth, getHostelDetail)
 router.post('/addHostel', UserAuth, addHostel)
 router.get('/getOwnerUserHostel', UserAuth, getOwnerUserHostel)
 router.post('/editHostel', UserAuth, editHostel)
