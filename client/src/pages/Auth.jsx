@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 
 // redux
 import {useSelector, useDispatch} from 'react-redux'
-import {login} from '../redux/actions/userAction'
+import {login, register} from '../redux/actions/userAction'
 
 /**
 * @author
@@ -14,8 +14,8 @@ const Auth = (props) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [username, setUsername] = useState('')
-    const [firstname, setFirstname] = useState('')
-    const [lastname, setLastname] = useState('')
+    const [first_name, setFirstname] = useState('')
+    const [last_name, setLastname] = useState('')
     const [date_of_birth, setDate_of_birth] = useState('')
     const [email_username, setEmail_username] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
@@ -52,12 +52,12 @@ const Auth = (props) => {
             email,
             password,
             username,
-            firstname,
-            lastname,
+            first_name,
+            last_name,
             date_of_birth
         }
         e.preventDefault()
-        console.log(register_data)
+        dispatch(register(register_data))
     }
 
     if(isLogin) {
@@ -129,15 +129,15 @@ const Auth = (props) => {
                 <input 
                     type="text" 
                     placeholder="First name" 
-                    defaultValue={firstname}
-                    value={firstname}
+                    defaultValue={first_name}
+                    value={first_name}
                     onChange={e => setFirstname(e.target.value)}
                 />
                 <input 
                     type="text" 
                     placeholder="Last name" 
-                    defaultValue={lastname}
-                    value={lastname}
+                    defaultValue={last_name}
+                    value={last_name}
                     onChange={e => setLastname(e.target.value)}
                 />
                 
