@@ -132,7 +132,6 @@ exports.getOwnerUserHostel = (req, res) => {
     
     Hostel.find({owner: username})
         .then((hostels) => {
-            console.log(hostels)
             res.status(200).json({data: hostels})
         })
         .catch((err) => {
@@ -251,8 +250,6 @@ exports.booking = async (req, res) => {
         booker: booker_id,
         hostel_id: req.body.hostel_id
     }
-
-    console.log(booking_data)
 
     let hostel = await Hostel.findById(req.body.hostel_id, (err, data) => {
         if(err) {

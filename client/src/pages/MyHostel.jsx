@@ -7,6 +7,9 @@ import {useHistory} from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import {getOwnerUserHostel, deleteHostel, setHostelStatus} from '../redux/actions/dataAction'
 
+// Compoent
+import Modal from '../component/hostel/AddHostelModal'
+
 /**
 * @author
 * @function MyHostel
@@ -66,9 +69,12 @@ const MyHostel = (props) => {
       </tr>
     )
   })
+
+  
   return(
     <div className="content">
       <h1>My Hostel List</h1>
+      <Modal word='Add Hostel'/>
       <table class="table">
         <thead>
           <tr>
