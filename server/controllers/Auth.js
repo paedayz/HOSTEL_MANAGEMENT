@@ -40,8 +40,10 @@ exports.register = async (req, res, next) => {
     
             user.save()
                 .then((user) => {
+                    let token = jwt.sign({credentials: user}, 'verySecretValue', {expiresIn: '1h'})
                     res.json({
-                        message:'User Added Successfully'
+                        message:'Register Successful!',
+                        token
                     })
                 })
                 .catch((err) => {
@@ -73,7 +75,7 @@ exports.login = (req, res, next) => {
                     }
 
                     if(result) {
-                        let token = jwt.sign({profile: user}, 'verySecretValue', {expiresIn: '1h'})
+                        let token = jwt.sign({credentials: user}, 'verySecretValue', {expiresIn: '1h'})
                         res.json({
                             message:'Login Successful!',
                             token

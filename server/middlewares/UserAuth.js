@@ -13,7 +13,7 @@ module.exports = async (req, res, next) => {
       }
     
     let decoded = await jwt_decode(token)
-    req.user = decoded.profile
+    req.user = decoded.credentials
     next()
     
 
