@@ -16,6 +16,8 @@ body{
 margin-right: 0;
 }
 
+#map { position: relative;  width: 53rem; height: 40rem; }
+
 /* Auth Box */
 .box{
   width: 100%;
