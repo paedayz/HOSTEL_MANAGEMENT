@@ -171,3 +171,13 @@ label{
   position: absolute;
   margin-left: 85%;
 }
+
+/* Booking list */
+.table {
+  margin-top: 5%;
+}
+
+.pointTR:hover{
+  background-color: #2ecc71;
+  cursor: pointer;
+}
