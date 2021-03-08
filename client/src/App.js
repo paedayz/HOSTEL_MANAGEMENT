@@ -28,7 +28,6 @@ if (token) {
   } else {
     store.dispatch({ type: SET_USER_CREDENTIALS, payload: decodeToken.credentials});
     axios.defaults.headers.common["Authorization"] = token;
-    // store.dispatch(getUserData());
   }
 }
 

@@ -187,16 +187,16 @@ exports.setHostelStatus = async (req, res) => {
 }
 
 exports.booking = async (req, res) => {
-    let username = req.user.username
+    let booker_id = req.user._id
 
     let booking_data = {
-        booker: username,
-        hostel_id: req.body._id
+        booker: booker_id,
+        hostel_id: req.body.hostel_id
     }
 
     console.log(booking_data)
 
-    let hostel = await Hostel.findById(req.body._id, (err, data) => {
+    let hostel = await Hostel.findById(req.body.hostel_id, (err, data) => {
         if(err) {
             res.status(500).json({error: 'Not found hostel data'})
         } else {
@@ -204,8 +204,11 @@ exports.booking = async (req, res) => {
         }
     })
 
+    console.log(hostel)
+
     if(hostel) {
         Booking.create(booking_data, (err, item) => {
+            console.log(item)
             if(err) {
                 res.status(304).json({error: err})
             } else {
@@ -244,45 +247,25 @@ exports.cancelBooking = async (req, res) => {
 }
 
 exports.getBookingList = async (req, res) => {
-    let username = req.user.username
+    let booker_id = req.user._id
 
-    let booking = await Booking.find({booker: username}, (err, data) => {
-        if(err) {
-            res.status(500).json({error: 'Not found booking data'})
-        } else {
-            if(data.length != 0) {
-                return data
-            } else {
-                res.status(200).json({data: []})
-                return false
-            }
-            
-        }
-    })
-
-    if(booking) {
-        let booking_promise = booking.map((book) => {
-            return Hostel.findById(book.hostel_id).then((hostel) => {
-                let merge_booking_hostel = {
-                    booker: book.booker,
-                    hostel_id: book.hostel_id,
-                    created_at: book.created_at,
-                    booking_id: book._id,
-                    name: hostel.name,
-                    price: hostel.price,
-                    detail: hostel.detail,
-                    location: hostel.location,
-                    owner: hostel.owner
-                }
-
-                return merge_booking_hostel
-            })
-        })
-
-        let res_booking_data = await Promise.all(booking_promise)
-
-        res.status(200).json({data: res_booking_data})
-    }
+    Booking.find({booker: booker_id}).populate('booker').populate('hostel_id')
+                            .exec((err, data) => {
+                                if(err) {
+                                    res.status(500).json({error: 'Not found booking data'})
+                                } else {
+                                    if(data.length != 0) {
+                                        data.map((item, index) => {
+                                            item.booker.password = 'SECRET'
+                                            data[index] = item
+                                        })
+                                        res.status(200).json({data: data})
+                                    } else {
+                                        res.status(200).json({data: []})
+                                    }
+                                    
+                                }
+                            })
 }
 
 exports.adminApproveHostelRequest = async (req, res) => {
