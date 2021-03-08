@@ -14,6 +14,7 @@ import {SET_USER_CREDENTIALS} from './redux/types'
 import Home from './pages/Home'
 import Auth from './pages/Auth'
 import Booking from './pages/Booking'
+import HostelDetail from './pages/HostelDetail'
 
 // Component
 import Sidebar from './component/layout/Sidebar'
@@ -49,9 +50,10 @@ function App() {
             }}
           />
           <Switch>
+            <Route exact path="/auth" component={Auth} />
             <AuthRoute exact path="/" component={Home} />
             <AuthRoute exact path="/booking" component={Booking} />
-            <Route exact path="/auth" component={Auth} />
+            <AuthRoute exact path="/hostel_detail/:hostelId" component={HostelDetail} />
           </Switch>
         </Router>
       </Provider>

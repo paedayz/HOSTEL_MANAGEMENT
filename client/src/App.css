@@ -131,6 +131,10 @@ label{
 
 }
 
+.sidebar button:hover{
+  background-color: #2ecc71;
+}
+
 .sidebar svg {
   padding-bottom: 4px;
   padding-right: 10px;

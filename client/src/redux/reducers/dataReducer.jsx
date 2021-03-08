@@ -1,7 +1,8 @@
-import {SET_AVAILABLE_HOSTEL, DATA_LOADING} from "../types";
+import {SET_AVAILABLE_HOSTEL, DATA_LOADING, SET_SINGLE_HOSTEL_DETAIL} from "../types";
   
 const initialState = {
     available_hostels: [],
+    single_hostel_detail: {},
     loading: false,
 };
 
@@ -19,6 +20,12 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 available_hostels: action.payload,
+                loading: false
+            }
+        case SET_SINGLE_HOSTEL_DETAIL: 
+            return {
+                ...state,
+                single_hostel_detail: action.payload,
                 loading: false
             }
 
