@@ -3,6 +3,7 @@ import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
 import AuthRoute from './utils/AuthRoute'
 import jwtDecode from "jwt-decode"
 import axios from 'axios'
+import {logout} from './redux/actions/userAction'
 
 // Redux
 import {Provider} from 'react-redux'
@@ -23,7 +24,7 @@ if (token) {
   const decodeToken = jwtDecode(token);
   if (decodeToken.exp * 1000 < Date.now()) {
     window.location.href = "/";
-    // store.dispatch(logoutUser());
+    store.dispatch(logout());
   } else {
     store.dispatch({ type: SET_USER_CREDENTIALS, payload: decodeToken.credentials});
     axios.defaults.headers.common["Authorization"] = token;

@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {CLEAR_ERRORS, SET_ERRORS} from '../types'
+import {CLEAR_ERRORS, SET_ERRORS, SET_UNAUTHENTICATED} from '../types'
 
 export const login = (user_data) => (dispatch) => {
   dispatch({ type: CLEAR_ERRORS });
@@ -25,6 +25,12 @@ export const register = (register_data) => (dispatch) => {
     .catch((err) => {
       dispatch({ type: SET_ERRORS, payload: err.response.data.message });
     });
+};
+
+export const logout = () => (dispatch) => {
+  localStorage.removeItem("UserIdToken");
+  delete axios.defaults.headers.common["Authorization"];
+  dispatch({ type: SET_UNAUTHENTICATED });
 };
 
 const setAuthorizationHeader = (token) => {

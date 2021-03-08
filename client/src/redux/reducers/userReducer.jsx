@@ -1,6 +1,13 @@
-import {SET_USER_CREDENTIALS, CLEAR_ERRORS, SET_ERRORS} from "../types";
+import {SET_USER_CREDENTIALS, CLEAR_ERRORS, SET_ERRORS, SET_UNAUTHENTICATED} from "../types";
   
 const initialState = {
+    authenticated: false,
+    credentials: {},
+    loading: false,
+    error: null
+};
+
+const startState = {
     authenticated: false,
     credentials: {},
     loading: false,
@@ -16,6 +23,9 @@ export default function (state = initialState, action) {
                 credentials: action.payload,
                 authenticated: true
             }
+        
+        case SET_UNAUTHENTICATED:
+            return startState
 
         case CLEAR_ERRORS :
             return {

@@ -3,6 +3,7 @@ import React, {useState} from 'react'
 // redux
 import {useSelector, useDispatch} from 'react-redux'
 import {login, register} from '../redux/actions/userAction'
+import {CLEAR_ERRORS} from '../redux/types'
 
 /**
 * @author
@@ -25,6 +26,8 @@ const Auth = (props) => {
     const dispatch = useDispatch()
 
     const changeMode = (e) => {
+        console.log('change')
+        dispatch({type:CLEAR_ERRORS})
         setEmail('')
         setPassword('')
         setUsername('')
@@ -34,6 +37,7 @@ const Auth = (props) => {
         setEmail_username('')
         setConfirmPassword('')
         setIsLogin(!isLogin)
+        
         e.preventDefault()
         
     }
@@ -49,18 +53,31 @@ const Auth = (props) => {
 
     const onSubmitRegister = (e) => {
         e.preventDefault()
-        if(password == confirmPassword) {
-            let register_data = {
-                email,
-                password,
-                username,
-                first_name,
-                last_name,
-                date_of_birth
+        if(username 
+            && email 
+            && password 
+            && confirmPassword 
+            && username 
+            && first_name 
+            && last_name 
+            && date_of_birth
+        ) {
+            if(password === confirmPassword) {
+                let register_data = {
+                    email,
+                    password,
+                    username,
+                    first_name,
+                    last_name,
+                    date_of_birth
+                }
+                dispatch(register(register_data))
+            } else {
+                dispatch({type:'SET_ERRORS',payload:'Password not match'})
             }
-            dispatch(register(register_data))
+
         } else {
-            dispatch({type:'SET_ERRORS',payload:'Password not match'})
+            dispatch({type:'SET_ERRORS',payload:'Some data are missing'})
         }
         
     }
@@ -151,7 +168,7 @@ const Auth = (props) => {
 
                 <input type="submit" className="btn" value="Register" onClick={(e) => onSubmitRegister(e)}/>
                 {error && <div className="textError">{error}</div>}
-                <input type="submit" className="changeModeBtn" onClick={(e) => setIsLogin(e)} value="Change to Login"/>
+                <input type="submit" className="changeModeBtn" onClick={(e) => changeMode(e)} value="Change to Login"/>
             </div>
         )
     }
