@@ -48,16 +48,21 @@ const Auth = (props) => {
     }
 
     const onSubmitRegister = (e) => {
-        let register_data = {
-            email,
-            password,
-            username,
-            first_name,
-            last_name,
-            date_of_birth
-        }
         e.preventDefault()
-        dispatch(register(register_data))
+        if(password == confirmPassword) {
+            let register_data = {
+                email,
+                password,
+                username,
+                first_name,
+                last_name,
+                date_of_birth
+            }
+            dispatch(register(register_data))
+        } else {
+            dispatch({type:'SET_ERRORS',payload:'Password not match'})
+        }
+        
     }
 
     if(isLogin) {
