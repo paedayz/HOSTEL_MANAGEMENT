@@ -7,7 +7,8 @@ import {
     CANCEL_BOOKING, 
     SET_BOOKING_LIST,
     SET_OWN_HOSTEL,
-    DELETE_HOSTEL
+    DELETE_HOSTEL,
+    SET_HOSTEL_STATUS
 } from '../types'
 
 export const getAllAvailableHostelList = () => (dispatch) => {
@@ -82,6 +83,21 @@ export const deleteHostel = (hostelId) => (dispatch) => {
     axios.delete(`/hostel/deleteHostel/${hostelId}`)
         .then((res) => {
             dispatch({type: DELETE_HOSTEL, payload: res.data.data})
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+}
+
+export const setHostelStatus = (hostelId, status) => (dispatch) => {
+    dispatch({type: DATA_LOADING})
+    axios.post('/hostel/setHostelStatus', {_id: hostelId, status: status})
+        .then((res) => {
+            const set_data = {
+                _id: hostelId,
+                status: status
+            }
+            dispatch({type: SET_HOSTEL_STATUS, payload: set_data})
         })
         .catch((err) => {
             console.log(err)

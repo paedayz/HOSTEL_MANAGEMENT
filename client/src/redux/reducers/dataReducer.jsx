@@ -6,7 +6,8 @@ import {
     CANCEL_BOOKING,
     SET_BOOKING_LIST ,
     SET_OWN_HOSTEL,
-    DELETE_HOSTEL
+    DELETE_HOSTEL,
+    SET_HOSTEL_STATUS
 } from "../types";
   
 const initialState = {
@@ -74,6 +75,20 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 own_hostel: current_own_hostel,
+                loading: false
+            }
+
+        case SET_HOSTEL_STATUS:
+            let new_hostel_status = []
+            state.own_hostel.map((hostel) => {
+                if(hostel._id === action.payload._id) {
+                    hostel.status = action.payload.status
+                }
+                new_hostel_status.push(hostel)
+            })
+            return {
+                ...state,
+                own_hostel: new_hostel_status,
                 loading: false
             }
         

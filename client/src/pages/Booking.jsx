@@ -23,14 +23,23 @@ const Booking = (props) => {
   }, [])
 
   const show_booking_list = booking_list.map((book) => {
-    return (
-      <tr className="pointTR" onClick={() => history.push(`/hostel_detail/${book.hostel_id._id}`)}>
-            <th scope="row">{book._id}</th>
-            <td>{book.hostel_id.name}</td>
-            <td>{book.hostel_id.owner}</td>
-            <td>{dayjs(book.created_at).fromNow()}</td>
-      </tr>
-    )
+    if(book.hostel_id.status === 'available') {
+      return (
+        <tr className="pointTR" onClick={() => history.push(`/hostel_detail/${book.hostel_id._id}`)}>
+              <th scope="row">{book._id}</th>
+              <td>{book.hostel_id.name}</td>
+              <td>{book.hostel_id.owner}</td>
+              <td>{dayjs(book.created_at).fromNow()}</td>
+        </tr>
+      )
+    } else {
+      return (
+        <>
+        </>
+        )
+      
+    }
+    
   })
   return(
     <div className="content">

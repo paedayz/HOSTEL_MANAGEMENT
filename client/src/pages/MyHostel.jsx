@@ -5,7 +5,7 @@ import {useHistory} from 'react-router-dom'
 
 // Redux
 import { useSelector, useDispatch } from 'react-redux'
-import {getOwnerUserHostel, deleteHostel} from '../redux/actions/dataAction'
+import {getOwnerUserHostel, deleteHostel, setHostelStatus} from '../redux/actions/dataAction'
 
 /**
 * @author
@@ -28,6 +28,12 @@ const MyHostel = (props) => {
       }
   }
 
+  const onClickSetStatus = (hostelId, status) => {
+    if(window.confirm(`Confirm change status to  "${status}"`)) {
+      dispatch(setHostelStatus(hostelId, status))
+    }
+}
+
   const show_own_hostel = own_hostel.map((hostel) => {
     return (
       <tr className="pointTR" >
@@ -42,10 +48,18 @@ const MyHostel = (props) => {
             }
             
             <td>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" style={{marginRight:10}}>
+                {hostel.status === 'available'
+                ?
+                <button type="button" onClick={() => onClickSetStatus(hostel._id, 'unavailable')} class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" style={{marginRight:10}}>
                     Close
                 </button>
-                <button onClick={() => onClickDelete(hostel._id)} type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                :
+                <button type="button" onClick={() => onClickSetStatus(hostel._id, 'available')} class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" style={{marginRight:10}}>
+                    Open
+                </button>
+                }
+                
+                <button onClick={() => onClickDelete(hostel._id)} type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
                     Delete
                 </button>
             </td>
