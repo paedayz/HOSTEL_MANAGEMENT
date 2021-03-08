@@ -1,5 +1,6 @@
 import './App.css';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
+import AuthRoute from './utils/AuthRoute'
 
 // Redux
 import {Provider} from 'react-redux'
@@ -15,8 +16,8 @@ function App() {
       <Provider store={store}>
         <Router>
           <Switch>
-            <Route exact path="/" component={Home} />
-            <Route exact path="/Auth" component={Auth} />
+            <AuthRoute exact path="/" component={Home} />
+            <Route exact path="/auth" component={Auth} />
           </Switch>
         </Router>
       </Provider>
