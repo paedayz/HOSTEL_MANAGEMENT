@@ -5,7 +5,8 @@ import {
     BOOKING,
     CANCEL_BOOKING,
     SET_BOOKING_LIST ,
-    SET_OWN_HOSTEL
+    SET_OWN_HOSTEL,
+    DELETE_HOSTEL
 } from "../types";
   
 const initialState = {
@@ -67,6 +68,15 @@ export default function (state = initialState, action) {
                 own_hostel: action.payload,
                 loading: false
             }
+
+        case DELETE_HOSTEL: 
+            let current_own_hostel = state.own_hostel.filter((hostel) => {return hostel._id !== action.payload})
+            return {
+                ...state,
+                own_hostel: current_own_hostel,
+                loading: false
+            }
+        
 
       default:
         return state;

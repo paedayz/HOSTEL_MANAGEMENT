@@ -6,7 +6,8 @@ import {
     BOOKING, 
     CANCEL_BOOKING, 
     SET_BOOKING_LIST,
-    SET_OWN_HOSTEL
+    SET_OWN_HOSTEL,
+    DELETE_HOSTEL
 } from '../types'
 
 export const getAllAvailableHostelList = () => (dispatch) => {
@@ -70,6 +71,17 @@ export const getOwnerUserHostel = () => (dispatch) => {
     axios.get('/hostel/getOwnerUserHostel')
         .then((res) => {
             dispatch({type: SET_OWN_HOSTEL, payload: res.data.data})
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+}
+
+export const deleteHostel = (hostelId) => (dispatch) => {
+    dispatch({type: DATA_LOADING})
+    axios.delete(`/hostel/deleteHostel/${hostelId}`)
+        .then((res) => {
+            dispatch({type: DELETE_HOSTEL, payload: res.data.data})
         })
         .catch((err) => {
             console.log(err)

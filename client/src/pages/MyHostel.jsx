@@ -5,7 +5,7 @@ import {useHistory} from 'react-router-dom'
 
 // Redux
 import { useSelector, useDispatch } from 'react-redux'
-import {getOwnerUserHostel} from '../redux/actions/dataAction'
+import {getOwnerUserHostel, deleteHostel} from '../redux/actions/dataAction'
 
 /**
 * @author
@@ -22,24 +22,30 @@ const MyHostel = (props) => {
     dispatch(getOwnerUserHostel())
   }, [])
 
+  const onClickDelete = (hostelId) => {
+      if(window.confirm('Confirm Delete Hostel')) {
+        dispatch(deleteHostel(hostelId))
+      }
+  }
+
   const show_own_hostel = own_hostel.map((hostel) => {
     return (
-      <tr className="pointTR" onClick={() => history.push(`/hostel_detail/${hostel._id}`)}>
-            <th scope="row">{hostel._id}</th>
-            <td>{hostel.name}</td>
-            <td>{hostel.status}</td>
+      <tr className="pointTR" >
+            <th onClick={() => history.push(`/hostel_detail/${hostel._id}`)} scope="row">{hostel._id}</th>
+            <td onClick={() => history.push(`/hostel_detail/${hostel._id}`)}>{hostel.name}</td>
+            <td onClick={() => history.push(`/hostel_detail/${hostel._id}`)}>{hostel.status}</td>
             {hostel.admin_approve
             ?
-            <td style={{color: 'blue'}}>{`${hostel.admin_approve}`}</td>
+            <td onClick={() => history.push(`/hostel_detail/${hostel._id}`)} style={{color: 'blue'}}>{`${hostel.admin_approve}`}</td>
             :
-            <td style={{color: 'red'}}>{`${hostel.admin_approve}`}</td>
+            <td onClick={() => history.push(`/hostel_detail/${hostel._id}`)} style={{color: 'red'}}>{`${hostel.admin_approve}`}</td>
             }
             
             <td>
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" style={{marginRight:10}}>
                     Close
                 </button>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <button onClick={() => onClickDelete(hostel._id)} type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                     Delete
                 </button>
             </td>
