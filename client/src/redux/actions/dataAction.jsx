@@ -1,5 +1,13 @@
 import axios from 'axios'
-import {DATA_LOADING, SET_AVAILABLE_HOSTEL, SET_SINGLE_HOSTEL_DETAIL, BOOKING, CANCEL_BOOKING, SET_BOOKING_LIST} from '../types'
+import {
+    DATA_LOADING, 
+    SET_AVAILABLE_HOSTEL, 
+    SET_SINGLE_HOSTEL_DETAIL, 
+    BOOKING, 
+    CANCEL_BOOKING, 
+    SET_BOOKING_LIST,
+    SET_OWN_HOSTEL
+} from '../types'
 
 export const getAllAvailableHostelList = () => (dispatch) => {
     dispatch({type: DATA_LOADING})
@@ -51,6 +59,17 @@ export const getBookingList = () => (dispatch) => {
     axios.get('/hostel/getBookingList')
         .then((res) => {
             dispatch({type: SET_BOOKING_LIST, payload: res.data.data})
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+}
+
+export const getOwnerUserHostel = () => (dispatch) => {
+    dispatch({type: DATA_LOADING})
+    axios.get('/hostel/getOwnerUserHostel')
+        .then((res) => {
+            dispatch({type: SET_OWN_HOSTEL, payload: res.data.data})
         })
         .catch((err) => {
             console.log(err)

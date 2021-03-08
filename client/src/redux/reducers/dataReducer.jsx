@@ -1,9 +1,18 @@
-import {SET_AVAILABLE_HOSTEL, DATA_LOADING, SET_SINGLE_HOSTEL_DETAIL, BOOKING, CANCEL_BOOKING, SET_BOOKING_LIST} from "../types";
+import {
+    SET_AVAILABLE_HOSTEL,
+    DATA_LOADING,
+    SET_SINGLE_HOSTEL_DETAIL,
+    BOOKING,
+    CANCEL_BOOKING,
+    SET_BOOKING_LIST ,
+    SET_OWN_HOSTEL
+} from "../types";
   
 const initialState = {
     available_hostels: [],
     single_hostel_detail: {},
     booking_list: [],
+    own_hostel: [],
     loading: false,
 };
 
@@ -50,6 +59,12 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 booking_list: action.payload,
+                loading: false
+            }
+        case SET_OWN_HOSTEL: 
+            return {
+                ...state,
+                own_hostel: action.payload,
                 loading: false
             }
 

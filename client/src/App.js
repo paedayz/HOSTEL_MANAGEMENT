@@ -15,6 +15,7 @@ import Home from './pages/Home'
 import Auth from './pages/Auth'
 import Booking from './pages/Booking'
 import HostelDetail from './pages/HostelDetail'
+import MyHostel from './pages/MyHostel'
 
 // Component
 import Sidebar from './component/layout/Sidebar'
@@ -53,6 +54,7 @@ function App() {
             <Route exact path="/auth" component={Auth} />
             <AuthRoute exact path="/" component={Home} />
             <AuthRoute exact path="/booking" component={Booking} />
+            <AuthRoute exact path="/my_hostel" component={MyHostel} />
             <AuthRoute exact path="/hostel_detail/:hostelId" component={HostelDetail} />
           </Switch>
         </Router>

@@ -17,11 +17,12 @@ const HostelDetail = (props) => {
     const loading = useSelector(state => state.data.loading)
     const single_hostel_detail = useSelector(state => state.data.single_hostel_detail)
     // eslint-disable-next-line
-    const {location, is_booking, image, name, price, detail, owner, _id, booking_id} = single_hostel_detail
+    const {location, is_booking, image, name, price, detail, owner, _id, booking_id, admin_approve, status} = single_hostel_detail
 
     const {hostelId} = useParams()
 
     const dispatch = useDispatch()
+    console.log(admin_approve)
 
     useEffect(() => {
         dispatch(getHostelDetail(hostelId))
@@ -55,14 +56,25 @@ const HostelDetail = (props) => {
                             <br/>
                             <div>Price : {price} baht/day</div>
                             <br/>
-                            {is_booking
+
+                            {status === 'available' && admin_approve
                             ?
-                            <button type="button" onClick={() => onCancelBookingClick()} class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                Cancel Booking
-                            </button>
+                            <div>
+                                {
+                                    is_booking
+                                    ?
+                                    <button type="button" onClick={() => onCancelBookingClick()} class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                        Cancel Booking
+                                    </button>
+                                    :
+                                    <button type="button" onClick={() => onBookingClick()} class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                        Booking
+                                    </button>
+                                }
+                            </div>
                             :
-                            <button type="button" onClick={() => onBookingClick()} class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                Booking
+                            <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                Not Open Yet
                             </button>
                             }
                         </div>
