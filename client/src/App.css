@@ -93,3 +93,43 @@ label{
   color: black;
   margin-right: 3%;
 }
+
+/* Sidebar */
+.sidebar{
+  height: 100%; /* Full-height: remove this if you want "auto" height */
+  width: 160px; /* Set the width of the sidebar */
+  position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+  z-index: 1; /* Stay on top */
+  top: 0; /* Stay at the top */
+  left: 0;
+  background-color:rgba(77, 177, 243, 0.945); /* Black */
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-top: 50px;
+}
+
+.sidebar button{
+  background-color: rgba(77, 177, 243, 0.945); /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  width: 100%;
+  margin-bottom: 15px;
+
+}
+
+.sidebar svg {
+  padding-bottom: 4px;
+  padding-right: 10px;
+}
+
+.selectMenu{
+  color: white;
+}
+
+.menu {
+  margin-bottom: 30%;
+}

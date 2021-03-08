@@ -14,6 +14,9 @@ import {SET_USER_CREDENTIALS} from './redux/types'
 import Home from './pages/Home'
 import Auth from './pages/Auth'
 
+// Component
+import Sidebar from './component/layout/Sidebar'
+
 let axiosDefaults = require("axios/lib/defaults");
 axiosDefaults.baseURL =
   "http://localhost:5000/api";
@@ -36,6 +39,14 @@ function App() {
     <div className="App">
       <Provider store={store}>
         <Router>
+          <Route
+            path="/"
+            render={(props) => {
+              if (props.location.pathname !== "/auth") {
+                return <Sidebar />;
+              }
+            }}
+          />
           <Switch>
             <AuthRoute exact path="/" component={Home} />
             <Route exact path="/auth" component={Auth} />
