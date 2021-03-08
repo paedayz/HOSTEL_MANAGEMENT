@@ -7,7 +7,8 @@ import {
     SET_BOOKING_LIST ,
     SET_OWN_HOSTEL,
     DELETE_HOSTEL,
-    SET_HOSTEL_STATUS
+    SET_HOSTEL_STATUS,
+    ADD_HOSTEL
 } from "../types";
   
 const initialState = {
@@ -89,6 +90,15 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 own_hostel: new_hostel_status,
+                loading: false
+            }
+
+        case ADD_HOSTEL :
+            let new_add_hostel = state.own_hostel
+            new_add_hostel.push(action.payload)
+            return {
+                ...state,
+                own_hostel: new_add_hostel,
                 loading: false
             }
         

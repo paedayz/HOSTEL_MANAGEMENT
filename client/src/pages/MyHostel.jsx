@@ -17,6 +17,7 @@ import Modal from '../component/hostel/AddHostelModal'
 
 const MyHostel = (props) => {
   const own_hostel = useSelector(state => state.data.own_hostel)
+  const loading = useSelector(state => state.data.loading)
   const dispatch = useDispatch()
   dayjs.extend(relativeTime);
   const history = useHistory()
@@ -69,6 +70,14 @@ const MyHostel = (props) => {
       </tr>
     )
   })
+
+  if(loading) {
+      return (
+          <div>
+              Loading
+          </div>
+      )
+  }
 
   
   return(
