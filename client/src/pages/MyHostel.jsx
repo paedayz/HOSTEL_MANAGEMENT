@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react'
-import styled from 'styled-components';
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import {useHistory} from 'react-router-dom'
@@ -17,23 +16,10 @@ import AddModal from '../component/hostel/AddModal'
 * @function MyHostel
 **/
 
-const Button = styled.button`
-  min-width: 100px;
-  padding: 16px 32px
-  border-radius: 4px;
-  border: none;
-  background: green;
-  color: #fff;
-  font-size: 24px;
-  cursor: pointer;
-  float: right;
-  margin-right: 20px;
-`;
-
 const MyHostel = (props) => {
   const [showAddModal, setShowAddModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
-  
+
   const [defaultEditData, setDefaultEditData] = useState({
     admin_approve: false,
     detail: "This is a ghost hotel !!",
