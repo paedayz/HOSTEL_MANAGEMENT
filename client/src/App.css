@@ -119,19 +119,6 @@ label{
   box-shadow:         3px 0 10px 0 rgb(146, 146, 146);
 }
 
-.sidebar button{
-  background-color: rgba(77, 177, 243, 0.945); /* Green */
-  border: none;
-  color: white;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  width: 100%;
-  margin-bottom: 15px;
-
-}
 
 .sidebar button:hover{
   background-color: #2ecc71;
