@@ -33,6 +33,18 @@ const Button = styled.button`
 const MyHostel = (props) => {
   const [showAddModal, setShowAddModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
+  const [defaultEditData, setDefaultEditData] = useState({
+    admin_approve: false,
+detail: "This is a ghost hotel !!",
+image: "https://image.freepik.com/free-vector/house-building-vector-icon-illustration_138676-208.jpg",
+location: {latitude: 46.766666, longitude: 23.583332},
+name: "Transylvania",
+owner: "pae",
+price: 3000,
+status: "unavailable",
+__v: 0,
+_id: "604692cb6928fe400c00586a"
+  });
   const own_hostel = useSelector(state => state.data.own_hostel)
   const loading = useSelector(state => state.data.loading)
   const dispatch = useDispatch()
@@ -59,7 +71,8 @@ const MyHostel = (props) => {
     setShowAddModal(prev => !prev);
   };
 
-  const openEditModal = () => {
+  const openEditModal = (data) => {
+    setDefaultEditData(data)
     setShowEditModal(prev => !prev);
   }
 
@@ -92,7 +105,7 @@ const MyHostel = (props) => {
                 <button onClick={() => onClickDelete(hostel._id)} type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
                     Delete
                 </button>
-                <button onClick={openEditModal} type="button" class="btn btn-warning" style={{marginLeft:10}}>Edit</button>
+                <button onClick={() => openEditModal(hostel)} type="button" class="btn btn-warning" style={{marginLeft:10}}>Edit</button>
             </td>
       </tr>
     )
@@ -110,7 +123,7 @@ const MyHostel = (props) => {
   return(
     <div className="content">
       <AddModal showModal={showAddModal} setShowModal={setShowAddModal} />
-      <EditModal showModal={showEditModal} setShowModal={setShowEditModal} />
+      <EditModal defaultData={defaultEditData} showModal={showEditModal} setShowModal={setShowEditModal} />
       <h1>My Hostel List</h1>
       
       {/* <Button onClick={openAddModal}>Add hostel</Button> */}

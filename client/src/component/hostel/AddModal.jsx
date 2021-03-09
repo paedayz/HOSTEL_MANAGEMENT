@@ -3,7 +3,7 @@ import { useSpring, animated } from 'react-spring';
 import styled from 'styled-components';
 
 // Redux
-import {dispatch, useDispatch} from 'react-redux'
+import {useDispatch} from 'react-redux'
 import {addHostel} from '../../redux/actions/dataAction'
 
 const Modal = ({ showModal, setShowModal }) => {
@@ -14,60 +14,60 @@ const Modal = ({ showModal, setShowModal }) => {
     const [longitude, setLongitude] = useState('')
 
     const dispatch = useDispatch()
-  const modalRef = useRef();
+    const modalRef = useRef();
 
-  const animation = useSpring({
-    config: {
-      duration: 250
-    },
-    opacity: showModal ? 1 : 0,
-    transform: showModal ? `translateY(0%)` : `translateY(-100%)`
-  });
+    const animation = useSpring({
+      config: {
+        duration: 250
+      },
+      opacity: showModal ? 1 : 0,
+      transform: showModal ? `translateY(0%)` : `translateY(-100%)`
+    });
 
-  const closeModal = e => {
-    if (modalRef.current === e.target) {
-      setShowModal(false);
-    }
-  };
-
-  const keyPress = useCallback(
-    e => {
-      if (e.key === 'Escape' && showModal) {
+    const closeModal = e => {
+      if (modalRef.current === e.target) {
         setShowModal(false);
-        console.log('I pressed');
       }
-    },
-    [setShowModal, showModal]
-  );
+    };
 
-  useEffect(
-    () => {
-      document.addEventListener('keydown', keyPress);
-      return () => document.removeEventListener('keydown', keyPress);
-    },
-    [keyPress]
-  );
+    const keyPress = useCallback(
+      e => {
+        if (e.key === 'Escape' && showModal) {
+          setShowModal(false);
+          console.log('I pressed');
+        }
+      },
+      [setShowModal, showModal]
+    );
 
-  const onClickSumbit = () => {
-    const add_data = {
-        name,
-        detail,
-        price,
-        latitude,
-        longitude
-    }
+    useEffect(
+      () => {
+        document.addEventListener('keydown', keyPress);
+        return () => document.removeEventListener('keydown', keyPress);
+      },
+      [keyPress]
+    );
 
-    setShowModal(false)
+    const onClickSumbit = () => {
+      const add_data = {
+          name,
+          detail,
+          price,
+          latitude,
+          longitude
+      }
 
-    if(name && detail && price && latitude && longitude) dispatch(addHostel(add_data))
-    else window.alert('Have some data missing !')
+      setShowModal(false)
 
-    setName('')
-    setDetail('')
-    setPrice('')
-    setLatitude('')
-    setLongitude('')
-}
+      if(name && detail && price && latitude && longitude) dispatch(addHostel(add_data))
+      else window.alert('Have some data missing !')
+
+      setName('')
+      setDetail('')
+      setPrice('')
+      setLatitude('')
+      setLongitude('')
+  }
 
   return (
     <>

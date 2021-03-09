@@ -146,6 +146,10 @@ exports.editHostel = async (req, res) => {
 
     if(req.body.name) update_data.name = req.body.name
     if(req.body.detail) update_data.detail = req.body.detail
+    if(req.body.price) update_data.price = req.body.price
+    if(req.body.latitude) update_data.latitude = req.body.latitude
+    if(req.body.longitude) update_data.longitude = req.body.longitude
+
 
     let hostel = await Hostel.findById(req.body._id, (err, data) => {
         if(err) {
