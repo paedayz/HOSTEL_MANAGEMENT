@@ -5,7 +5,7 @@ import {useHistory} from 'react-router-dom'
 
 // Redux
 import { useSelector, useDispatch } from 'react-redux'
-import {getAllHostelList} from '../redux/actions/dataAction'
+import {getAllHostelList, adminApproveHostelRequest, deleteHostel} from '../redux/actions/dataAction'
 
 /**
 * @author
@@ -27,6 +27,23 @@ const Admin = (props) => {
     dispatch(getAllHostelList())
   }, [])
 
+  const onClickApprove = (admin_approve, _id) => {
+    const approve_data = {
+        admin_approve,
+        _id
+    }
+    if(admin_approve) {
+        if(window.confirm('Confirm Approve Hostel')) {
+            dispatch(adminApproveHostelRequest(approve_data))
+        }
+    } else {
+        if(window.confirm('Confirm Not Approve Hostel')) {
+            dispatch(adminApproveHostelRequest(approve_data))
+        }
+    }
+    
+  }
+
   const show_all_hostel = all_hostel_list
     .sort((x,y) => {return (x.admin_approve === y.admin_approve)? 0 : y.admin_approve? -1 : 1})
     .map((hostel) => {
@@ -35,6 +52,7 @@ const Admin = (props) => {
                 <th onClick={() => history.push(`/hostel_detail/${hostel._id}`)} scope="row">{hostel._id}</th>
                 <td onClick={() => history.push(`/hostel_detail/${hostel._id}`)}>{hostel.name}</td>
                 <td onClick={() => history.push(`/hostel_detail/${hostel._id}`)}>{hostel.status}</td>
+                <td onClick={() => history.push(`/hostel_detail/${hostel._id}`)}>{hostel.owner}</td>
 
                 {hostel.admin_approve
                 ?
@@ -46,11 +64,11 @@ const Admin = (props) => {
                 <td>
                     {hostel.admin_approve
                     ?
-                    <button type="button" class="btn btn-secondary" style={{marginRight:10}}>
-                        Approve
+                    <button onClick={() => onClickApprove(false, hostel._id)} type="button" class="btn btn-secondary" style={{marginRight:10}}>
+                        Not Approve
                     </button>
                     :
-                    <button type="button" class="btn btn-success" style={{marginRight:10}}>
+                    <button onClick={() => onClickApprove(true, hostel._id)} type="button" class="btn btn-success" style={{marginRight:10}}>
                         Approve
                     </button>
                     }
@@ -82,6 +100,7 @@ const Admin = (props) => {
             <th scope="col">Hostel ID</th>
             <th scope="col">Hostel Name</th>
             <th scope="col">Status</th>
+            <th scope="col">Owner</th>
             <th scope="col">Approve</th>
             <th scope="col">Action</th>
           </tr>

@@ -10,7 +10,8 @@ import {
     SET_HOSTEL_STATUS,
     ADD_HOSTEL,
     EDIT_HOSTEL,
-    SET_ALL_HOSTEL_LIST
+    SET_ALL_HOSTEL_LIST,
+    APPROVE_REQUEST
 } from "../types";
   
 const initialState = {
@@ -123,6 +124,20 @@ export default function (state = initialState, action) {
         return {
             ...state,
             all_hostel_list: action.payload,
+            loading: false
+        }
+
+    case APPROVE_REQUEST :
+        let new_approve_hostel = []
+        state.all_hostel_list.map((hostel) => {
+            if(hostel._id === action.payload._id) {
+                hostel.admin_approve = action.payload.admin_approve
+            }
+            new_approve_hostel.push(hostel)
+        })
+        return {
+            ...state,
+            all_hostel_list: new_approve_hostel,
             loading: false
         }
 

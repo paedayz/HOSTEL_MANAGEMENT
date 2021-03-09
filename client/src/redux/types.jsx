@@ -19,3 +19,4 @@ export const EDIT_HOSTEL = 'EDIT_HOSTEL'
 
 // Admin
 export const SET_ALL_HOSTEL_LIST = 'SET_ALL_HOSTEL_LIST'
+export const APPROVE_REQUEST = 'APPROVE_REQUEST'

@@ -11,7 +11,8 @@ import {
     SET_HOSTEL_STATUS,
     ADD_HOSTEL,
     EDIT_HOSTEL,
-    SET_ALL_HOSTEL_LIST
+    SET_ALL_HOSTEL_LIST,
+    APPROVE_REQUEST
 } from '../types'
 
 export const getAllAvailableHostelList = () => (dispatch) => {
@@ -135,6 +136,17 @@ export const getAllHostelList = () => (dispatch) => {
     axios.get('/hostel/getAllHostelList')
         .then((res) => {
             dispatch({type: SET_ALL_HOSTEL_LIST, payload: res.data.data})
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+}
+
+export const adminApproveHostelRequest = (approve_data) => (dispatch) => {
+    dispatch({type: DATA_LOADING})
+    axios.post('/hostel/adminApproveHostelRequest', {...approve_data})
+        .then((res) => {
+            dispatch({type: APPROVE_REQUEST, payload: {...approve_data}})
         })
         .catch((err) => {
             console.log(err)
