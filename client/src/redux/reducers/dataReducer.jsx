@@ -77,9 +77,11 @@ export default function (state = initialState, action) {
 
     case DELETE_HOSTEL: 
         let current_own_hostel = state.own_hostel.filter((hostel) => {return hostel._id !== action.payload})
+        let current_all_hostel = state.all_hostel_list.filter((hostel) => {return hostel._id !== action.payload})
         return {
             ...state,
             own_hostel: current_own_hostel,
+            all_hostel_list: current_all_hostel,
             loading: false
         }
 

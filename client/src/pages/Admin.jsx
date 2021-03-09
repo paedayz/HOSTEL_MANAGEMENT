@@ -44,6 +44,12 @@ const Admin = (props) => {
     
   }
 
+  const onClickDelete = (hostelId) => {
+    if(window.confirm('Confirm Delete Hostel')) {
+      dispatch(deleteHostel(hostelId))
+    }
+  }
+
   const show_all_hostel = all_hostel_list
     .sort((x,y) => {return (x.admin_approve === y.admin_approve)? 0 : y.admin_approve? -1 : 1})
     .map((hostel) => {
@@ -74,7 +80,7 @@ const Admin = (props) => {
                     }
                     
                     
-                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <button onClick={() => onClickDelete(hostel._id)} type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
                         Delete
                     </button>
                 </td>
