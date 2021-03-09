@@ -8,7 +8,8 @@ import {
     SET_OWN_HOSTEL,
     DELETE_HOSTEL,
     SET_HOSTEL_STATUS,
-    ADD_HOSTEL
+    ADD_HOSTEL,
+    EDIT_HOSTEL
 } from "../types";
   
 const initialState = {
@@ -99,6 +100,20 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 own_hostel: new_add_hostel,
+                loading: false
+            }
+
+        case ADD_HOSTEL :
+            let new_edit_hostel = state.own_hostel
+            state.own_hostel.map((hostel) => {
+                if(hostel._id === action.payload._id) {
+                    hostel = action.payload
+                }
+                new_edit_hostel.push(hostel)
+            })
+            return {
+                ...state,
+                own_hostel: new_edit_hostel,
                 loading: false
             }
         

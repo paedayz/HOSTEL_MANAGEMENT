@@ -115,3 +115,14 @@ export const addHostel = (add_data) => (dispatch) => {
             console.log(err)
         })
 }
+
+export const editHostel = (edit_data) => (dispatch) => {
+    dispatch({type: DATA_LOADING})
+    axios.post('/hostel/editHostel', {...edit_data})
+        .then((res) => {
+            dispatch({type: ADD_HOSTEL, payload: res.data.data})
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+}

@@ -33,22 +33,27 @@ const Button = styled.button`
 const MyHostel = (props) => {
   const [showAddModal, setShowAddModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
+  
   const [defaultEditData, setDefaultEditData] = useState({
     admin_approve: false,
-detail: "This is a ghost hotel !!",
-image: "https://image.freepik.com/free-vector/house-building-vector-icon-illustration_138676-208.jpg",
-location: {latitude: 46.766666, longitude: 23.583332},
-name: "Transylvania",
-owner: "pae",
-price: 3000,
-status: "unavailable",
-__v: 0,
-_id: "604692cb6928fe400c00586a"
+    detail: "This is a ghost hotel !!",
+    image: "https://image.freepik.com/free-vector/house-building-vector-icon-illustration_138676-208.jpg",
+    location: {latitude: 46.766666, longitude: 23.583332},
+    name: "Transylvania",
+    owner: "pae",
+    price: 3000,
+    status: "unavailable",
+    __v: 0,
+    _id: "604692cb6928fe400c00586a"
   });
+
   const own_hostel = useSelector(state => state.data.own_hostel)
   const loading = useSelector(state => state.data.loading)
+
   const dispatch = useDispatch()
+
   dayjs.extend(relativeTime);
+
   const history = useHistory()
 
   useEffect(() => {

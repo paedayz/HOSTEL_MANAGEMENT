@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 // Redux
 import {useDispatch} from 'react-redux'
-import {addHostel} from '../../redux/actions/dataAction'
+import {editHostel} from '../../redux/actions/dataAction'
 
 const Modal = ({ showModal, setShowModal, defaultData }) => {
     const [name, setName] = useState('')
@@ -12,6 +12,7 @@ const Modal = ({ showModal, setShowModal, defaultData }) => {
     const [price, setPrice] = useState('')
     const [latitude, setLatitude] = useState('')
     const [longitude, setLongitude] = useState('')
+    const [ID, setId] = useState('')
 
     const dispatch = useDispatch()
 
@@ -48,6 +49,7 @@ const Modal = ({ showModal, setShowModal, defaultData }) => {
         setPrice(defaultData.price)
         setLatitude(defaultData.location.latitude)
         setLongitude(defaultData.location.longitude)
+        setId(defaultData._id)
         document.addEventListener('keydown', keyPress);
         return () => document.removeEventListener('keydown', keyPress);
       },
@@ -55,17 +57,18 @@ const Modal = ({ showModal, setShowModal, defaultData }) => {
     );
 
     const onClickSumbit = () => {
-      const add_data = {
+      const edit_data = {
           name,
           detail,
           price,
           latitude,
-          longitude
+          longitude,
+          _id: ID
       }
 
       setShowModal(false)
 
-      if(name && detail && price && latitude && longitude) dispatch(addHostel(add_data))
+      if(name && detail && price && latitude && longitude) dispatch(editHostel(edit_data))
       else window.alert('Have some data missing !')
 
       setName('')
