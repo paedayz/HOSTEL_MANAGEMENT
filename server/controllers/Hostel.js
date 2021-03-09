@@ -115,6 +115,7 @@ exports.addHostel = (req, res) => {
             latitude: req.body.latitude,
             longitude: req.body.longitude
         },
+        image: req.body.image,
         owner: req.user.username
     }
 

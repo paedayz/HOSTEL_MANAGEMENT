@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useCallback, useState } from 'react';
 import { useSpring, animated } from 'react-spring';
 import styled from 'styled-components';
+import axios from 'axios'
 
 // Redux
 import {useDispatch} from 'react-redux'
@@ -12,6 +13,9 @@ const Modal = ({ showModal, setShowModal }) => {
     const [price, setPrice] = useState('')
     const [latitude, setLatitude] = useState('')
     const [longitude, setLongitude] = useState('')
+    const [image, setImage] = useState('')
+
+    // const formData = new FormData()
 
     const dispatch = useDispatch()
     const modalRef = useRef();
@@ -54,11 +58,10 @@ const Modal = ({ showModal, setShowModal }) => {
           detail,
           price,
           latitude,
-          longitude
+          longitude,
+          image
       }
-
       setShowModal(false)
-
       if(name && detail && price && latitude && longitude) dispatch(addHostel(add_data))
       else window.alert('Have some data missing !')
 
@@ -95,6 +98,10 @@ const Modal = ({ showModal, setShowModal }) => {
                     <div class="mb-3">
                         <Label for="exampleFormControlTextarea1" class="form-label">Location longitude</Label>
                         <input type="number" class="form-control" id="exampleFormControlInput1" value={longitude} onChange={(e) => setLongitude(e.target.value)}/>
+                    </div>
+                    <div class="mb-3">
+                        <Label for="exampleFormControlTextarea1" class="form-label">Image (URL)</Label>
+                        <input type="text" class="form-control" id="exampleFormControlInput1" value={image} onChange={(e) => setImage(e.target.value)}/>
                     </div>
                     <button id="addSubmit" class="btn btn-success addHostelSubmit" onClick={() => onClickSumbit()}>Submit</button>
               </ModalContent>

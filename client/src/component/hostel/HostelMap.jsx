@@ -2,6 +2,7 @@ import * as React from 'react';
 import { useState, useEffect } from 'react';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import mapboxgl from 'mapbox-gl'
+import styled from 'styled-components'
 
 export default function Map(props) {
 
@@ -20,6 +21,15 @@ var marker = new mapboxgl.Marker()
   }, [])
 
   return (
-    <div id="map"></div>
+    <MapContainer id="map"></MapContainer>
   );
 }
+
+const MapContainer = styled.div`
+  max-width:400px;
+  max-height:400px;
+  border: 2px solid black;
+  border-radius: 10px;
+  float:right;
+  margin-right: 10px;
+`

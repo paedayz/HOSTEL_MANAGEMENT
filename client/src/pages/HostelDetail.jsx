@@ -1,5 +1,6 @@
 import React, {useEffect} from 'react'
 import {useParams} from 'react-router-dom'
+import styled from 'styled-components'
 
 // Redux
 import {useDispatch, useSelector} from 'react-redux'
@@ -45,13 +46,14 @@ const HostelDetail = (props) => {
         return(
             <div className="content">
                 <h1>{name}</h1>
-                <img src={`${image}`} alt="image"/>
                 <div class="container">
                     <div class="row">
+                    
                         <div class="col-sm-8">
-                            <p>{detail}</p>
+                            <Image src={`${image}`} alt="image"/>
                         </div>
                         <div class="col-sm-4">
+                            <Description><b>Description:</b> {detail}</Description>
                             <div>Owner : {owner}</div>
                             <br/>
                             <div>Price : {price} baht/day</div>
@@ -78,8 +80,9 @@ const HostelDetail = (props) => {
                             </button>
                             }
                         </div>
+                            
                         <div class="col-sm-12">
-                            <HostelMap latitude={location.latitude} longitude={location.longitude}/>
+                                <HostelMap latitude={location.latitude} longitude={location.longitude}/>
                             <br/>
                             <br/>
                         </div>
@@ -97,5 +100,19 @@ const HostelDetail = (props) => {
   
   }
 
+const Image = styled.img`
+  max-width: 700px;
+  max-height: 500px;
+  min-width: 500px;
+  min-height: 300px;
+  margin-top: 20px;
+  margin-bottom: 30px;
+  border-radius: 10px;
+`
+
+const Description = styled.p`
+  text-align: left;
+  margin-top: 20px;
+`
 
 export default HostelDetail

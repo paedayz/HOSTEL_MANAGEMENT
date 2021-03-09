@@ -10,6 +10,7 @@ require('dotenv/config')
 
 // Middleware
 app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({extended: false}));
 app.use(cors());
 
 // Import Routes
