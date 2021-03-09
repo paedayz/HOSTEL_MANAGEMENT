@@ -14,7 +14,8 @@ const {
     cancelBooking, 
     getBookingList,
     setHostelStatus,
-    adminApproveHostelRequest
+    adminApproveHostelRequest,
+    searchAPI
 } = require('../controllers/Hostel')
 
 // Router
@@ -30,5 +31,6 @@ router.post('/cancelBooking', UserAuth, cancelBooking)
 router.get('/getBookingList', UserAuth, getBookingList)
 router.post('/setHostelStatus', UserAuth, setHostelStatus)
 router.post('/adminApproveHostelRequest', UserAuth, adminApproveHostelRequest)
+router.get('/searchAPI/:search_term', UserAuth, searchAPI)
 
 module.exports = router

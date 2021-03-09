@@ -346,3 +346,43 @@ exports.adminApproveHostelRequest = async (req, res) => {
         res.status(403).json({error: 'Permission Denied'})
     }
 }
+
+exports.searchAPI = async (req, res) => {
+    const user_id = req.user._id
+    const search_term = req.params.search_term
+
+    let available_hostel = await Hostel.find({status: 'available', admin_approve: true}, async (err, hostels) => {
+        if(err) {
+            res.status(500).json({error: err})
+        } else {
+            if(hostels.length != 0) {
+                const res_promise = await hostels.map(async(item) => {
+                    let return_data = await checkBooking(user_id, item._id, item)
+                    return return_data
+                })
+
+                let return_data = await Promise.all(res_promise)
+                    .then((data) => {
+                        return data
+                    })
+                    .catch((err) => {
+                        res.status(403).json({error: 'Something went wrong'})
+                    })
+                return return_data
+                
+            } else {
+                res.status(200).json({data: []})
+            }
+        }
+    })
+
+    let res_data = available_hostel.filter((val) => {
+        if (val.name.toLocaleLowerCase().includes(search_term.toLocaleLowerCase()) || (val.detail.toLocaleLowerCase().includes(search_term.toLocaleLowerCase()))) {
+            return val
+          } else {
+            return ''
+          }
+    })
+
+    res.status(200).json({data: res_data})
+}
