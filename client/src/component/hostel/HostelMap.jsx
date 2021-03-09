@@ -28,8 +28,8 @@ var marker = new mapboxgl.Marker()
 const MapContainer = styled.div`
   max-width:400px;
   max-height:400px;
-  border: 2px solid black;
+  border: 1px solid black;
   border-radius: 10px;
-  float:right;
   margin-right: 10px;
+  margin-top : 80px;
 `

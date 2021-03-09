@@ -53,42 +53,47 @@ const HostelDetail = (props) => {
                             <Image src={`${image}`} alt="image"/>
                         </div>
                         <div class="col-sm-4">
-                            <Description><b>Description:</b> {detail}</Description>
+                            <BookingSide>
                             <div>Owner : {owner}</div>
                             <br/>
                             <div>Price : {price} baht/day</div>
                             <br/>
-
                             {status === 'available' && admin_approve
-                            ?
-                            <div>
-                                {
-                                    is_booking
-                                    ?
-                                    <button type="button" onClick={() => onCancelBookingClick()} class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                        Cancel Booking
-                                    </button>
-                                    :
-                                    <button type="button" onClick={() => onBookingClick()} class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                        Booking
-                                    </button>
+                                ?
+                                <div>
+                                    {
+                                        is_booking
+                                        ?
+                                        <button type="button" onClick={() => onCancelBookingClick()} class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                            Cancel Booking
+                                        </button>
+                                        :
+                                        <button type="button" onClick={() => onBookingClick()} class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                            Booking
+                                        </button>
+                                    }
+                                </div>
+                                :
+                                <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                    Not Open Yet
+                                </button>
                                 }
-                            </div>
-                            :
-                            <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                Not Open Yet
-                            </button>
-                            }
+                                
+                            </BookingSide>
+                        </div>
+                        <div class="col-sm-6">
+                        <Description><b>Description:</b> {detail}</Description>
+                            <HostelMap latitude={location.latitude} longitude={location.longitude}/>
+                            
                         </div>
                             
-                        <div class="col-sm-12">
-                                <HostelMap latitude={location.latitude} longitude={location.longitude}/>
+                        <div class="col-sm-6">
+                                
                             <br/>
                             <br/>
                         </div>
                     </div>
                 </div>
-                
                 
             </div>
            )
@@ -100,6 +105,11 @@ const HostelDetail = (props) => {
   
   }
 
+const BookingSide = styled.div`
+  text-align: left;
+  margin-top: 30px
+`
+
 const Image = styled.img`
   max-width: 700px;
   max-height: 500px;
@@ -108,6 +118,7 @@ const Image = styled.img`
   margin-top: 20px;
   margin-bottom: 30px;
   border-radius: 10px;
+  float: left;
 `
 
 const Description = styled.p`

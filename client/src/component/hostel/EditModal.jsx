@@ -12,6 +12,7 @@ const Modal = ({ showModal, setShowModal, defaultData }) => {
     const [price, setPrice] = useState('')
     const [latitude, setLatitude] = useState('')
     const [longitude, setLongitude] = useState('')
+    const [image, setImage] = useState('')
     const [ID, setId] = useState('')
 
     const dispatch = useDispatch()
@@ -49,6 +50,7 @@ const Modal = ({ showModal, setShowModal, defaultData }) => {
         setPrice(defaultData.price)
         setLatitude(defaultData.location.latitude)
         setLongitude(defaultData.location.longitude)
+        setImage(defaultData.image)
         setId(defaultData._id)
         document.addEventListener('keydown', keyPress);
         return () => document.removeEventListener('keydown', keyPress);
@@ -105,6 +107,10 @@ const Modal = ({ showModal, setShowModal, defaultData }) => {
                         <Label for="exampleFormControlTextarea1" class="form-label">Location longitude</Label>
                         <input type="number" class="form-control" id="exampleFormControlInput1" value={longitude} onChange={(e) => setLongitude(e.target.value)}/>
                     </div>
+                    <div class="mb-3">
+                        <Label for="exampleFormControlTextarea1" class="form-label">Image (URL)</Label>
+                        <input type="text" class="form-control" id="exampleFormControlInput1" value={image} onChange={(e) => setImage(e.target.value)}/>
+                    </div>
                     <button id="addSubmit" class="btn btn-success addHostelSubmit" onClick={() => onClickSumbit()}>Submit</button>
               </ModalContent>
             </ModalWrapper>
@@ -131,7 +137,7 @@ const Background = styled.div`
 
 const ModalWrapper = styled.div`
   width: 800px;
-  height: 600px;
+  height: 650px;
   box-shadow: 0 5px 16px rgba(0, 0, 0, 0.2);
   background: #fff;
   color: #000;
