@@ -9,7 +9,8 @@ import {
     DELETE_HOSTEL,
     SET_HOSTEL_STATUS,
     ADD_HOSTEL,
-    EDIT_HOSTEL
+    EDIT_HOSTEL,
+    SET_ALL_HOSTEL_LIST
 } from "../types";
   
 const initialState = {
@@ -17,6 +18,7 @@ const initialState = {
     single_hostel_detail: {},
     booking_list: [],
     own_hostel: [],
+    all_hostel_list : [],
     loading: false,
 };
 
@@ -114,6 +116,13 @@ export default function (state = initialState, action) {
         return {
             ...state,
             own_hostel: new_edit_hostel,
+            loading: false
+        }
+
+    case SET_ALL_HOSTEL_LIST :
+        return {
+            ...state,
+            all_hostel_list: action.payload,
             loading: false
         }
 

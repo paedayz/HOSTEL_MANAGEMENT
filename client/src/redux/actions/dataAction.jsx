@@ -10,7 +10,8 @@ import {
     DELETE_HOSTEL,
     SET_HOSTEL_STATUS,
     ADD_HOSTEL,
-    EDIT_HOSTEL
+    EDIT_HOSTEL,
+    SET_ALL_HOSTEL_LIST
 } from '../types'
 
 export const getAllAvailableHostelList = () => (dispatch) => {
@@ -122,6 +123,18 @@ export const editHostel = (edit_data) => (dispatch) => {
     axios.post('/hostel/editHostel', {...edit_data})
         .then((res) => {
             dispatch({type: EDIT_HOSTEL, payload: res.data.data})
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+}
+
+// Admin
+export const getAllHostelList = () => (dispatch) => {
+    dispatch({type: DATA_LOADING})
+    axios.get('/hostel/getAllHostelList')
+        .then((res) => {
+            dispatch({type: SET_ALL_HOSTEL_LIST, payload: res.data.data})
         })
         .catch((err) => {
             console.log(err)

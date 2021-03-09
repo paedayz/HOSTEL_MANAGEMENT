@@ -1,4 +1,11 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+import {useHistory} from 'react-router-dom'
+
+// Redux
+import { useSelector, useDispatch } from 'react-redux'
+import {getAllHostelList} from '../redux/actions/dataAction'
 
 /**
 * @author
@@ -6,8 +13,84 @@ import React from 'react'
 **/
 
 const Admin = (props) => {
+
+  const all_hostel_list = useSelector(state => state.data.all_hostel_list)
+  const loading = useSelector(state => state.data.loading)
+
+  const dispatch = useDispatch()
+
+  dayjs.extend(relativeTime);
+
+  const history = useHistory()
+
+  useEffect(() => {
+    dispatch(getAllHostelList())
+  }, [])
+
+  const show_all_hostel = all_hostel_list
+    .sort((x,y) => {return (x.admin_approve === y.admin_approve)? 0 : y.admin_approve? -1 : 1})
+    .map((hostel) => {
+        return (
+        <tr className="pointTR" >
+                <th onClick={() => history.push(`/hostel_detail/${hostel._id}`)} scope="row">{hostel._id}</th>
+                <td onClick={() => history.push(`/hostel_detail/${hostel._id}`)}>{hostel.name}</td>
+                <td onClick={() => history.push(`/hostel_detail/${hostel._id}`)}>{hostel.status}</td>
+
+                {hostel.admin_approve
+                ?
+                <td onClick={() => history.push(`/hostel_detail/${hostel._id}`)} style={{color: 'blue'}}>{`${hostel.admin_approve}`}</td>
+                :
+                <td onClick={() => history.push(`/hostel_detail/${hostel._id}`)} style={{color: 'red'}}>{`${hostel.admin_approve}`}</td>
+                }
+
+                <td>
+                    {hostel.admin_approve
+                    ?
+                    <button type="button" class="btn btn-secondary" style={{marginRight:10}}>
+                        Approve
+                    </button>
+                    :
+                    <button type="button" class="btn btn-success" style={{marginRight:10}}>
+                        Approve
+                    </button>
+                    }
+                    
+                    
+                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        Delete
+                    </button>
+                </td>
+        </tr>
+        )
+  })
+
+  if(loading) {
+      return (
+          <div>
+              Loading
+          </div>
+      )
+  }
+
+  
   return(
-    <div className="content">Admin</div>
+    <div className="content">
+      <h1>Admin Page</h1>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Hostel ID</th>
+            <th scope="col">Hostel Name</th>
+            <th scope="col">Status</th>
+            <th scope="col">Approve</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {show_all_hostel}
+        </tbody>
+      </table>
+    </div>
    )
   }
 
