@@ -11,10 +11,20 @@ import {
     ADD_HOSTEL,
     EDIT_HOSTEL,
     SET_ALL_HOSTEL_LIST,
-    APPROVE_REQUEST
+    APPROVE_REQUEST,
+    SET_UNAUTHENTICATED
 } from "../types";
   
 const initialState = {
+    available_hostels: [],
+    single_hostel_detail: {},
+    booking_list: [],
+    own_hostel: [],
+    all_hostel_list : [],
+    loading: false,
+};
+
+const startState = {
     available_hostels: [],
     single_hostel_detail: {},
     booking_list: [],
@@ -142,8 +152,11 @@ export default function (state = initialState, action) {
             all_hostel_list: new_approve_hostel,
             loading: false
         }
+    
+    case SET_UNAUTHENTICATED :
+        return startState
 
-      default:
+    default:
         return state;
     }
 }

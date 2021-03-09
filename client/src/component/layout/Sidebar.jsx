@@ -3,7 +3,8 @@ import { useHistory } from "react-router-dom";
 import styled from 'styled-components'
 
 // Redux
-import {useSelector} from 'react-redux'
+import {useSelector, useDispatch} from 'react-redux'
+import {logout} from '../../redux/actions/userAction'
 
 /**
 * @author
@@ -14,11 +15,18 @@ const Sidebar = (props) => {
     const [menuSelect, setMenuSelect] = useState('/')
     const status = useSelector(state => state.user.credentials.status)
     const history = useHistory()
+    const dispatch = useDispatch()
 
     const onClickMenu = (menu) => {
         setMenuSelect(menu)
         history.push(`${menu}`)
     }
+
+    const onClickLogout = () => {
+        setMenuSelect('/')
+        dispatch(logout())
+        
+    }   
 
   return(
     <div className="sidebar">
@@ -118,9 +126,32 @@ const Sidebar = (props) => {
             }
         </div>
         }
+
+        <LogoutButton onClick={() => onClickLogout()}>
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-door-open" viewBox="0 0 16 16">
+                <path d="M8.5 10c-.276 0-.5-.448-.5-1s.224-1 .5-1 .5.448.5 1-.224 1-.5 1z"/>
+                <path d="M10.828.122A.5.5 0 0 1 11 .5V1h.5A1.5 1.5 0 0 1 13 2.5V15h1.5a.5.5 0 0 1 0 1h-13a.5.5 0 0 1 0-1H3V1.5a.5.5 0 0 1 .43-.495l7-1a.5.5 0 0 1 .398.117zM11.5 2H11v13h1V2.5a.5.5 0 0 0-.5-.5zM4 1.934V15h6V1.077l-6 .857z"/>
+            </svg>
+            <span>
+                Logout
+            </span>
+        </LogoutButton>
     </div>
    )
   }
+
+const LogoutButton = styled.button`
+  background-color: rgba(77, 177, 243, 0.945);
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  font-size: 16px;
+  width: 100%;
+  margin-top: 540px;
+  margin-bottom: 15px;
+  margin-left: 3px;
+`
 
 const MenuButton = styled.button`
     background-color: rgba(77, 177, 243, 0.945);
