@@ -1,14 +1,17 @@
 import './App.css';
-import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
-import AuthRoute from './utils/AuthRoute'
 import jwtDecode from "jwt-decode"
 import axios from 'axios'
-import {logout} from './redux/actions/userAction'
+
+// Router
+import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
+import AuthRoute from './utils/AuthRoute'
+import AdminRoute from './utils/AdminRoute'
 
 // Redux
 import {Provider} from 'react-redux'
 import store from './redux/store'
 import {SET_USER_CREDENTIALS} from './redux/types'
+import {logout} from './redux/actions/userAction'
 
 // Page
 import Home from './pages/Home'
@@ -16,6 +19,7 @@ import Auth from './pages/Auth'
 import Booking from './pages/Booking'
 import HostelDetail from './pages/HostelDetail'
 import MyHostel from './pages/MyHostel'
+import Admin from './pages/Admin'
 
 // Component
 import Sidebar from './component/layout/Sidebar'
@@ -55,6 +59,7 @@ function App() {
             <AuthRoute exact path="/" component={Home} />
             <AuthRoute exact path="/booking" component={Booking} />
             <AuthRoute exact path="/my_hostel" component={MyHostel} />
+            <AdminRoute exact path="/admin" component={Admin} />
             <AuthRoute exact path="/hostel_detail/:hostelId" component={HostelDetail} />
           </Switch>
         </Router>
