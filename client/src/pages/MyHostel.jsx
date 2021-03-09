@@ -1,4 +1,5 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
+import styled from 'styled-components';
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import {useHistory} from 'react-router-dom'
@@ -8,14 +9,30 @@ import { useSelector, useDispatch } from 'react-redux'
 import {getOwnerUserHostel, deleteHostel, setHostelStatus} from '../redux/actions/dataAction'
 
 // Compoent
-import Modal from '../component/hostel/AddHostelModal'
+import EditModal from '../component/hostel/EditModal'
+import AddModal from '../component/hostel/AddModal'
 
 /**
 * @author
 * @function MyHostel
 **/
 
+const Button = styled.button`
+  min-width: 100px;
+  padding: 16px 32px
+  border-radius: 4px;
+  border: none;
+  background: green;
+  color: #fff;
+  font-size: 24px;
+  cursor: pointer;
+  float: right;
+  margin-right: 20px;
+`;
+
 const MyHostel = (props) => {
+  const [showAddModal, setShowAddModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
   const own_hostel = useSelector(state => state.data.own_hostel)
   const loading = useSelector(state => state.data.loading)
   const dispatch = useDispatch()
@@ -36,7 +53,15 @@ const MyHostel = (props) => {
     if(window.confirm(`Confirm change status to  "${status}"`)) {
       dispatch(setHostelStatus(hostelId, status))
     }
-}
+  }
+  
+  const openAddModal = () => {
+    setShowAddModal(prev => !prev);
+  };
+
+  const openEditModal = () => {
+    setShowEditModal(prev => !prev);
+  }
 
   const show_own_hostel = own_hostel.map((hostel) => {
     return (
@@ -62,10 +87,12 @@ const MyHostel = (props) => {
                     Open
                 </button>
                 }
+
                 
                 <button onClick={() => onClickDelete(hostel._id)} type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
                     Delete
                 </button>
+                <button onClick={openEditModal} type="button" class="btn btn-warning" style={{marginLeft:10}}>Edit</button>
             </td>
       </tr>
     )
@@ -82,8 +109,12 @@ const MyHostel = (props) => {
   
   return(
     <div className="content">
+      <AddModal showModal={showAddModal} setShowModal={setShowAddModal} />
+      <EditModal showModal={showEditModal} setShowModal={setShowEditModal} />
       <h1>My Hostel List</h1>
-      <Modal word='Add Hostel'/>
+      
+      {/* <Button onClick={openAddModal}>Add hostel</Button> */}
+      <button id="myBtn" class="btn btn-success" onClick={openAddModal} style={{float:'right', marginRight: '50px'}}>Add Hostel</button>
       <table class="table">
         <thead>
           <tr>

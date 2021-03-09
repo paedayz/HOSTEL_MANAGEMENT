@@ -233,3 +233,11 @@ label{
 .addHostelSubmit {
   width: 25%;
 }
+
+.editClose{
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  text-align: right;
+}
