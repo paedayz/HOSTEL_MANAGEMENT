@@ -9,6 +9,7 @@ import {getHostelDetail, booking, cancelBooking} from '../redux/actions/dataActi
 
 // Component
 import HostelMap from '../component/hostel/HostelMap'
+import ReviewModal from '../component/hostel/ReviewModal'
 
 /**
 * @author
@@ -18,6 +19,7 @@ import HostelMap from '../component/hostel/HostelMap'
 const HostelDetail = (props) => {
     const [checkIn, setCheckIn] = useState('')
     const [checkOut, setCheckOut] = useState('')
+    const [showReviewModal, setShowReviewModal] = useState(false)
     const loading = useSelector(state => state.data.loading)
     const single_hostel_detail = useSelector(state => state.data.single_hostel_detail)
     const {location, is_booking, image, name, price, detail, owner, _id, booking_id, admin_approve, status, check_in, check_out ,hostel_rating} = single_hostel_detail
@@ -55,9 +57,14 @@ const HostelDetail = (props) => {
           }
     }
 
+    const openReviewModal = () => {
+        setShowReviewModal(prev => !prev);
+      };
+
     if(!loading && location) {
         return(
             <div className="content">
+                <ReviewModal showModal={showReviewModal} setShowModal={setShowReviewModal} booking_id={booking_id} hostel_id={_id} />
                 <h1>{name}</h1>
                 <div class="container">
                     <div class="row">
@@ -86,9 +93,13 @@ const HostelDetail = (props) => {
                                             <h4>Booking</h4>
                                             <div>Check In : {check_in}</div>
                                             <div>Check Out : {check_out}</div>
-                                            <button style={{marginTop:'20px'}} type="button" onClick={() => onCancelBookingClick()} class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                            <button style={{marginTop:'20px', marginRight: '20px'}} type="button" onClick={() => onCancelBookingClick()} class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                                 Cancel Booking
                                             </button>
+                                            <button type="button" class="btn btn-success" onClick={() => openReviewModal()} style={{marginTop:'20px'}}>
+                                                Review
+                                            </button>
+                                            
                                         </CancelBookingForm>
                                         
                                         :

@@ -437,8 +437,22 @@ exports.rating = (req, res) => {
             res.status(304).json({error: err})
         } else {
             Booking.deleteOne({_id: req.body.booking_id})
-                .then(() => {
-                    res.status(200).json({data: req.body.booking_id})
+                .then( async() => {
+                    let hostel_rating = await Rating.find({hostel_id: req.body.hostel_id})
+                                .then((rating_data) => {
+                                    if(rating_data.length > 0) {
+                                        let rating_sum = 0
+                                        rating_data.map((rating) => {
+                                            rating_sum = rating_sum + rating.rate
+                                        })
+                                        let rating_avg = rating_sum / rating_data.length
+
+                                        return rating_avg.toString()
+                                    } else {
+                                        return "0"
+                                    }
+                                })
+                    res.status(200).json({data: req.body.booking_id, rating:hostel_rating})
                 })
         }
     })

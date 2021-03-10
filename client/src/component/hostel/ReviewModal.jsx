@@ -52,6 +52,8 @@ const Modal = ({ showModal, setShowModal, booking_id, hostel_id }) => {
         hostel_id
       }
 
+      console.log(rating_data)
+
       dispatch(ratingHostel(rating_data))
       setRating(0)
       setShowModal(false)

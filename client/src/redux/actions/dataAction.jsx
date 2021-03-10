@@ -147,7 +147,11 @@ export const ratingHostel = (rating_data) => (dispatch) => {
     dispatch({type: DATA_LOADING})
     axios.post('/hostel/rating', {...rating_data})
         .then((res) => {
-            dispatch({type: RATING, payload: res.data.data})
+            let data = {
+                booking_id: res.data.data,
+                rating : res.data.rating
+            }
+            dispatch({type: RATING, payload: data})
         })
         .catch((err) => {
             console.log(err)
