@@ -100,6 +100,13 @@ const Modal = ({ showModal, setShowModal }) => {
 
   }
 
+  const onChangeAddPrice = (e) => {
+    console.log(e.target.value)
+    if(e.target.value >= 0) {
+      setPrice(e.target.value)
+    }
+  }
+
   return (
     <>
       {showModal ? (
@@ -117,7 +124,7 @@ const Modal = ({ showModal, setShowModal }) => {
                     </div>
                     <div class="mb-3">
                         <Label for="exampleFormControlTextarea1" class="form-label">Price per day</Label>
-                        <input type="number" class="form-control" id="priceExample" value={price} onChange={(e) => setPrice(e.target.value)}/>
+                        <input type="number" class="form-control" id="priceExample" value={price} onChange={(e) => onChangeAddPrice(e)}/>
                     </div>
                     <div class="mb-3">
                         <Label for="exampleFormControlTextarea1" class="form-label">Location latitude</Label>
