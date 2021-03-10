@@ -351,7 +351,7 @@ exports.searchAPI = async (req, res) => {
     const user_id = req.user._id
     const search_term = req.params.search_term
 
-    let available_hostel = await Hostel.find({status: 'available', admin_approve: true}, async (err, hostels) => {
+    Hostel.find({status: 'available', admin_approve: true}, async (err, hostels) => {
         if(err) {
             res.status(500).json({error: err})
         } else {
@@ -361,33 +361,25 @@ exports.searchAPI = async (req, res) => {
                     return return_data
                 })
 
-                let return_data = await Promise.all(res_promise)
+                Promise.all(res_promise)
                     .then((data) => {
-                        return data
+                        let res_data = data.filter((val) => {
+                            if (val.name.toLocaleLowerCase().includes(search_term.toLocaleLowerCase()) || (val.detail.toLocaleLowerCase().includes(search_term.toLocaleLowerCase()))) {
+                                return val
+                              } else {
+                                return ''
+                              }
+                        })
+
+                        res.status(200).json({data: res_data})
                     })
                     .catch((err) => {
                         res.status(403).json({error: 'Something went wrong'})
                     })
-                console.log(return_data)
-                return return_data
                 
             } else {
                 res.status(200).json({data: []})
             }
         }
     })
-
-    // console.log(available_hostel)
-
-    let res_data = available_hostel.filter((val) => {
-        if (val.name.toLocaleLowerCase().includes(search_term.toLocaleLowerCase()) || (val.detail.toLocaleLowerCase().includes(search_term.toLocaleLowerCase()))) {
-            return val
-          } else {
-            return ''
-          }
-    })
-
-    // console.log(res_data)
-
-    res.status(200).json({data: res_data})
 }
