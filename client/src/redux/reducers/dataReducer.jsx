@@ -13,7 +13,8 @@ import {
     SET_ALL_HOSTEL_LIST,
     APPROVE_REQUEST,
     SET_UNAUTHENTICATED,
-    SET_SEARCH_DATA
+    SET_SEARCH_DATA,
+    RATING
 } from "../types";
   
 const initialState = {
@@ -161,6 +162,12 @@ export default function (state = initialState, action) {
                 ...state,
                 search_data: action.payload,
                 loading: false
+            }
+
+    case RATING : 
+            return {
+                ...state,
+                booking_list: state.booking_list.filter((booking) => {return booking._id !== action.payload})
             }
     
     case SET_UNAUTHENTICATED :

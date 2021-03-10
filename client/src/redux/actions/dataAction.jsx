@@ -13,7 +13,8 @@ import {
     EDIT_HOSTEL,
     SET_ALL_HOSTEL_LIST,
     APPROVE_REQUEST,
-    SET_SEARCH_DATA
+    SET_SEARCH_DATA,
+    RATING
 } from '../types'
 
 export const getAllAvailableHostelList = () => (dispatch) => {
@@ -140,6 +141,17 @@ export const searchAPI = (search_term) => (dispatch) => {
     .catch((err) => {
         console.log(err)
     })
+}
+
+export const ratingHostel = (rating_data) => (dispatch) => {
+    dispatch({type: DATA_LOADING})
+    axios.post('/hostel/rating', {...rating_data})
+        .then((res) => {
+            dispatch({type: RATING, payload: res.data.data})
+        })
+        .catch((err) => {
+            console.log(err)
+        })
 }
 
 // Admin

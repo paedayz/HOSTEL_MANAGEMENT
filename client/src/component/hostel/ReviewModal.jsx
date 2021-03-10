@@ -5,12 +5,10 @@ import StarRatings from 'react-star-ratings'
 
 // Redux
 import {useDispatch} from 'react-redux'
-import {addHostel} from '../../redux/actions/dataAction'
+import {ratingHostel} from '../../redux/actions/dataAction'
 
-const Modal = ({ showModal, setShowModal }) => {
+const Modal = ({ showModal, setShowModal, booking_id, hostel_id }) => {
   const [rating, setRating] = useState(0)
-
-    // const formData = new FormData()
 
     const dispatch = useDispatch()
     const modalRef = useRef();
@@ -47,6 +45,18 @@ const Modal = ({ showModal, setShowModal }) => {
       [keyPress]
     );
 
+    const onClickSubmit = () => {
+      const rating_data = {
+        rating,
+        booking_id,
+        hostel_id
+      }
+
+      dispatch(ratingHostel(rating_data))
+      setRating(0)
+      setShowModal(false)
+    }
+
   return (
     <>
       {showModal ? (
@@ -67,7 +77,7 @@ const Modal = ({ showModal, setShowModal }) => {
                   name='rating'
                 />
                 <br/>
-                <button id="addSubmit" class="btn btn-success addHostelSubmit">Submit</button>
+                <button onClick={() => onClickSubmit()} id="addSubmit" class="btn btn-success addHostelSubmit">Submit</button>
                 <button id="addSubmit" class="btn btn-success addHostelSubmit">Cancel</button>
               </ModalContent>
             </ModalWrapper>

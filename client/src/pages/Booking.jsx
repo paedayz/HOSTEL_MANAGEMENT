@@ -17,6 +17,10 @@ import ReviewModal from '../component/hostel/ReviewModal'
 
 const Booking = (props) => {
   const [showReviewModal, setShowReviewModal] = useState(false)
+  const [reviewData, setReviewData] = useState({
+    booking_id: '',
+    hostel_id: ''
+  })
   const booking_list = useSelector(state => state.data.booking_list)
   const dispatch = useDispatch()
   dayjs.extend(relativeTime);
@@ -26,7 +30,8 @@ const Booking = (props) => {
     dispatch(getBookingList())
   }, [])
 
-  const openAddModal = () => {
+  const openReviewModal = (hostel_id, booking_id) => {
+    setReviewData({booking_id, hostel_id})
     setShowReviewModal(prev => !prev);
   };
 
@@ -49,7 +54,7 @@ const Booking = (props) => {
               <td onClick={() => history.push(`/hostel_detail/${book.hostel_id._id}`)}>{book.check_out}</td>
               <td onClick={() => history.push(`/hostel_detail/${book.hostel_id._id}`)}>{dayjs(book.created_at).fromNow()}</td>
               <td>
-                <button type="button" class="btn btn-success" onClick={openAddModal} style={{marginRight:10}}>
+                <button type="button" class="btn btn-success" onClick={() => openReviewModal(book.hostel_id._id, book._id)} style={{marginRight:10}}>
                     Review
                 </button>
                 <button type="button" class="btn btn-danger" style={{marginRight:10}}>
@@ -69,7 +74,7 @@ const Booking = (props) => {
   
   return(
     <div className="content">
-      <ReviewModal showModal={showReviewModal} setShowModal={setShowReviewModal} />
+      <ReviewModal showModal={showReviewModal} booking_id={reviewData.booking_id} hostel_id={reviewData.hostel_id} setShowModal={setShowReviewModal} />
       <h1>My Booking List</h1>
       <table class="table">
         <thead>
