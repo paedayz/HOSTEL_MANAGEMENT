@@ -1,7 +1,6 @@
 import React, { useRef, useEffect, useCallback, useState } from 'react';
 import { useSpring, animated } from 'react-spring';
 import styled from 'styled-components';
-import axios from 'axios'
 
 // Redux
 import {useDispatch} from 'react-redux'

@@ -368,6 +368,7 @@ exports.searchAPI = async (req, res) => {
                     .catch((err) => {
                         res.status(403).json({error: 'Something went wrong'})
                     })
+                console.log(return_data)
                 return return_data
                 
             } else {
@@ -376,6 +377,8 @@ exports.searchAPI = async (req, res) => {
         }
     })
 
+    // console.log(available_hostel)
+
     let res_data = available_hostel.filter((val) => {
         if (val.name.toLocaleLowerCase().includes(search_term.toLocaleLowerCase()) || (val.detail.toLocaleLowerCase().includes(search_term.toLocaleLowerCase()))) {
             return val
@@ -383,6 +386,8 @@ exports.searchAPI = async (req, res) => {
             return ''
           }
     })
+
+    // console.log(res_data)
 
     res.status(200).json({data: res_data})
 }

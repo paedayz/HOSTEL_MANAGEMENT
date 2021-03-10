@@ -16,6 +16,7 @@ export const DELETE_HOSTEL = 'DELETE_HOSTEL'
 export const SET_HOSTEL_STATUS = 'SET_HOSTEL_STATUS'
 export const ADD_HOSTEL = 'ADD_HOSTEL'
 export const EDIT_HOSTEL = 'EDIT_HOSTEL'
+export const SET_SEARCH_DATA = 'SET_SEARCH_DATA'
 
 // Admin
 export const SET_ALL_HOSTEL_LIST = 'SET_ALL_HOSTEL_LIST'

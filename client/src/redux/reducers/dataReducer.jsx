@@ -12,7 +12,8 @@ import {
     EDIT_HOSTEL,
     SET_ALL_HOSTEL_LIST,
     APPROVE_REQUEST,
-    SET_UNAUTHENTICATED
+    SET_UNAUTHENTICATED,
+    SET_SEARCH_DATA
 } from "../types";
   
 const initialState = {
@@ -21,6 +22,7 @@ const initialState = {
     booking_list: [],
     own_hostel: [],
     all_hostel_list : [],
+    search_data: [],
     loading: false,
 };
 
@@ -30,6 +32,7 @@ const startState = {
     booking_list: [],
     own_hostel: [],
     all_hostel_list : [],
+    search_data: [],
     loading: false,
 };
 
@@ -152,6 +155,13 @@ export default function (state = initialState, action) {
             all_hostel_list: new_approve_hostel,
             loading: false
         }
+
+    case SET_SEARCH_DATA :
+            return {
+                ...state,
+                search_data: action.payload,
+                loading: false
+            }
     
     case SET_UNAUTHENTICATED :
         return startState

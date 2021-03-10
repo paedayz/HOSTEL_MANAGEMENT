@@ -12,7 +12,8 @@ import {
     ADD_HOSTEL,
     EDIT_HOSTEL,
     SET_ALL_HOSTEL_LIST,
-    APPROVE_REQUEST
+    APPROVE_REQUEST,
+    SET_SEARCH_DATA
 } from '../types'
 
 export const getAllAvailableHostelList = () => (dispatch) => {
@@ -128,6 +129,17 @@ export const editHostel = (edit_data) => (dispatch) => {
         .catch((err) => {
             console.log(err)
         })
+}
+
+export const searchAPI = (search_term) => (dispatch) => {
+    axios.get(`/hostel/searchAPI/${search_term}`)
+    .then((res) => {
+
+        dispatch({type: SET_SEARCH_DATA, payload: res.data.data})
+    })
+    .catch((err) => {
+        console.log(err)
+    })
 }
 
 // Admin
