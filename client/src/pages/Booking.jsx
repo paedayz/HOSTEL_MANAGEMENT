@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import {useHistory} from 'react-router-dom'
@@ -7,28 +7,28 @@ import {useHistory} from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import {getBookingList} from '../redux/actions/dataAction'
 
+// Component
+import ReviewModal from '../component/hostel/ReviewModal'
+
 /**
 * @author
 * @function Booking
 **/
 
 const Booking = (props) => {
+  const [showReviewModal, setShowReviewModal] = useState(false)
   const booking_list = useSelector(state => state.data.booking_list)
   const dispatch = useDispatch()
   dayjs.extend(relativeTime);
   const history = useHistory()
-  console.log(booking_list.sort((a,b) => {
-    if ( a.check_in < b.check_in ){
-      return -1;
-    }
-    if ( a.check_in > b.check_in ){
-      return 1;
-    }
-    return 0;
-  }))
+
   useEffect(() => {
     dispatch(getBookingList())
   }, [])
+
+  const openAddModal = () => {
+    setShowReviewModal(prev => !prev);
+  };
 
   const show_booking_list = booking_list.sort((a,b) => {
     if ( a.check_in < b.check_in ){
@@ -41,13 +41,21 @@ const Booking = (props) => {
   }).map((book) => {
     if(book.hostel_id.status === 'available') {
       return (
-        <tr className="pointTR" onClick={() => history.push(`/hostel_detail/${book.hostel_id._id}`)}>
-              <th scope="row">{book._id}</th>
-              <td>{book.hostel_id.name}</td>
-              <td>{book.hostel_id.owner}</td>
-              <td>{book.check_in}</td>
-              <td>{book.check_out}</td>
-              <td>{dayjs(book.created_at).fromNow()}</td>
+        <tr className="pointTR">
+              <th scope="row" onClick={() => history.push(`/hostel_detail/${book.hostel_id._id}`)}>{book._id}</th>
+              <td onClick={() => history.push(`/hostel_detail/${book.hostel_id._id}`)}>{book.hostel_id.name}</td>
+              <td onClick={() => history.push(`/hostel_detail/${book.hostel_id._id}`)}>{book.hostel_id.owner}</td>
+              <td onClick={() => history.push(`/hostel_detail/${book.hostel_id._id}`)}>{book.check_in}</td>
+              <td onClick={() => history.push(`/hostel_detail/${book.hostel_id._id}`)}>{book.check_out}</td>
+              <td onClick={() => history.push(`/hostel_detail/${book.hostel_id._id}`)}>{dayjs(book.created_at).fromNow()}</td>
+              <td>
+                <button type="button" class="btn btn-success" onClick={openAddModal} style={{marginRight:10}}>
+                    Review
+                </button>
+                <button type="button" class="btn btn-danger" style={{marginRight:10}}>
+                    Cancle
+                </button>
+              </td>
         </tr>
       )
     } else {
@@ -55,12 +63,13 @@ const Booking = (props) => {
         <>
         </>
         )
-      
     }
     
   })
+  
   return(
     <div className="content">
+      <ReviewModal showModal={showReviewModal} setShowModal={setShowReviewModal} />
       <h1>My Booking List</h1>
       <table class="table">
         <thead>
@@ -71,6 +80,7 @@ const Booking = (props) => {
             <th scope="col">Check In</th>
             <th scope="col">Check Out</th>
             <th scope="col">Booking Time</th>
+            <th scope="col">Actions</th>
           </tr>
         </thead>
         <tbody>
