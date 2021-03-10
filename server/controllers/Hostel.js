@@ -4,6 +4,7 @@ const path = require('path')
 // Model
 const Hostel = require('../models/Hostel')
 const Booking = require('../models/Booking')
+const Rating = require('../models/Rating')
 
 exports.getAllHostelList = (req, res) => {
     Hostel.find((err, hostels) => {
@@ -401,6 +402,27 @@ exports.searchAPI = async (req, res) => {
             } else {
                 res.status(200).json({data: []})
             }
+        }
+    })
+}
+
+exports.rating = (req, res) => {
+    const obj = {
+        rate : req.body.rating,
+        hostel_id: req.body.hostel_id,
+        booker : req.user._id
+    }
+
+    console.log(obj)
+
+    Rating.create(obj, (err, item) => {
+        if(err) {
+            res.status(304).json({error: err})
+        } else {
+            Booking.deleteOne({_id: req.body.booking_id})
+                .then(() => {
+                    res.status(200).json({data: req.body.booking_id})
+                })
         }
     })
 }
