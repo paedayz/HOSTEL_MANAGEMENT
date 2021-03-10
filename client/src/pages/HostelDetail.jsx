@@ -65,7 +65,7 @@ const HostelDetail = (props) => {
         return(
             <div className="content">
                 <ReviewModal showModal={showReviewModal} setShowModal={setShowReviewModal} booking_id={booking_id} hostel_id={_id} />
-                <h1>{name}</h1>
+                <h1 style={{marginTop: '20px'}}>{name}</h1>
                 <div class="container">
                     <div class="row">
                     

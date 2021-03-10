@@ -39,7 +39,10 @@ const Home = (props) => {
 
   return(
     <div className="content">
-      <h1>Homepage</h1>
+      <div className="Header">
+        <h1>AGODEN</h1>
+      </div>
+      
       <SearchBox>
         <div class="input-group flex-nowrap">
           <SearchIcon>

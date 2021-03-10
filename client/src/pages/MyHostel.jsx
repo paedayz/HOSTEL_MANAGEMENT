@@ -115,7 +115,10 @@ const MyHostel = (props) => {
     <div className="content">
       <AddModal showModal={showAddModal} setShowModal={setShowAddModal} />
       <EditModal defaultData={defaultEditData} showModal={showEditModal} setShowModal={setShowEditModal} />
-      <h1>My Hostel List</h1>
+      
+      <div className="Header">
+        <h1>My Hostel List</h1>
+      </div>
       
       {/* <Button onClick={openAddModal}>Add hostel</Button> */}
       <button id="myBtn" class="btn btn-success" onClick={openAddModal} style={{float:'right', marginRight: '50px'}}>Add Hostel</button>
