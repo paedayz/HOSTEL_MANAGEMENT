@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import {useHistory} from 'react-router-dom'
+import StarRatings from 'react-star-ratings'
 
 /**
 * @author
@@ -29,6 +30,12 @@ const HostelCardShow = (props) => {
         <img src={`${props.image}`} class="card-img-top" alt="image"/>
         <div class="card-body">
             <h5 class="card-title">{props.name}</h5>
+            <StarRatings
+                rating={parseInt(props.hostel_rating, 10)}
+                starRatedColor="#ECD700"
+                numberOfStars={5}
+                starDimension="20px"
+            />
             <p class="card-text">{props.detail}</p>
             <SecondDetail>
                 <div>owner: {props.owner}</div>

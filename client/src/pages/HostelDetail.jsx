@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import {useParams} from 'react-router-dom'
 import styled from 'styled-components'
+import StarRatings from 'react-star-ratings'
 
 // Redux
 import {useDispatch, useSelector} from 'react-redux'
@@ -19,7 +20,7 @@ const HostelDetail = (props) => {
     const [checkOut, setCheckOut] = useState('')
     const loading = useSelector(state => state.data.loading)
     const single_hostel_detail = useSelector(state => state.data.single_hostel_detail)
-    const {location, is_booking, image, name, price, detail, owner, _id, booking_id, admin_approve, status, check_in, check_out} = single_hostel_detail
+    const {location, is_booking, image, name, price, detail, owner, _id, booking_id, admin_approve, status, check_in, check_out ,hostel_rating} = single_hostel_detail
 
     const {hostelId} = useParams()
 
@@ -70,6 +71,11 @@ const HostelDetail = (props) => {
                             <br/>
                             <div>Price : {price} baht/day</div>
                             <br/>
+                            <StarRatings
+                                rating={parseInt(hostel_rating, 10)}
+                                starRatedColor="#ECD700"
+                                numberOfStars={5}
+                            />
                             {status === 'available' && admin_approve
                                 ?
                                 <div>
