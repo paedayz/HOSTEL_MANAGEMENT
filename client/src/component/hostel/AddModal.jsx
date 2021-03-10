@@ -53,13 +53,21 @@ const Modal = ({ showModal, setShowModal }) => {
       [keyPress]
     );
 
-    const mapTagArray = tagArray && tagArray.map((tag) => {
+    const mapTagArray = tagArray && tagArray.map((tag, index) => {
       return (
         <Tag>
+          <CloseIcon onClick={() => onClickDeleteTag(index)} xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+          </CloseIcon>
           {tag}
         </Tag>
       )
     })
+
+    const onClickDeleteTag = (index) => {
+      let new_tag_array = tagArray.filter((tag, tag_index) => {return tag_index !== index})
+      setTagArray(new_tag_array)
+    }
 
     const onClickAddTag = () => {
       setTagArray(oldArray => [...oldArray, tagBuffer])
@@ -142,6 +150,10 @@ const Modal = ({ showModal, setShowModal }) => {
   );
 };
 
+const CloseIcon = styled.svg`
+  margin-right: 5px;
+`
+
 const Tag = styled.div`
   background-color: #D8D8D8;
   margin-right: 10px;
@@ -157,6 +169,7 @@ const TagInputBox = styled.div`
 
 const Label = styled.label`
   float: left;
+  color: #AEAEAE;
 `
 
 const Background = styled.div`
@@ -187,12 +200,14 @@ const ModalContent = styled.div`
   color: #141414;
   width: 700px;
   margin-left: 50px;
-  button .addHostelSubmit{
+  button {
     padding: 10px 24px;
     background: #141414;
     color: #fff;
     border: none;
-    margin-top: 20px
+  }
+  .addHostelSubmit{
+    margin-top:10px;
   }
 `;
 

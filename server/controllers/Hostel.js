@@ -152,6 +152,7 @@ exports.editHostel = async (req, res) => {
     if(req.body.price) update_data.price = req.body.price
     if(req.body.latitude) update_data.latitude = req.body.latitude
     if(req.body.longitude) update_data.longitude = req.body.longitude
+    if(req.body.tag) update_data.tag = req.body.tag
 
 
     let hostel = await Hostel.findById(req.body._id, (err, data) => {
@@ -358,7 +359,6 @@ exports.searchAPI = async (req, res) => {
             res.status(500).json({error: err})
         } else {
             if(hostels.length != 0) {
-                // console.log(hostels)
                 const res_promise = await hostels.map(async(item) => {
                     let return_data = await checkBooking(user_id, item._id, item)
                     return return_data
