@@ -66,43 +66,62 @@ exports.getHostelDetail = (req, res) => {
 
 const checkBooking = async (user_id, hostel_id, item) => {
     let return_data = await Booking.find({booker: user_id, hostel_id: hostel_id})
-                        .then((data) => {
-                            if(data.length > 0) {
-                                let new_data = {
-                                    location: item.location,
-                                    status: item.status,
-                                    admin_approve: item.admin_approve,
-                                    image: item.image,
-                                    _id: item._id,
-                                    name: item.name,
-                                    price: item.price,
-                                    detail: item.detail,
-                                    owner: item.owner,
-                                    is_booking: true,
-                                    booking_id: data[0]._id,
-                                    tag: item.tag,
-                                    check_in: data[0].check_in,
-                                    check_out: data[0].check_out,
+                        .then( async (data) => {
+                            let hostel_rating = await Rating.find({hostel_id: hostel_id})
+                                .then((rating_data) => {
+                                    if(rating_data.length > 0) {
+                                        let rating_sum = 0
+                                        rating_data.map((rating) => {
+                                            rating_sum = rating_sum + rating.rate
+                                        })
+                                        let rating_avg = rating_sum / rating_data.length
+
+                                        return rating_avg.toString()
+                                    } else {
+                                        return "0"
+                                    }
+                                })
+                            if(hostel_rating) {
+                                if(data.length > 0) {
+                                    let new_data = {
+                                        location: item.location,
+                                        status: item.status,
+                                        admin_approve: item.admin_approve,
+                                        image: item.image,
+                                        _id: item._id,
+                                        name: item.name,
+                                        price: item.price,
+                                        detail: item.detail,
+                                        owner: item.owner,
+                                        is_booking: true,
+                                        booking_id: data[0]._id,
+                                        tag: item.tag,
+                                        check_in: data[0].check_in,
+                                        check_out: data[0].check_out,
+                                        hostel_rating: hostel_rating
+                                    }
+                                    return new_data
+                                } else {
+                                    
+                                    let new_data = {
+                                        location: item.location,
+                                        status: item.status,
+                                        admin_approve: item.admin_approve,
+                                        image: item.image,
+                                        _id: item._id,
+                                        name: item.name,
+                                        price: item.price,
+                                        detail: item.detail,
+                                        owner: item.owner,
+                                        is_booking: false,
+                                        booking_id: null,
+                                        tag: item.tag,
+                                        hostel_rating: hostel_rating
+                                    }
+                                    return new_data
                                 }
-                                return new_data
-                            } else {
-                                
-                                let new_data = {
-                                    location: item.location,
-                                    status: item.status,
-                                    admin_approve: item.admin_approve,
-                                    image: item.image,
-                                    _id: item._id,
-                                    name: item.name,
-                                    price: item.price,
-                                    detail: item.detail,
-                                    owner: item.owner,
-                                    is_booking: false,
-                                    booking_id: null,
-                                    tag: item.tag
-                                }
-                                return new_data
                             }
+                            
                         })
                         .catch((err) => {
                             console.log(err)
@@ -412,8 +431,6 @@ exports.rating = (req, res) => {
         hostel_id: req.body.hostel_id,
         booker : req.user._id
     }
-
-    console.log(obj)
 
     Rating.create(obj, (err, item) => {
         if(err) {
