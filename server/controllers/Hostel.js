@@ -257,7 +257,9 @@ exports.booking = async (req, res) => {
 
     let booking_data = {
         booker: booker_id,
-        hostel_id: req.body.hostel_id
+        hostel_id: req.body.hostel_id,
+        check_in: req.body.check_in,
+        check_out: req.body.check_out,
     }
 
     let hostel = await Hostel.findById(req.body.hostel_id, (err, data) => {
@@ -369,11 +371,14 @@ exports.searchAPI = async (req, res) => {
                     .then((data) => {
                         let res_data = data.filter((val) => {
                             let tag_match_flag = 0
-                            val.tag.map((tag) => {
-                                if(tag.toLocaleLowerCase().includes(search_term.toLocaleLowerCase())){
-                                    tag_match_flag = 1
-                                }
-                            })
+                            if(val.tag) {
+                                val.tag.map((tag) => {
+                                    if(tag.toLocaleLowerCase().includes(search_term.toLocaleLowerCase())){
+                                        tag_match_flag = 1
+                                    }
+                                })
+                            }
+                            
                             if (
                                 val.name.toLocaleLowerCase().includes(search_term.toLocaleLowerCase()) || 
                                 (val.detail.toLocaleLowerCase().includes(search_term.toLocaleLowerCase())) || 

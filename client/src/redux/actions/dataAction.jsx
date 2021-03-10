@@ -38,9 +38,9 @@ export const getHostelDetail = (hostelId) => (dispatch) => {
         })
 }
 
-export const booking = (hostelId) => (dispatch) => {
+export const booking = (hostelId, checkIn, checkOut) => (dispatch) => {
     dispatch({type: DATA_LOADING})
-    axios.post('/hostel/booking',{hostel_id : hostelId})
+    axios.post('/hostel/booking',{hostel_id : hostelId, check_in: checkIn, check_out: checkOut})
         .then((res) => {
             dispatch({type: BOOKING, payload: res.data.data._id})
         })

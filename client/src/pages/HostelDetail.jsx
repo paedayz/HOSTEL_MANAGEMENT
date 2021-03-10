@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import {useParams} from 'react-router-dom'
 import styled from 'styled-components'
 
@@ -15,15 +15,15 @@ import HostelMap from '../component/hostel/HostelMap'
 **/
 
 const HostelDetail = (props) => {
+    const [checkIn, setCheckIn] = useState('')
+    const [checkOut, setCheckOut] = useState('')
     const loading = useSelector(state => state.data.loading)
     const single_hostel_detail = useSelector(state => state.data.single_hostel_detail)
-    // eslint-disable-next-line
     const {location, is_booking, image, name, price, detail, owner, _id, booking_id, admin_approve, status} = single_hostel_detail
 
     const {hostelId} = useParams()
 
     const dispatch = useDispatch()
-    console.log(admin_approve)
 
     useEffect(() => {
         dispatch(getHostelDetail(hostelId))
@@ -31,9 +31,21 @@ const HostelDetail = (props) => {
     },[])
 
     const onBookingClick = () => {
-        if (window.confirm("Confirm Booking")) {
-            dispatch(booking(_id))
-          }
+        const today = new Date()
+        const checkInDate = new Date(checkIn)
+
+        if(!checkIn || !checkOut) {
+            window.alert('Please Select Check in and Check out Date')
+        } else if(checkInDate <= today) {
+            window.alert('Your Check in date is late now')
+        } else if(checkOut <= checkIn){
+            window.alert('Check In Date must before Check Out Date')
+        }  else {
+            if (window.confirm("Confirm Booking")) {
+                dispatch(booking(_id, checkIn, checkOut))
+            }
+        }
+        
     }
 
     const onCancelBookingClick = () => {
@@ -68,9 +80,26 @@ const HostelDetail = (props) => {
                                             Cancel Booking
                                         </button>
                                         :
-                                        <button type="button" onClick={() => onBookingClick()} class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                            Booking
-                                        </button>
+                                        <BookingForm>
+                                            <h4>Booking</h4>
+                                            <DateBox>
+                                                <label for="example-date-input" >Check in</label>
+                                                <div>
+                                                    <input class="form-control" type="date" value={checkIn} onChange={(e) => setCheckIn(e.target.value)} id="example-date-input"/>
+                                                </div>
+                                            </DateBox>
+                                            <DateBox>
+                                                <label for="example-date-input" >Check out</label>
+                                                <div>
+                                                    <input class="form-control" type="date" value={checkOut} onChange={(e) => setCheckOut(e.target.value)} id="example-date-input"/>
+                                                </div>
+                                            </DateBox>
+                                            
+                                            <button style={{marginTop:'20px'}} type="button" onClick={() => onBookingClick()} class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                                Booking
+                                            </button>
+                                        </BookingForm>
+                                        
                                     }
                                 </div>
                                 :
@@ -104,6 +133,14 @@ const HostelDetail = (props) => {
     }
   
   }
+
+const DateBox = styled.div`
+    margin-top: 20px;
+`
+
+const BookingForm = styled.div`
+  margin-top: 50px;
+`
 
 const BookingSide = styled.div`
   text-align: left;

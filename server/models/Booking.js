@@ -15,6 +15,14 @@ const BookingSchema = mongoose.Schema({
         type: Date,
         default: Date.now
     },
+    check_in: {
+        type: String,
+        required: true
+    },
+    check_out: {
+        type: String,
+        required: true
+    }
 })
 
 module.exports = mongoose.model('booking', BookingSchema)
