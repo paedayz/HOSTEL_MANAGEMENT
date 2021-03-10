@@ -78,7 +78,8 @@ const checkBooking = async (user_id, hostel_id, item) => {
                                     detail: item.detail,
                                     owner: item.owner,
                                     is_booking: true,
-                                    booking_id: data[0]._id
+                                    booking_id: data[0]._id,
+                                    tag: item.tag
                                 }
                                 return new_data
                             } else {
@@ -371,7 +372,6 @@ exports.searchAPI = async (req, res) => {
                             val.tag.map((tag) => {
                                 if(tag.toLocaleLowerCase().includes(search_term.toLocaleLowerCase())){
                                     tag_match_flag = 1
-                                    console.log(val)
                                 }
                             })
                             if (
