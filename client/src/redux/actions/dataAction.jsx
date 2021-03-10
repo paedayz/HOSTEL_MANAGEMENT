@@ -55,7 +55,7 @@ export const cancelBooking = (booking_id) => (dispatch) => {
     console.log(booking_id)
     axios.post('/hostel/cancelBooking',{bookingId : booking_id})
         .then((res) => {
-            dispatch({type: CANCEL_BOOKING})
+            dispatch({type: CANCEL_BOOKING, payload: res.data.data})
         })
         .catch((err) => {
             console.log(err)

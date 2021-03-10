@@ -5,7 +5,7 @@ import {useHistory} from 'react-router-dom'
 
 // Redux
 import { useSelector, useDispatch } from 'react-redux'
-import {getBookingList} from '../redux/actions/dataAction'
+import {getBookingList, cancelBooking} from '../redux/actions/dataAction'
 
 // Component
 import ReviewModal from '../component/hostel/ReviewModal'
@@ -35,6 +35,12 @@ const Booking = (props) => {
     setShowReviewModal(prev => !prev);
   };
 
+  const onCancelBookingClick = (booking_id) => {
+    if (window.confirm("Cancel Booking")) {
+        dispatch(cancelBooking(booking_id))
+      }
+}
+
   const show_booking_list = booking_list.sort((a,b) => {
     if ( a.check_in < b.check_in ){
       return -1;
@@ -57,7 +63,7 @@ const Booking = (props) => {
                 <button type="button" class="btn btn-success" onClick={() => openReviewModal(book.hostel_id._id, book._id)} style={{marginRight:10}}>
                     Review
                 </button>
-                <button type="button" class="btn btn-danger" style={{marginRight:10}}>
+                <button type="button" class="btn btn-danger" onClick={() => onCancelBookingClick(book._id)} style={{marginRight:10}}>
                     Cancle
                 </button>
               </td>

@@ -74,6 +74,7 @@ export default function (state = initialState, action) {
         return {
             ...state,
             single_hostel_detail: current_hostel,
+            booking_list: state.booking_list.filter((book) => {return book._id !== action.payload}),
             loading: false
         }
     case SET_BOOKING_LIST: 
