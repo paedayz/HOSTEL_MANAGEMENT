@@ -62,18 +62,29 @@ const Auth = (props) => {
             && last_name 
             && date_of_birth
         ) {
-            if(password === confirmPassword) {
-                let register_data = {
-                    email,
-                    password,
-                    username,
-                    first_name,
-                    last_name,
-                    date_of_birth
-                }
-                dispatch(register(register_data))
-            } else {
+            let flag = 0
+            let register_data = {
+                email,
+                password,
+                username,
+                first_name,
+                last_name,
+                date_of_birth
+            }
+            if(password !== confirmPassword) {
+                flag = 1
                 dispatch({type:'SET_ERRORS',payload:'Password not match'})
+            }
+
+            if (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email)) {
+                // some code
+            } else {
+                flag = 1
+                dispatch({type:'SET_ERRORS',payload:'Wrong Email format'})
+            }
+
+            if(flag === 0) {
+                dispatch(register(register_data))
             }
 
         } else {

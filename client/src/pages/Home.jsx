@@ -40,7 +40,7 @@ const Home = (props) => {
   return(
     <div className="content">
       <div className="Header">
-        <h1>AGODEN</h1>
+        <h1 style={{fontSize:'80px'}}>AGODEN</h1>
       </div>
       
       <SearchBox>
