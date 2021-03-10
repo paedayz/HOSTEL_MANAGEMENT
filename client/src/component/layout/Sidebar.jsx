@@ -141,7 +141,7 @@ const Sidebar = (props) => {
   }
 
 const LogoutButton = styled.button`
-  background-color: rgba(77, 177, 243, 0.945);
+  background-color: black;
   border: none;
   color: white;
   padding: 15px 32px;
@@ -154,7 +154,7 @@ const LogoutButton = styled.button`
 `
 
 const MenuButton = styled.button`
-    background-color: rgba(77, 177, 243, 0.945);
+    background-color: black;
     border: none;
     color: white;
     padding: 15px 32px;
@@ -168,9 +168,9 @@ const MenuButton = styled.button`
 `
 
 const SelectMenuButton = styled.button`
-    background-color: rgba(77, 177, 243, 0.945);
+    background-color: rgba(93, 93, 93, 1);
     border: none;
-    border-left: 10px solid green;
+    border-left: 10px solid white;
     color: white;
     padding: 15px 32px;
     text-align: center;

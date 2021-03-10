@@ -17,7 +17,7 @@ const Booking = (props) => {
   const dispatch = useDispatch()
   dayjs.extend(relativeTime);
   const history = useHistory()
-
+  console.log(booking_list)
   useEffect(() => {
     dispatch(getBookingList())
   }, [])
@@ -29,6 +29,8 @@ const Booking = (props) => {
               <th scope="row">{book._id}</th>
               <td>{book.hostel_id.name}</td>
               <td>{book.hostel_id.owner}</td>
+              <td>{book.check_in}</td>
+              <td>{book.check_out}</td>
               <td>{dayjs(book.created_at).fromNow()}</td>
         </tr>
       )
@@ -50,6 +52,8 @@ const Booking = (props) => {
             <th scope="col">Booking ID</th>
             <th scope="col">Hostel Name</th>
             <th scope="col">Owner</th>
+            <th scope="col">Check In</th>
+            <th scope="col">Check Out</th>
             <th scope="col">Booking Time</th>
           </tr>
         </thead>
