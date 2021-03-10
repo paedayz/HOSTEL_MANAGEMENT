@@ -74,7 +74,6 @@ export const getBookingList = () => (dispatch) => {
 }
 
 export const getOwnerUserHostel = () => (dispatch) => {
-    dispatch({type: DATA_LOADING})
     axios.get('/hostel/getOwnerUserHostel')
         .then((res) => {
             dispatch({type: SET_OWN_HOSTEL, payload: res.data.data})
@@ -136,7 +135,7 @@ export const searchAPI = (search_term) => (dispatch) => {
     axios.get(`/hostel/searchAPI/${search_term}`)
     .then((res) => {
 
-        dispatch({type: SET_SEARCH_DATA, payload: res.data.data})
+        dispatch({type: SET_SEARCH_DATA, payload: res.data.data.sort((x, y) => {return parseInt(y.hostel_rating, 10) - parseInt(x.hostel_rating, 10)})})
     })
     .catch((err) => {
         console.log(err)
@@ -160,7 +159,6 @@ export const ratingHostel = (rating_data) => (dispatch) => {
 
 // Admin
 export const getAllHostelList = () => (dispatch) => {
-    dispatch({type: DATA_LOADING})
     axios.get('/hostel/getAllHostelList')
         .then((res) => {
             dispatch({type: SET_ALL_HOSTEL_LIST, payload: res.data.data})

@@ -59,6 +59,11 @@ const Modal = ({ showModal, setShowModal, booking_id, hostel_id }) => {
       setShowModal(false)
     }
 
+    const onClickCancel = () => {
+      setShowModal(false)
+      setRating(0)
+    }
+
   return (
     <>
       {showModal ? (
@@ -79,9 +84,11 @@ const Modal = ({ showModal, setShowModal, booking_id, hostel_id }) => {
                   name='rating'
                 />
                 <br/>
-                <button onClick={() => onClickSubmit()} id="addSubmit" class="btn btn-success addHostelSubmit">Submit</button>
-                <button id="addSubmit" class="btn btn-success addHostelSubmit">Cancel</button>
-              </ModalContent>
+                <div style={{marginTop:'50px'}}>
+                  <button onClick={() => onClickSubmit()} id="addSubmit" class="btn btn-success addHostelSubmit">Submit</button>
+                  <button onClick={() => onClickCancel()} id="addSubmit" class="btn btn-success addHostelSubmit">Cancel</button>
+                </div>
+                </ModalContent>
             </ModalWrapper>
           </animated.div>
         </Background>

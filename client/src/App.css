@@ -29,7 +29,7 @@ body{
   width: 100%;
   height: 100%;
   position: absolute;
-  top: 50%;
+  top: 35%;
   left: 50%;
   transform: translate(-50%,-50%);
   background: white;
@@ -42,7 +42,7 @@ body{
   font-weight: 500;
   margin-top: 10%;
 }
-.box input[type = "text"],.box input[type = "password"]{
+.box .loginForm input[type = "text"],.box .loginForm input[type = "password"]{
   border:0;
   background: none;
   display: block;
@@ -56,7 +56,7 @@ body{
   border-radius: 24px;
   transition: 0.25s;
 }
-.box input[type = "text"]:focus,.box input[type = "password"]:focus{
+.box .loginForm input[type = "text"]:focus,.box .loginForm input[type = "password"]:focus{
   width: 280px;
   border-color: #2ecc71;
 }
@@ -109,6 +109,25 @@ label{
   margin-right: 3%;
 }
 
+.regisForm {
+  display: block;
+  width: 700px;
+  position: absolute;
+  top: 70%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  background: white;
+  text-align: center;
+}
+
+.regisForm label {
+  float: left;
+}
+
+.regisForm .btn {
+  margin-top: 80px;
+}
+
 /* Sidebar */
 .sidebar{
   height: 100%; /* Full-height: remove this if you want "auto" height */
@@ -146,9 +165,18 @@ label{
 /* Hostel Card Box */
 .card{
   width: 18rem;
+  height: 30rem;
   margin-left: 2rem;
   margin-top: 20%;
-  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  -moz-box-shadow:    0px 10px 45px 0 rgb(146, 146, 146);
+  -webkit-box-shadow: 0px 10px 45px 0 rgb(146, 146, 146);
+  box-shadow:         0px 10px 45px 0 rgb(146, 146, 146);
+}
+
+.card-img-top {
+  width: 286px;
+  height: 200px;
 }
 
 .card p {
@@ -157,6 +185,12 @@ label{
   text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-line-clamp: 3; /* number of lines to show */
+  -webkit-box-orient: vertical;
+}
+
+.card-title {
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* number of lines to show */
   -webkit-box-orient: vertical;
 }
 

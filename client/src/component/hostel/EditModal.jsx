@@ -108,38 +108,58 @@ const Modal = ({ showModal, setShowModal, defaultData }) => {
       
   }
 
+  const onChangeAddPrice = (e) => {
+    console.log(e.target.value)
+    if(e.target.value >= 0) {
+      setPrice(e.target.value)
+    }
+  }
+
+  const onChangeAddLat = (e) => {
+    console.log(e.target.value)
+    if(e.target.value >= -90 && e.target.value <= 90) {
+      setLatitude(e.target.value)
+    }
+  }
+
+  const onChangeAddLong = (e) => {
+    console.log(e.target.value)
+    if(e.target.value >= -90 && e.target.value <= 90) {
+      setLatitude(e.target.value)
+    }
+  }
+
   return (
     <>
       {showModal ? (
         <Background onClick={closeModal} ref={modalRef}>
           <animated.div style={animation}>
             <ModalWrapper showModal={showModal}>
-              <ModalContent>
+            <ModalContent>
                   <div class="mb-3">
-                        <Label for="exampleFormControlInput1" class="form-label" style={{marginTop:'30px'}}>Hostel name</Label>
-                        <input type="text" class="form-control" id="exampleFormControlInput1" value={name} onChange={(e) => setName(e.target.value)}/>
+                        <Label for="exampleFormControlInput1" class="form-label" style={{marginTop:'30px'}}>Hostel name <span style={{color:'red'}}>*</span></Label>
+                        <input type="text" class="form-control" id="nameExample" value={name} onChange={(e) => setName(e.target.value)}/>
                     </div>
                     <div class="mb-3">
-                        <Label for="exampleFormControlTextarea1" class="form-label">Hostel detail</Label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" value={detail} onChange={(e) => setDetail(e.target.value)}></textarea>
+                        <Label for="exampleFormControlTextarea1" class="form-label">Hostel detail <span style={{color:'red'}}>*</span></Label>
+                        <textarea class="form-control" id="detailExample" rows="3" value={detail} onChange={(e) => setDetail(e.target.value)}></textarea>
                     </div>
                     <div class="mb-3">
-                        <Label for="exampleFormControlTextarea1" class="form-label">Price per day</Label>
-                        <input type="number" class="form-control" id="exampleFormControlInput1" value={price} onChange={(e) => setPrice(e.target.value)}/>
+                        <Label for="exampleFormControlTextarea1" class="form-label">Price per day (baht) <span style={{color:'red'}}>*</span></Label>
+                        <input type="number" class="form-control" id="priceExample" value={price} onChange={(e) => onChangeAddPrice(e)}/>
                     </div>
                     <div class="mb-3">
-                        <Label for="exampleFormControlTextarea1" class="form-label">Location latitude</Label>
-                        <input type="number" class="form-control" id="exampleFormControlInput1" value={latitude} onChange={(e) => setLatitude(e.target.value)}/>
+                        <Label for="exampleFormControlTextarea1" class="form-label">Location latitude <span style={{color:"#A9A9A9"}}>(between -90 and 90)</span><span style={{color:'red'}}>*</span></Label>
+                        <input type="number" class="form-control" id="latExample" value={latitude} onChange={(e) => onChangeAddLat(e)}/>
                     </div>
                     <div class="mb-3">
-                        <Label for="exampleFormControlTextarea1" class="form-label">Location longitude</Label>
-                        <input type="number" class="form-control" id="exampleFormControlInput1" value={longitude} onChange={(e) => setLongitude(e.target.value)}/>
+                        <Label for="exampleFormControlTextarea1" class="form-label">Location longitude <span style={{color:"#A9A9A9"}}>(between -90 and 90)</span><span style={{color:'red'}}>*</span></Label>
+                        <input type="number" class="form-control" id="longExample" value={longitude} onChange={(e) => onChangeAddLong(e)}/>
                     </div>
                     <div class="mb-3">
-                        <Label for="exampleFormControlTextarea1" class="form-label">Image (URL)</Label>
-                        <input type="text" class="form-control" id="exampleFormControlInput1" value={image} onChange={(e) => setImage(e.target.value)}/>
+                        <Label for="exampleFormControlTextarea1" class="form-label">Image (URL) <span style={{color:'red'}}>*</span></Label>
+                        <input type="text" class="form-control" value={image} onChange={(e) => setImage(e.target.value)}/>
                     </div>
-
                     <div class="mb-3" style={{marginTop: '40px'}}>
                         <Label for="exampleFormControlTextarea1" class="form-label" style={{display:'inherit', float:'left', marginTop:'3px'}}>Tag</Label>
                         <TagInputBox>
@@ -151,7 +171,7 @@ const Modal = ({ showModal, setShowModal, defaultData }) => {
                     <div style={{display:'flex', flexDirection:'row'}}>
                     {mapTagArray}
                     </div>
-
+                    
                     <button id="addSubmit" class="btn btn-success addHostelSubmit" onClick={() => onClickSumbit()}>Submit</button>
               </ModalContent>
             </ModalWrapper>
@@ -181,7 +201,6 @@ const TagInputBox = styled.div`
 
 const Label = styled.label`
   float: left;
-  color: #AEAEAE;
 `
 
 const Background = styled.div`
