@@ -84,17 +84,20 @@ const Modal = ({ showModal, setShowModal }) => {
           image,
           tag: tagArray
       }
-      setShowModal(false)
-      if(name && detail && price && latitude && longitude) dispatch(addHostel(add_data))
+      
+      if(name && detail && price && latitude && longitude) {
+        dispatch(addHostel(add_data))
+        setShowModal(false)
+        setName('')
+        setDetail('')
+        setPrice('')
+        setLatitude('')
+        setLongitude('')
+        setTagBuffer('')
+        setTagArray([])
+      }
       else window.alert('Have some data missing !')
 
-      setName('')
-      setDetail('')
-      setPrice('')
-      setLatitude('')
-      setLongitude('')
-      setTagBuffer('')
-      setTagArray([])
   }
 
   return (
@@ -169,7 +172,6 @@ const TagInputBox = styled.div`
 
 const Label = styled.label`
   float: left;
-  color: #AEAEAE;
 `
 
 const Background = styled.div`

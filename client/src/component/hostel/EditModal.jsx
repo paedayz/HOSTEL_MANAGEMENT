@@ -93,18 +93,19 @@ const Modal = ({ showModal, setShowModal, defaultData }) => {
           tag: tagArray,
       }
 
-      setShowModal(false)
-
-      if(name && detail && price && latitude && longitude) dispatch(editHostel(edit_data))
+      if(name && detail && price && latitude && longitude){
+        setShowModal(false)
+        dispatch(editHostel(edit_data))
+        setName('')
+        setDetail('')
+        setPrice('')
+        setLatitude('')
+        setLongitude('')
+        setTagArray([])
+        setTagBuffer('')
+      } 
       else window.alert('Have some data missing !')
-
-      setName('')
-      setDetail('')
-      setPrice('')
-      setLatitude('')
-      setLongitude('')
-      setTagArray([])
-      setTagBuffer('')
+      
   }
 
   return (
