@@ -116,7 +116,8 @@ exports.addHostel = (req, res) => {
             longitude: req.body.longitude
         },
         image: req.body.image,
-        owner: req.user.username
+        owner: req.user.username,
+        tag: req.body.tag
     }
 
     Hostel.create(obj, (err, item) => {
