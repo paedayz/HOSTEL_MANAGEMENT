@@ -94,7 +94,8 @@ const checkBooking = async (user_id, hostel_id, item) => {
                                     detail: item.detail,
                                     owner: item.owner,
                                     is_booking: false,
-                                    booking_id: null
+                                    booking_id: null,
+                                    tag: item.tag
                                 }
                                 return new_data
                             }
@@ -357,6 +358,7 @@ exports.searchAPI = async (req, res) => {
             res.status(500).json({error: err})
         } else {
             if(hostels.length != 0) {
+                // console.log(hostels)
                 const res_promise = await hostels.map(async(item) => {
                     let return_data = await checkBooking(user_id, item._id, item)
                     return return_data
@@ -365,7 +367,18 @@ exports.searchAPI = async (req, res) => {
                 Promise.all(res_promise)
                     .then((data) => {
                         let res_data = data.filter((val) => {
-                            if (val.name.toLocaleLowerCase().includes(search_term.toLocaleLowerCase()) || (val.detail.toLocaleLowerCase().includes(search_term.toLocaleLowerCase()))) {
+                            let tag_match_flag = 0
+                            val.tag.map((tag) => {
+                                if(tag.toLocaleLowerCase().includes(search_term.toLocaleLowerCase())){
+                                    tag_match_flag = 1
+                                    console.log(val)
+                                }
+                            })
+                            if (
+                                val.name.toLocaleLowerCase().includes(search_term.toLocaleLowerCase()) || 
+                                (val.detail.toLocaleLowerCase().includes(search_term.toLocaleLowerCase())) || 
+                                tag_match_flag === 1
+                               ) {
                                 return val
                               } else {
                                 return ''
