@@ -17,12 +17,28 @@ const Booking = (props) => {
   const dispatch = useDispatch()
   dayjs.extend(relativeTime);
   const history = useHistory()
-  console.log(booking_list)
+  console.log(booking_list.sort((a,b) => {
+    if ( a.check_in < b.check_in ){
+      return -1;
+    }
+    if ( a.check_in > b.check_in ){
+      return 1;
+    }
+    return 0;
+  }))
   useEffect(() => {
     dispatch(getBookingList())
   }, [])
 
-  const show_booking_list = booking_list.map((book) => {
+  const show_booking_list = booking_list.sort((a,b) => {
+    if ( a.check_in < b.check_in ){
+      return -1;
+    }
+    if ( a.check_in > b.check_in ){
+      return 1;
+    }
+    return 0;
+  }).map((book) => {
     if(book.hostel_id.status === 'available') {
       return (
         <tr className="pointTR" onClick={() => history.push(`/hostel_detail/${book.hostel_id._id}`)}>
