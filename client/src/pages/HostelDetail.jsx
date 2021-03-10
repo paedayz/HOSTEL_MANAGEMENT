@@ -19,7 +19,7 @@ const HostelDetail = (props) => {
     const [checkOut, setCheckOut] = useState('')
     const loading = useSelector(state => state.data.loading)
     const single_hostel_detail = useSelector(state => state.data.single_hostel_detail)
-    const {location, is_booking, image, name, price, detail, owner, _id, booking_id, admin_approve, status} = single_hostel_detail
+    const {location, is_booking, image, name, price, detail, owner, _id, booking_id, admin_approve, status, check_in, check_out} = single_hostel_detail
 
     const {hostelId} = useParams()
 
@@ -76,9 +76,15 @@ const HostelDetail = (props) => {
                                     {
                                         is_booking
                                         ?
-                                        <button type="button" onClick={() => onCancelBookingClick()} class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                            Cancel Booking
-                                        </button>
+                                        <CancelBookingForm>
+                                            <h4>Booking</h4>
+                                            <div>Check In : {check_in}</div>
+                                            <div>Check Out : {check_out}</div>
+                                            <button style={{marginTop:'20px'}} type="button" onClick={() => onCancelBookingClick()} class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                                Cancel Booking
+                                            </button>
+                                        </CancelBookingForm>
+                                        
                                         :
                                         <BookingForm>
                                             <h4>Booking</h4>
@@ -136,6 +142,10 @@ const HostelDetail = (props) => {
 
 const DateBox = styled.div`
     margin-top: 20px;
+`
+
+const CancelBookingForm = styled.div`
+  margin-top: 50px;
 `
 
 const BookingForm = styled.div`

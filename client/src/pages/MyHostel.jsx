@@ -72,7 +72,7 @@ const MyHostel = (props) => {
       <tr className="pointTR" >
             <th onClick={() => history.push(`/hostel_detail/${hostel._id}`)} scope="row">{hostel._id}</th>
             <td onClick={() => history.push(`/hostel_detail/${hostel._id}`)}>{hostel.name}</td>
-            <td onClick={() => history.push(`/hostel_detail/${hostel._id}`)}>{hostel.status}</td>
+            <td onClick={() => history.push(`/hostel_detail/${hostel._id}`)}>{hostel.status === 'available' ? <span style={{color: 'blue'}}>open</span> : <span style={{color: 'red'}}>close</span> }</td>
             {hostel.admin_approve
             ?
             <td onClick={() => history.push(`/hostel_detail/${hostel._id}`)} style={{color: 'blue'}}>{`${hostel.admin_approve}`}</td>

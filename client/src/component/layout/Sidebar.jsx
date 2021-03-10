@@ -148,8 +148,9 @@ const LogoutButton = styled.button`
   text-align: center;
   font-size: 16px;
   width: 100%;
-  margin-top: 540px;
-  margin-bottom: 15px;
+  position: absolute;
+  bottom: 5%;
+  left: 0%;
   margin-left: 3px;
 `
 

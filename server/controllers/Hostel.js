@@ -79,7 +79,9 @@ const checkBooking = async (user_id, hostel_id, item) => {
                                     owner: item.owner,
                                     is_booking: true,
                                     booking_id: data[0]._id,
-                                    tag: item.tag
+                                    tag: item.tag,
+                                    check_in: data[0].check_in,
+                                    check_out: data[0].check_out,
                                 }
                                 return new_data
                             } else {

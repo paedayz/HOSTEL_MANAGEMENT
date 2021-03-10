@@ -69,9 +69,8 @@ const Home = (props) => {
   }
 
 const SearchBox = styled.div`
-  max-width: 300px;
   position: absolute;
-  left: 82%;
+  left: 78%;
   
 `
 
