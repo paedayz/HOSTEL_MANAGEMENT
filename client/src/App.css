@@ -70,10 +70,10 @@ body{
   border:0;
   background: none;
   display: block;
-  margin: 20px auto;
+  margin: 60px auto;
   text-align: center;
   border: 2px solid #2ecc71;
-  padding: 14px 40px;
+  padding: 14px 30px;
   outline: none;
   color: black;
   border-radius: 24px;
@@ -92,13 +92,12 @@ body{
   margin: 20px auto;
   text-align: center;
   border: 2px solid #3498db;
-  padding: 14px 40px;
+  padding: 14px 20px;
   outline: none;
   color: black;
   border-radius: 24px;
   transition: 0.25s;
   cursor: pointer;
-  margin-top: 10%;
 }
 
 .changeModeBtn:hover{
@@ -118,11 +117,26 @@ label{
   display: block;
   width: 700px;
   position: absolute;
-  top: 70%;
+  top: 71%;
   left: 50%;
   transform: translate(-50%,-50%);
   background: white;
   text-align: center;
+}
+
+.editProfile {
+  display: block;
+  width: 700px;
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  background: white;
+  text-align: left;
+}
+
+.editProfile .editInput {
+  margin-bottom: 40px;
 }
 
 .regisForm label {
@@ -130,7 +144,7 @@ label{
 }
 
 .regisForm .btn {
-  margin-top: 80px;
+  margin-top: 30px;
 }
 
 /* Sidebar */

@@ -15,7 +15,6 @@ const Sidebar = (props) => {
     const [menuSelect, setMenuSelect] = useState('/')
     const status = useSelector(state => state.user.credentials.status)
     const credentials = useSelector(state => state.user.credentials)
-    console.log(credentials)
     const history = useHistory()
     const dispatch = useDispatch()
 
@@ -35,7 +34,7 @@ const Sidebar = (props) => {
         {
         credentials
         &&
-        <ProfileButton>
+        <ProfileButton onClick={() => history.push('/profile')}>
             <ProfileWrapper>
                 <ProfileImage src={credentials.image} />
                 <ProfileText>

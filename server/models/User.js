@@ -34,6 +34,10 @@ const UserSchema = mongoose.Schema({
         required: true,
         default: "https://cahsi.utep.edu/wp-content/uploads/kisspng-computer-icons-user-clip-art-user-5abf13db5624e4.1771742215224718993529.png"
     },
+    phone: {
+        type: String,
+        required: true,
+    },
     created_at: {
         type: Date,
         default: Date.now

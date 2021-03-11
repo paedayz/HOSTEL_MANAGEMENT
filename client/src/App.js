@@ -20,6 +20,7 @@ import Booking from './pages/Booking'
 import HostelDetail from './pages/HostelDetail'
 import MyHostel from './pages/MyHostel'
 import Admin from './pages/Admin'
+import Profile from './pages/Profile'
 
 // Component
 import Sidebar from './component/layout/Sidebar'
@@ -60,6 +61,7 @@ function App() {
             <AuthRoute exact path="/booking" component={Booking} />
             <AuthRoute exact path="/my_hostel" component={MyHostel} />
             <AdminRoute exact path="/admin" component={Admin} />
+            <AdminRoute exact path="/profile" component={Profile} />
             <AuthRoute exact path="/hostel_detail/:hostelId" component={HostelDetail} />
           </Switch>
         </Router>

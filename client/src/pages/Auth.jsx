@@ -21,6 +21,7 @@ const Auth = (props) => {
     const [email_username, setEmail_username] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
     const [image, setImage] = useState('')
+    const [phone, setPhone] = useState('')
     
     const error = useSelector(state => state.user.error)
 
@@ -37,6 +38,7 @@ const Auth = (props) => {
         setDate_of_birth('')
         setEmail_username('')
         setConfirmPassword('')
+        setPhone('')
         setIsLogin(!isLogin)
         
         e.preventDefault()
@@ -63,6 +65,7 @@ const Auth = (props) => {
             && last_name 
             && date_of_birth
             && image
+            && phone
         ) {
             let flag = 0
             let register_data = {
@@ -72,7 +75,8 @@ const Auth = (props) => {
                 first_name,
                 last_name,
                 date_of_birth,
-                image
+                image,
+                phone
             }
             if(password !== confirmPassword) {
                 flag = 1
@@ -142,6 +146,10 @@ const Auth = (props) => {
                         <span class="input-group-text">First and last name <span style={{color:'red'}}>*</span></span>
                         <input type="text" aria-label="First name" class="form-control" value={first_name} onChange={e => setFirstname(e.target.value)}/>
                         <input type="text" aria-label="Last name" class="form-control"value={last_name} onChange={e => setLastname(e.target.value)}/>
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleFormControlTextarea1" class="form-label">Phone Number <span style={{color:'red'}}>*</span></label>
+                        <input type="number" class="form-control" value={phone} onChange={(e) => setPhone(e.target.value)}/>
                     </div>
                     <div class="mb-3">
                         <label  class="form-label">Username <span style={{color:'red'}}>*</span></label>
