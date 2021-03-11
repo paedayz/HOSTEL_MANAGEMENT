@@ -18,6 +18,7 @@ const Home = (props) => {
   const [search_term, setSearchTerm] = useState('')
   const [filter_star, setFilter_star] = useState(0)
   const [filter_sort, setFilter_sort] = useState('Star')
+  const [show_data, setShow_data] = ([])
   const dispatch = useDispatch()
 
   const available_hostel_list = useSelector(state => state.data.available_hostels)
@@ -34,12 +35,24 @@ const Home = (props) => {
 
   // .sort((x, y) => {return parseInt(y.hostel_rating, 10) - parseInt(x.hostel_rating, 10)})
 
+  const sortData = (sort_by, data) => {
+    let return_data
+    if(sort_by === 'Star') {
+      return_data = data.sort((x, y) => {return parseInt(y.hostel_rating, 10) - parseInt(x.hostel_rating, 10)})
+    } else if(sort_by === 'Price') {
+      return_data = data.sort((x, y) => {return y.price - x.price})
+    }
+
+    return return_data
+  }
+
   const showAvailableHostel = () => {
     if(search_term === '') {
+      let sort_data = sortData(filter_sort, available_hostel_list)
       return (
         <>
           {
-            available_hostel_list.map((hostel) => {
+            sort_data.map((hostel) => {
               return (
                 <div class="col-sm-4">
                   <HostelCardShow {...hostel} />
@@ -51,10 +64,11 @@ const Home = (props) => {
       )
       
     } else if(search_data) {
+      let sort_data = sortData(filter_sort, search_data)
       return(
         <>
           {
-            search_data.map((hostel) => {
+            sort_data.map((hostel) => {
               return (
                 <div class="col-sm-4">
                   <HostelCardShow {...hostel} />
@@ -72,8 +86,6 @@ const Home = (props) => {
     }
     
   }
-
-  // {search_term === '' ? mapAvailableHostel : search_data ? mapSearchHostel : <div>loading</div>}
 
   return(
     <div className="content">
@@ -113,13 +125,13 @@ const Home = (props) => {
               Sort by
               
               <div class="form-check">
-                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked/>
+                <input class="form-check-input" type="radio" checked={filter_sort==='Star' ? true : false} onClick={() => setFilter_sort('Star')}/>
                 <label class="form-check-label" for="flexRadioDefault1">
                   Star
                 </label>
               </div>
               <div class="form-check">
-                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2"/>
+                <input class="form-check-input" type="radio" checked={filter_sort==='Price' ? true : false} onClick={() => setFilter_sort('Price')}/>
                 <label class="form-check-label" for="flexRadioDefault2">
                   Price
                 </label>
