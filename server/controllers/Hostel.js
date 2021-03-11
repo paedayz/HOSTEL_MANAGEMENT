@@ -54,7 +54,22 @@ exports.getHostelDetail = (req, res) => {
         if(err) {
             res.status(500).json({error: err})
         } else {
-            if(hostel) {
+            if(hostel && hostel.owner === req.user.username) {
+                let res_data = await checkBooking(user_id, hostel._id, hostel)
+                Booking.find({hostel_id: hostel._id}).populate('booker')
+                                            .exec((err, data) => {
+                                                if(data) {
+                                                    data.map((item, index) => {
+                                                        item.booker.password = 'SECRET'
+                                                        data[index] = item
+                                                    })
+                                                    res.status(200).json({data: res_data, user_booking: data})
+                                                } else {
+                                                    res.status(200).json({data: res_data})
+                                                }
+                                            })
+                
+            } else if(hostel && hostel.owner !== req.user.username) {
                 let res_data = await checkBooking(user_id, hostel._id, hostel)
                 res.status(200).json({data: res_data})
             } else {

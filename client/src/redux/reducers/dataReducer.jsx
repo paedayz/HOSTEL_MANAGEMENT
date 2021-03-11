@@ -54,9 +54,13 @@ export default function (state = initialState, action) {
             loading: false
         }
     case SET_SINGLE_HOSTEL_DETAIL: 
+        let single_hostel_detail = action.payload
+        if(action.user_booking) {
+            single_hostel_detail.user_booking = action.user_booking
+        }
         return {
             ...state,
-            single_hostel_detail: action.payload,
+            single_hostel_detail: single_hostel_detail,
             loading: false
         }
     case BOOKING :

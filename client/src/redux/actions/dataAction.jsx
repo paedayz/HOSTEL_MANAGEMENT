@@ -32,7 +32,7 @@ export const getHostelDetail = (hostelId) => (dispatch) => {
     dispatch({type: DATA_LOADING})
     axios.get(`/hostel/getHostelDetail/${hostelId}`)
         .then((res) => {
-            dispatch({type: SET_SINGLE_HOSTEL_DETAIL, payload: res.data.data})
+            dispatch({type: SET_SINGLE_HOSTEL_DETAIL, payload: res.data.data, user_booking: res.data.user_booking})
         })
         .catch((err) => {
             console.log(err)
