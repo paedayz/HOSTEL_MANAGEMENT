@@ -76,9 +76,9 @@ const checkBooking = async (user_id, hostel_id, item) => {
                                         })
                                         let rating_avg = rating_sum / rating_data.length
 
-                                        return rating_avg.toString()
+                                        return {hostel_rating : rating_avg.toString(), hostel_visiting: rating_data.length}
                                     } else {
-                                        return "0"
+                                        return {hostel_rating : 0, hostel_visiting: 0}
                                     }
                                 })
                             if(hostel_rating) {
@@ -98,7 +98,8 @@ const checkBooking = async (user_id, hostel_id, item) => {
                                         tag: item.tag,
                                         check_in: data[0].check_in,
                                         check_out: data[0].check_out,
-                                        hostel_rating: hostel_rating
+                                        hostel_rating: hostel_rating.hostel_rating,
+                                        hostel_visiting: hostel_rating.hostel_visiting,
                                     }
                                     return new_data
                                 } else {
@@ -116,7 +117,8 @@ const checkBooking = async (user_id, hostel_id, item) => {
                                         is_booking: false,
                                         booking_id: null,
                                         tag: item.tag,
-                                        hostel_rating: hostel_rating
+                                        hostel_rating: hostel_rating.hostel_rating,
+                                        hostel_visiting: hostel_rating.hostel_visiting,
                                     }
                                     return new_data
                                 }

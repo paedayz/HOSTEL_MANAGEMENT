@@ -22,7 +22,23 @@ const HostelDetail = (props) => {
     const [showReviewModal, setShowReviewModal] = useState(false)
     const loading = useSelector(state => state.data.loading)
     const single_hostel_detail = useSelector(state => state.data.single_hostel_detail)
-    const {location, is_booking, image, name, price, detail, owner, _id, booking_id, admin_approve, status, check_in, check_out ,hostel_rating} = single_hostel_detail
+    const {
+        location, 
+        is_booking, 
+        image, 
+        name, 
+        price, 
+        detail, 
+        owner, 
+        _id, 
+        booking_id, 
+        admin_approve, 
+        status, 
+        check_in, 
+        check_out, 
+        hostel_rating,
+        hostel_visiting
+    } = single_hostel_detail
 
     const {hostelId} = useParams()
 
@@ -78,11 +94,15 @@ const HostelDetail = (props) => {
                             <br/>
                             <div>Price : {price} baht/day</div>
                             <br/>
+                            <br/>
                             <StarRatings
                                 rating={parseInt(hostel_rating, 10)}
                                 starRatedColor="#ECD700"
                                 numberOfStars={5}
                             />
+                            <br/>
+                            <br/>
+                            <div>Review by : {hostel_visiting} {hostel_visiting > 1 ? "users" : "user"}</div>
                             {status === 'available' && admin_approve
                                 &&
                                 <div>
