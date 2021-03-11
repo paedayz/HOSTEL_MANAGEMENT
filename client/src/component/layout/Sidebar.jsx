@@ -14,6 +14,8 @@ import {logout} from '../../redux/actions/userAction'
 const Sidebar = (props) => {
     const [menuSelect, setMenuSelect] = useState('/')
     const status = useSelector(state => state.user.credentials.status)
+    const credentials = useSelector(state => state.user.credentials)
+    console.log(credentials)
     const history = useHistory()
     const dispatch = useDispatch()
 
@@ -30,6 +32,20 @@ const Sidebar = (props) => {
 
   return(
     <div className="sidebar">
+        {
+        credentials
+        &&
+        <ProfileButton>
+            <ProfileWrapper>
+                <ProfileImage src={credentials.image} />
+                <ProfileText>
+                    <div style={{fontSize:'30px'}}>{credentials.username && (credentials.username).toUpperCase()}</div>
+                    <div style={{fontSize:'15px'}}>{credentials.first_name} {credentials.last_name}</div>
+                </ProfileText>
+            </ProfileWrapper>
+        </ProfileButton>
+        }
+        
         {menuSelect !== '/'
         ?
         <MenuButton onClick={() => onClickMenu('/')}>
@@ -152,6 +168,36 @@ const LogoutButton = styled.button`
   bottom: 5%;
   left: 0%;
   margin-left: 3px;
+`
+
+const ProfileImage = styled.img`
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+`
+
+const ProfileText = styled.div`
+  margin-left: 20px
+`
+
+const ProfileWrapper = styled.div`
+    display: flex;
+    flex-direction:row;
+`
+
+const ProfileButton = styled.button`
+    background-color: black;
+    border: none;
+    border-bottom: 1px solid white;
+    color: white;
+    padding: 30px 32px 30px;
+    text-align: left;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    width: 100%;
+    margin-bottom: 15px;
+    margin-left: 3px;
 `
 
 const MenuButton = styled.button`

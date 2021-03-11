@@ -138,7 +138,6 @@ label{
   left: 0;
   background-color:black; /* Black */
   overflow-x: hidden; /* Disable horizontal scroll */
-  padding-top: 50px;
   -moz-box-shadow:    3px 0 10px 0 rgb(146, 146, 146);
   -webkit-box-shadow: 3px 0 10px 0 rgb(146, 146, 146);
   box-shadow:         3px 0 10px 0 rgb(146, 146, 146);

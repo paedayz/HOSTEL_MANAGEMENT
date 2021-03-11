@@ -113,8 +113,8 @@ const Home = (props) => {
       <br/>
       <br/>
       <br/>
-      <div class="container">
-        <div className="row gx-5 justify-content-start">
+      <div class="container-fluied justify-content-start">
+        <div className="row gx-5">
 
           <div class="col-sm-9">
             <div class="row">
@@ -193,12 +193,13 @@ const Home = (props) => {
   }
 
 const SearchBox = styled.div`
-  
+  width: 95%;
 `
 
 const FormGroup = styled.div`
  margin-top: 40px;
  text-align: left;
+ width: 95%;
 `
 
 const SearchIcon = styled.div`
