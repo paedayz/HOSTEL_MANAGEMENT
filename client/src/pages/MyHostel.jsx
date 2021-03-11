@@ -72,6 +72,7 @@ const MyHostel = (props) => {
       <tr className="pointTR" >
             <th onClick={() => history.push(`/hostel_detail/${hostel._id}`)} scope="row">{hostel._id}</th>
             <td onClick={() => history.push(`/hostel_detail/${hostel._id}`)}>{hostel.name}</td>
+            <td onClick={() => history.push(`/hostel_detail/${hostel._id}`)}>{hostel.booking_amount}</td>
             <td onClick={() => history.push(`/hostel_detail/${hostel._id}`)}>{hostel.status === 'available' ? <span style={{color: 'blue'}}>open</span> : <span style={{color: 'red'}}>close</span> }</td>
             {hostel.admin_approve
             ?
@@ -127,6 +128,7 @@ const MyHostel = (props) => {
           <tr>
             <th scope="col">Hostel ID</th>
             <th scope="col">Hostel Name</th>
+            <th scope="col">Now Booking</th>
             <th scope="col">Status</th>
             <th scope="col">Approve</th>
             <th scope="col">Action</th>
