@@ -18,7 +18,8 @@ const Home = (props) => {
   const [search_term, setSearchTerm] = useState('')
   const [filter_star, setFilter_star] = useState(0)
   const [filter_sort, setFilter_sort] = useState('Star')
-  const [show_data, setShow_data] = ([])
+  const [price_rate_max, setPrice_rate_max] = useState(null)
+  const [price_rate_min, setPrice_rate_min] = useState(null)
   const dispatch = useDispatch()
 
   const available_hostel_list = useSelector(state => state.data.available_hostels)
@@ -49,10 +50,17 @@ const Home = (props) => {
   const showAvailableHostel = () => {
     if(search_term === '') {
       let sort_data = sortData(filter_sort, available_hostel_list)
+
+      let final_data = sort_data
+
+      if(price_rate_max && price_rate_min && parseInt(price_rate_max, 10) > parseInt(price_rate_min, 10)) {
+        final_data = sort_data.filter((hostel) => {return hostel.price <= price_rate_max && hostel.price >= price_rate_min})
+      }
+
       return (
         <>
           {
-            sort_data.map((hostel) => {
+            final_data.map((hostel) => {
               return (
                 <div class="col-sm-4">
                   <HostelCardShow {...hostel} />
@@ -87,6 +95,11 @@ const Home = (props) => {
     
   }
 
+  const resetPriceRate = () => {
+    setPrice_rate_min(0)
+    setPrice_rate_max(0)
+  }
+
   return(
     <div className="content">
       <div className="Header">
@@ -96,7 +109,7 @@ const Home = (props) => {
       <br/>
       <br/>
       <br/>
-      <div class="container-fluied">
+      <div class="container">
         <div className="row gx-5 justify-content-start">
 
           <div class="col-sm-9">
@@ -140,11 +153,12 @@ const Home = (props) => {
                 
             <FormGroup>
               Price rate
-              <div class="input-group">
+              <div class="input-group" style={{marginBottom:'10px'}}>
                 <span class="input-group-text">min / max</span>
-                <input type="text" aria-label="First name" class="form-control"/>
-                <input type="text" aria-label="Last name" class="form-control"/>
+                <input type="number" aria-label="First name" class="form-control" value={price_rate_min} onChange={(e) => setPrice_rate_min(e.target.value)}/>
+                <input type="number" aria-label="Last name" class="form-control" value={price_rate_max} onChange={(e) => setPrice_rate_max(e.target.value)}/>
               </div>
+              <button type="button" class="btn btn-outline-primary" onClick={() => resetPriceRate()}>reset</button>
             </FormGroup>
 
             <FormGroup>
