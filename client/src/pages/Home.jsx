@@ -57,6 +57,10 @@ const Home = (props) => {
         final_data = sort_data.filter((hostel) => {return hostel.price <= price_rate_max && hostel.price >= price_rate_min})
       }
 
+      if(filter_star !== 0) {
+        final_data = sort_data.filter((hostel) => {return parseInt(hostel.hostel_rating, 10) == filter_star})
+      }
+
       return (
         <>
           {
