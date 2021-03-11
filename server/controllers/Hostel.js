@@ -5,6 +5,7 @@ const path = require('path')
 const Hostel = require('../models/Hostel')
 const Booking = require('../models/Booking')
 const Rating = require('../models/Rating')
+const User = require('../models/User')
 
 exports.getAllHostelList = (req, res) => {
     Hostel.find((err, hostels) => {
@@ -56,8 +57,14 @@ exports.getHostelDetail = (req, res) => {
         } else {
             if(hostel && hostel.owner === req.user.username) {
                 let res_data = await checkBooking(user_id, hostel._id, hostel)
+                let owner_data = await User.findOne({username: hostel.owner})
+
                 Booking.find({hostel_id: hostel._id}).populate('booker')
                                             .exec((err, data) => {
+                                                owner_data.password = null
+                                                owner_data.status = 'user'
+                                                owner_data._id = null
+                                                res_data.owner_data = owner_data
                                                 if(data) {
                                                     data.map((item, index) => {
                                                         item.booker.password = 'SECRET'
@@ -65,7 +72,7 @@ exports.getHostelDetail = (req, res) => {
                                                     })
                                                     res.status(200).json({data: res_data, user_booking: data})
                                                 } else {
-                                                    res.status(200).json({data: res_data})
+                                                    res.status(200).json({data: res_data, owner_data})
                                                 }
                                             })
                 
