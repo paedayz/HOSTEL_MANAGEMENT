@@ -20,6 +20,7 @@ const Auth = (props) => {
     const [date_of_birth, setDate_of_birth] = useState('')
     const [email_username, setEmail_username] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
+    const [image, setImage] = useState('')
     
     const error = useSelector(state => state.user.error)
 
@@ -61,6 +62,7 @@ const Auth = (props) => {
             && first_name 
             && last_name 
             && date_of_birth
+            && image
         ) {
             let flag = 0
             let register_data = {
@@ -69,7 +71,8 @@ const Auth = (props) => {
                 username,
                 first_name,
                 last_name,
-                date_of_birth
+                date_of_birth,
+                image
             }
             if(password !== confirmPassword) {
                 flag = 1
@@ -136,28 +139,32 @@ const Auth = (props) => {
                 <h1>Register</h1>
                 <div className="regisForm">
                     <div class="input-group" style={{marginBottom: '20px'}}>
-                        <span class="input-group-text">First and last name</span>
+                        <span class="input-group-text">First and last name <span style={{color:'red'}}>*</span></span>
                         <input type="text" aria-label="First name" class="form-control" value={first_name} onChange={e => setFirstname(e.target.value)}/>
                         <input type="text" aria-label="Last name" class="form-control"value={last_name} onChange={e => setLastname(e.target.value)}/>
                     </div>
                     <div class="mb-3">
-                        <label  class="form-label">Username</label>
+                        <label  class="form-label">Username <span style={{color:'red'}}>*</span></label>
                         <input type="text" class="form-control" id="exampleUsername" value={username} onChange={e => setUsername(e.target.value)}/>
                     </div>
                     <div class="mb-3">
-                        <label  class="form-label">Email</label>
+                        <label  class="form-label">Email <span style={{color:'red'}}>*</span></label>
                         <input type="email" class="form-control" id="exampleEmail" value={email} onChange={e => setEmail(e.target.value)}/>
                     </div>
                     <div class="mb-3">
-                        <label  class="form-label">Password</label>
+                        <label  class="form-label">Password <span style={{color:'red'}}>*</span></label>
                         <input type="password" class="form-control" id="examplePassword" value={password} onChange={e => setPassword(e.target.value)}/>
                     </div>
                     <div class="mb-3">
-                        <label  class="form-label">Confirm Password</label>
+                        <label  class="form-label">Confirm Password <span style={{color:'red'}}>*</span></label>
                         <input type="password" class="form-control" id="exampleConfirmPassword" value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)}/>
                     </div>
                     <div class="mb-3">
-                        <label >Date of birth</label>
+                        <label for="exampleFormControlTextarea1" class="form-label">Image (URL) <span style={{color:'red'}}>*</span></label>
+                        <input type="text" class="form-control" value={image} onChange={(e) => setImage(e.target.value)}/>
+                    </div>
+                    <div class="mb-3">
+                        <label >Date of birth <span style={{color:'red'}}>*</span></label>
                         <input class="form-control" type="date" id="example-date-input" value={date_of_birth} onChange={e => setDate_of_birth(e.target.value)}/>
                     </div>
                     <input type="submit" className="btn" value="Register" onClick={(e) => onSubmitRegister(e)}/>

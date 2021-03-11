@@ -35,7 +35,8 @@ exports.register = async (req, res, next) => {
                 username: req.body.username,
                 first_name: req.body.first_name,
                 last_name: req.body.last_name,
-                date_of_birth: new Date(req.body.date_of_birth)
+                date_of_birth: new Date(req.body.date_of_birth),
+                image: req.body.image
             })
     
             user.save()
