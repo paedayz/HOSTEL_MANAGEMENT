@@ -116,7 +116,7 @@ const MyHostel = (props) => {
       <AddModal showModal={showAddModal} setShowModal={setShowAddModal} />
       <EditModal defaultData={defaultEditData} showModal={showEditModal} setShowModal={setShowEditModal} />
       
-      <div className="Header">
+      <div className="TabHeader">
         <h1>My Hostel List</h1>
       </div>
       

@@ -26,10 +26,10 @@ var marker = new mapboxgl.Marker()
 }
 
 const MapContainer = styled.div`
-  max-width:400px;
+  max-width:700px;
   max-height:400px;
-  border: 1px solid black;
+  border: 1px solid lightblue;
   border-radius: 10px;
   margin-right: 10px;
-  margin-top : 80px;
+  margin-top : 20px;
 `

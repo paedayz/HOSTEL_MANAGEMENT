@@ -99,7 +99,7 @@ const Admin = (props) => {
   
   return(
     <div className="content">
-      <div className="Header">
+      <div className="TabHeader">
         <h1>Admin Page</h1>
       </div>
       

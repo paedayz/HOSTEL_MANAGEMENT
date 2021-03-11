@@ -117,7 +117,7 @@ const Modal = ({ showModal, setShowModal }) => {
   const onChangeAddLong = (e) => {
     console.log(e.target.value)
     if(e.target.value >= -90 && e.target.value <= 90) {
-      setLatitude(e.target.value)
+      setLongitude(e.target.value)
     }
   }
 

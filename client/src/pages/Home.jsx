@@ -107,13 +107,13 @@ const Home = (props) => {
   return(
     <div className="content">
       <div className="Header">
-        <h1 style={{fontSize:'80px'}}>AGODEN</h1>
+        <LogoImage src="/Agoden.png"/>
       </div>
       <br/>
       <br/>
       <br/>
       <br/>
-      <div class="container-fluied justify-content-start">
+      <div class="container">
         <div className="row gx-5">
 
           <div class="col-sm-9">
@@ -121,9 +121,8 @@ const Home = (props) => {
               {showAvailableHostel()}
             </div>
           </div>
-
-          <div class="col-sm-3" >
-            <h2>filter</h2>
+          <div class="col-sm-1"></div>
+          <div class="col-sm-2" >
 
             <SearchBox>
               <div class="input-group flex-nowrap">
@@ -157,7 +156,7 @@ const Home = (props) => {
                 
             <FormGroup>
               Price rate
-              <div class="input-group" style={{marginBottom:'10px'}}>
+              <div class="input-group" style={{marginBottom:'10px', width:'330px'}}>
                 <span class="input-group-text">min / max</span>
                 <input type="number" aria-label="First name" class="form-control" value={price_rate_min} onChange={(e) => setPrice_rate_min(e.target.value)}/>
                 <input type="number" aria-label="Last name" class="form-control" value={price_rate_max} onChange={(e) => setPrice_rate_max(e.target.value)}/>
@@ -193,7 +192,7 @@ const Home = (props) => {
   }
 
 const SearchBox = styled.div`
-  width: 95%;
+  width: 330px;
 `
 
 const FormGroup = styled.div`
@@ -204,6 +203,10 @@ const FormGroup = styled.div`
 
 const SearchIcon = styled.div`
 
+`
+
+const LogoImage = styled.img`
+  max-width: 400px;
 `
 
 

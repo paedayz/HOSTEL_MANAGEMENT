@@ -82,7 +82,7 @@ const Booking = (props) => {
     <div className="content">
       <ReviewModal showModal={showReviewModal} booking_id={reviewData.booking_id} hostel_id={reviewData.hostel_id} setShowModal={setShowReviewModal} />
       
-      <div className="Header">
+      <div className="TabHeader">
         <h1>My Booking List</h1>
       </div>
       <table class="table">

@@ -92,7 +92,7 @@ const HostelDetail = (props) => {
                             <BookingSide>
                             <div>Owner : {owner}</div>
                             <br/>
-                            <div>Price : {price} baht/day</div>
+                            <div>Price : {(price).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} Baht/Day</div>
                             <br/>
                             <br/>
                             <StarRatings
@@ -102,7 +102,7 @@ const HostelDetail = (props) => {
                             />
                             <br/>
                             <br/>
-                            <div>Review by : {hostel_visiting} {hostel_visiting > 1 ? "users" : "user"}</div>
+                            <div>Review by {hostel_visiting} {hostel_visiting > 1 ? "users" : "user"}</div>
                             {status === 'available' && admin_approve
                                 &&
                                 <div>
@@ -151,6 +151,7 @@ const HostelDetail = (props) => {
                         </div>
                         <div class="col-sm-6">
                         <Description><b>Description:</b> {detail}</Description>
+                        <div style={{textAlign:'left', marginTop:'40px'}}><h2>Locations : </h2></div>
                             <HostelMap latitude={location.latitude} longitude={location.longitude}/>
                             
                         </div>

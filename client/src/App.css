@@ -9,6 +9,11 @@
   padding-top: 30px;
 }
 
+.TabHeader {
+  font-family: 'IM Fell English SC', serif;
+  padding-top: 30px;
+}
+
 body{
   margin: 0;
   padding: 0;

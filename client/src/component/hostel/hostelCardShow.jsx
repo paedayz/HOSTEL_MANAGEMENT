@@ -39,7 +39,7 @@ const HostelCardShow = (props) => {
             <p class="card-text">{props.detail}</p>
             <SecondDetail>
                 <div>owner: {props.owner}</div>
-                <div>Price: {props.price} Baht/Day</div>
+                <div>Price: {(props.price).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} Baht/Day</div>
             </SecondDetail>
             {/* eslint-disable-next-line */}
             <a onClick={() => history.push(`/hostel_detail/${props._id}`)} class="btn btn-primary">View Detail</a>
