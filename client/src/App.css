@@ -166,12 +166,13 @@ label{
 .card{
   width: 18rem;
   height: 30rem;
+  border-radius: 30px;
   margin-left: 2rem;
-  margin-top: 20%;
+  margin-bottom: 30%;
   font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-  -moz-box-shadow:    0px 10px 45px 0 rgb(146, 146, 146);
-  -webkit-box-shadow: 0px 10px 45px 0 rgb(146, 146, 146);
-  box-shadow:         0px 10px 45px 0 rgb(146, 146, 146);
+  -moz-box-shadow:    0px 10px 20px 0 rgb(146, 146, 146);
+  -webkit-box-shadow: 0px 10px 20px 0 rgb(146, 146, 146);
+  box-shadow:         0px 10px 20px 0 rgb(146, 146, 146);
 }
 
 .card-img-top {
@@ -267,4 +268,8 @@ label{
   font-size: 28px;
   font-weight: bold;
   text-align: right;
+}
+
+.test{
+  margin-left:1px;
 }

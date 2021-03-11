@@ -84,7 +84,7 @@ const HostelDetail = (props) => {
                                 numberOfStars={5}
                             />
                             {status === 'available' && admin_approve
-                                ?
+                                &&
                                 <div>
                                     {
                                         is_booking
@@ -125,10 +125,6 @@ const HostelDetail = (props) => {
                                         
                                     }
                                 </div>
-                                :
-                                <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                    Not Open Yet
-                                </button>
                                 }
                                 
                             </BookingSide>

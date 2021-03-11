@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import styled from 'styled-components'
+import StarRatings from 'react-star-ratings'
 
 // Redux
 import {useDispatch, useSelector} from 'react-redux'
@@ -37,44 +38,111 @@ const Home = (props) => {
     )
   })
 
+  const mapSearchHostel = search_data.map((hostel) => {
+    return (
+      <div class="col-sm-4">
+        <HostelCardShow {...hostel} />
+      </div>
+    )
+  })
+
   return(
     <div className="content">
       <div className="Header">
         <h1 style={{fontSize:'80px'}}>AGODEN</h1>
       </div>
-      
-      <SearchBox>
-        <div class="input-group flex-nowrap">
-          <SearchIcon>
-            <span class="input-group-text" id="addon-wrapping">
-              <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                  <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-                </svg>
-            </span>
-          </SearchIcon>
-          <input value={search_term} onChange={(e) => setSearchTerm(e.target.value)} type="text" class="form-control" placeholder="Search" aria-label="Username" aria-describedby="addon-wrapping"/>
-        </div>
-      </SearchBox>
-      
-      <div class="container">
-        <div class="row">
-          {search_term === '' ? mapAvailableHostel : search_data ? search_data.map((hostel) => {
-        return (
-          <div class="col-sm-4">
-            <HostelCardShow {...hostel} />
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <div class="container-fluied">
+        <div className="row gx-5 justify-content-start">
+
+          <div class="col-sm-9">
+            <div class="row">
+              {search_term === '' ? mapAvailableHostel : search_data ? mapSearchHostel : <div>loading</div>}
+            </div>
           </div>
-        )
-      }) : <div>loading</div>}
+
+          <div class="col-sm-3" >
+            <h2>filter</h2>
+
+            <SearchBox>
+              <div class="input-group flex-nowrap">
+                <SearchIcon>
+                  <span class="input-group-text" id="addon-wrapping">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                      </svg>
+                  </span>
+                </SearchIcon>
+                <input value={search_term} onChange={(e) => setSearchTerm(e.target.value)} type="text" class="form-control" placeholder="Search" aria-label="Username" aria-describedby="addon-wrapping"/>
+              </div>
+            </SearchBox>
+
+            <FormGroup>
+              Sort by
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked/>
+                <label class="form-check-label" for="flexRadioDefault1">
+                  Star
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2"/>
+                <label class="form-check-label" for="flexRadioDefault2">
+                  Price
+                </label>
+              </div>
+            </FormGroup>
+                
+            <FormGroup>
+              Price rate
+              <div class="input-group">
+                <span class="input-group-text">min / max</span>
+                <input type="text" aria-label="First name" class="form-control"/>
+                <input type="text" aria-label="Last name" class="form-control"/>
+              </div>
+            </FormGroup>
+
+            <FormGroup>
+              <div style={{display:'flex', flexDirection:'row'}}>
+                Star rate
+                <div class="form-check form-switch" style={{marginLeft:'10px'}}>
+                  <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault"/>
+                </div>
+              </div>
+              
+              <br/>
+              
+              <div class="input-group">
+                <StarRatings
+                  // rating={rating}
+                  starRatedColor="#ECD700"
+                  numberOfStars={5}
+                  starHoverColor="#ECD700"
+                  // changeRating={(newRating) => setRating(newRating)}
+                  starDimension="40px"
+                />
+              </div>
+            </FormGroup>
+
+          </div>
+
         </div>
+        
       </div>
     </div>
    )
   }
 
 const SearchBox = styled.div`
-  position: absolute;
-  left: 78%;
   
+`
+
+const FormGroup = styled.div`
+ margin-top: 40px;
+ text-align: left;
 `
 
 const SearchIcon = styled.div`
