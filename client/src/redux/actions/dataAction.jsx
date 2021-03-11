@@ -77,6 +77,7 @@ export const getBookingList = () => (dispatch) => {
 export const getOwnerUserHostel = () => (dispatch) => {
     axios.get('/hostel/getOwnerUserHostel')
         .then((res) => {
+            console.log(res.data.data)
             dispatch({type: SET_OWN_HOSTEL, payload: res.data.data})
         })
         .catch((err) => {

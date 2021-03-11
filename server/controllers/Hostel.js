@@ -160,7 +160,39 @@ exports.getOwnerUserHostel = (req, res) => {
     
     Hostel.find({owner: username})
         .then((hostels) => {
-            res.status(200).json({data: hostels})
+            let bookingPromise = hostels.map( async (hostel) => {
+                let booking_amount = await Booking.find({hostel_id: hostel._id})
+                        .then((data) => {
+                            return {booking_amount: data.length, hostel_id: hostel._id}
+                        })
+                return booking_amount
+            })
+
+            Promise.all(bookingPromise)
+                .then((data) => {
+                    let res_data = []
+                    hostels.map((hostel, index) => {
+                        data.map((item) => {
+                            if(hostel._id === item.hostel_id) {
+                                let buff = {
+                                    location: hostel.location,
+                                    status: hostel.status,
+                                    admin_approve: hostel.admin_approve,
+                                    image: hostel.image,
+                                    _id: hostel._id,
+                                    name: hostel.name,
+                                    price: hostel.price,
+                                    detail: hostel.detail,
+                                    owner: hostel.owner,
+                                    tag: hostel.tag,
+                                    booking_amount: item.booking_amount
+                                }
+                                res_data.push(buff)
+                            }
+                        })
+                    })
+                    res.status(200).json({data: res_data})
+                })
         })
         .catch((err) => {
             console.log(err)

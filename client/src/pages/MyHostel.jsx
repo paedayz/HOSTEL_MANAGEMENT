@@ -83,11 +83,11 @@ const MyHostel = (props) => {
             <td>
                 {hostel.status === 'available'
                 ?
-                <button type="button" onClick={() => onClickSetStatus(hostel._id, 'unavailable')} class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" style={{marginRight:10}}>
+                <button type="button" onClick={() => onClickSetStatus(hostel._id, 'Close')} class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" style={{marginRight:10}}>
                     Close
                 </button>
                 :
-                <button type="button" onClick={() => onClickSetStatus(hostel._id, 'available')} class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" style={{marginRight:10}}>
+                <button type="button" onClick={() => onClickSetStatus(hostel._id, 'Open')} class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" style={{marginRight:10}}>
                     Open
                 </button>
                 }
