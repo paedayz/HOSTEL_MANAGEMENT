@@ -21,7 +21,7 @@ export const getAllAvailableHostelList = () => (dispatch) => {
     dispatch({type: DATA_LOADING})
     axios.get('/hostel/getAllAvailableHostelList')
         .then((res) => {
-            dispatch({type: SET_AVAILABLE_HOSTEL, payload: res.data.data.sort((x, y) => {return parseInt(y.hostel_rating, 10) - parseInt(x.hostel_rating, 10)})})
+            dispatch({type: SET_AVAILABLE_HOSTEL, payload: res.data.data})
         })
         .catch((err) => {
             console.log(err)

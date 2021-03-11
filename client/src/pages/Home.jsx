@@ -16,6 +16,8 @@ import HostelCardShow from '../component/hostel/hostelCardShow'
 
 const Home = (props) => {
   const [search_term, setSearchTerm] = useState('')
+  const [filter_star, setFilter_star] = useState(0)
+  const [filter_sort, setFilter_sort] = useState('Star')
   const dispatch = useDispatch()
 
   const available_hostel_list = useSelector(state => state.data.available_hostels)
@@ -29,22 +31,49 @@ const Home = (props) => {
     
     // eslint-disable-next-line
   },[search_term])
-  
-  const mapAvailableHostel = available_hostel_list.map((hostel) => {
-    return (
-      <div class="col-sm-4">
-        <HostelCardShow {...hostel} />
-      </div>
-    )
-  })
 
-  const mapSearchHostel = search_data.map((hostel) => {
-    return (
-      <div class="col-sm-4">
-        <HostelCardShow {...hostel} />
-      </div>
-    )
-  })
+  // .sort((x, y) => {return parseInt(y.hostel_rating, 10) - parseInt(x.hostel_rating, 10)})
+
+  const showAvailableHostel = () => {
+    if(search_term === '') {
+      return (
+        <>
+          {
+            available_hostel_list.map((hostel) => {
+              return (
+                <div class="col-sm-4">
+                  <HostelCardShow {...hostel} />
+                </div>
+              )
+            })
+          }
+        </>
+      )
+      
+    } else if(search_data) {
+      return(
+        <>
+          {
+            search_data.map((hostel) => {
+              return (
+                <div class="col-sm-4">
+                  <HostelCardShow {...hostel} />
+                </div>
+              )
+            })
+          }
+        </>
+      )
+      
+    } else {
+      return (
+        <div>Loading</div>
+      )
+    }
+    
+  }
+
+  // {search_term === '' ? mapAvailableHostel : search_data ? mapSearchHostel : <div>loading</div>}
 
   return(
     <div className="content">
@@ -60,7 +89,7 @@ const Home = (props) => {
 
           <div class="col-sm-9">
             <div class="row">
-              {search_term === '' ? mapAvailableHostel : search_data ? mapSearchHostel : <div>loading</div>}
+              {showAvailableHostel()}
             </div>
           </div>
 
@@ -82,6 +111,7 @@ const Home = (props) => {
 
             <FormGroup>
               Sort by
+              
               <div class="form-check">
                 <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked/>
                 <label class="form-check-label" for="flexRadioDefault1">
@@ -106,25 +136,21 @@ const Home = (props) => {
             </FormGroup>
 
             <FormGroup>
-              <div style={{display:'flex', flexDirection:'row'}}>
+              <div>
                 Star rate
-                <div class="form-check form-switch" style={{marginLeft:'10px'}}>
-                  <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault"/>
-                </div>
               </div>
               
-              <br/>
-              
-              <div class="input-group">
+              <div class="input-group" style={{marginBottom:'10px'}}>
                 <StarRatings
-                  // rating={rating}
+                  rating={filter_star}
                   starRatedColor="#ECD700"
                   numberOfStars={5}
                   starHoverColor="#ECD700"
-                  // changeRating={(newRating) => setRating(newRating)}
+                  changeRating={(newRating) => setFilter_star(newRating)}
                   starDimension="40px"
                 />
               </div>
+              <button type="button" class="btn btn-outline-primary" onClick={() => setFilter_star(0)}>reset</button>
             </FormGroup>
 
           </div>
