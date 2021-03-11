@@ -77,10 +77,21 @@ const Home = (props) => {
       
     } else if(search_data) {
       let sort_data = sortData(filter_sort, search_data)
-      return(
+
+      let final_data = sort_data
+
+      if(price_rate_max && price_rate_min && parseInt(price_rate_max, 10) > parseInt(price_rate_min, 10)) {
+        final_data = sort_data.filter((hostel) => {return hostel.price <= price_rate_max && hostel.price >= price_rate_min})
+      }
+
+      if(filter_star !== 0) {
+        final_data = sort_data.filter((hostel) => {return parseInt(hostel.hostel_rating, 10) == filter_star})
+      }
+
+      return (
         <>
           {
-            sort_data.map((hostel) => {
+            final_data.map((hostel) => {
               return (
                 <div class="col-sm-4">
                   <HostelCardShow {...hostel} />
@@ -176,7 +187,7 @@ const Home = (props) => {
                   numberOfStars={5}
                   starHoverColor="#ECD700"
                   changeRating={(newRating) => setFilter_star(newRating)}
-                  starDimension="40px"
+                  starDimension="22px"
                 />
               </div>
               <button type="button" class="btn btn-outline-primary" onClick={() => setFilter_star(0)}>reset</button>
