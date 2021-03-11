@@ -62,7 +62,9 @@ export default function (state = initialState, action) {
     case BOOKING :
         let new_current_hostel = state.single_hostel_detail
         new_current_hostel.is_booking = true
-        new_current_hostel.booking_id = action.payload
+        new_current_hostel.booking_id = action.payload._id
+        new_current_hostel.check_in = action.payload.check_in
+        new_current_hostel.check_out = action.payload.check_out
         return {
             ...state,
             single_hostel_detail: new_current_hostel,
