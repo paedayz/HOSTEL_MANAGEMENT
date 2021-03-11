@@ -10,8 +10,6 @@ import {getHostelDetail, booking, cancelBooking} from '../redux/actions/dataActi
 // Component
 import HostelMap from '../component/hostel/HostelMap'
 import ReviewModal from '../component/hostel/ReviewModal'
-import AlertModal from '../component/hostel/AlertModal'
-import ConfirmAlert from '../component/hostel/ConfirmAlert'
 
 /**
 * @author
@@ -21,12 +19,7 @@ import ConfirmAlert from '../component/hostel/ConfirmAlert'
 const HostelDetail = (props) => {
     const [checkIn, setCheckIn] = useState('')
     const [checkOut, setCheckOut] = useState('')
-    const [showAlertModal, setShowAlertModal] = useState(false)
-    const [alertModalMessage, setShowAlertModalMessage] = useState('')
     const [showReviewModal, setShowReviewModal] = useState(false)
-    const [showConfirmModal, setShowConfirmModal] = useState(false)
-    const [confirm, setConfirm] = useState(false)
-    const [confirmMessage, setConfirmMessage] = useState('')
     const loading = useSelector(state => state.data.loading)
     const single_hostel_detail = useSelector(state => state.data.single_hostel_detail)
     const {
@@ -61,25 +54,17 @@ const HostelDetail = (props) => {
         const checkInDate = new Date(checkIn)
 
         if(!checkIn || !checkOut) {
-            setShowAlertModalMessage('Please Select Check in and Check out Date')
-            setShowAlertModal(true)
+            window.alert('Please Select Check in and Check out Date')
         } else if(checkInDate <= today) {
-            setShowAlertModalMessage('Your Check in date is late now')
-            setShowAlertModal(true)
+            window.alert('Your Check in date is late now')
         } else if(checkOut <= checkIn){
-            setShowAlertModalMessage('Check In Date must before Check Out Date')
-            setShowAlertModal(true)
+            window.alert('Check In Date must before Check Out Date')
         }  else {
-            setConfirmMessage('Confirm Booking')
-            setShowConfirmModal(true)
+            if (window.confirm("Confirm Booking")) {
+                dispatch(booking(_id, checkIn, checkOut))
+            }
         }
         
-    }
-
-    const ConfirmBooking = (confirm_bool) => {
-        if(confirm_bool) {
-            dispatch(booking(_id, checkIn, checkOut))
-        }
     }
 
     const onCancelBookingClick = () => {
@@ -95,8 +80,6 @@ const HostelDetail = (props) => {
     if(!loading && location) {
         return(
             <div className="content">
-                <ConfirmAlert showModal={showConfirmModal} setShowModal={setShowConfirmModal} message={confirmMessage} confirm_function={ConfirmBooking} />
-                <AlertModal showModal={showAlertModal} setShowModal={setShowAlertModal} message={alertModalMessage}/>
                 <ReviewModal showModal={showReviewModal} setShowModal={setShowReviewModal} booking_id={booking_id} hostel_id={_id} />
                 <h1 style={{marginTop: '20px'}}>{name}</h1>
                 <div class="container">
