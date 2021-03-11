@@ -28,7 +28,7 @@ const MyHostel = (props) => {
     name: "Transylvania",
     owner: "pae",
     price: 3000,
-    status: "unavailable",
+    status: "Close",
     __v: 0,
     _id: "604692cb6928fe400c00586a"
   });
@@ -73,7 +73,7 @@ const MyHostel = (props) => {
             <th onClick={() => history.push(`/hostel_detail/${hostel._id}`)} scope="row">{hostel._id}</th>
             <td onClick={() => history.push(`/hostel_detail/${hostel._id}`)}>{hostel.name}</td>
             <td onClick={() => history.push(`/hostel_detail/${hostel._id}`)}>{hostel.booking_amount}</td>
-            <td onClick={() => history.push(`/hostel_detail/${hostel._id}`)}>{hostel.status === 'available' ? <span style={{color: 'blue'}}>open</span> : <span style={{color: 'red'}}>close</span> }</td>
+            <td onClick={() => history.push(`/hostel_detail/${hostel._id}`)}>{hostel.status === 'Open' ? <span style={{color: 'blue'}}>open</span> : <span style={{color: 'red'}}>close</span> }</td>
             {hostel.admin_approve
             ?
             <td onClick={() => history.push(`/hostel_detail/${hostel._id}`)} style={{color: 'blue'}}>{`${hostel.admin_approve}`}</td>
@@ -82,7 +82,7 @@ const MyHostel = (props) => {
             }
             
             <td>
-                {hostel.status === 'available'
+                {hostel.status === 'Open'
                 ?
                 <button type="button" onClick={() => onClickSetStatus(hostel._id, 'Close')} class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" style={{marginRight:10}}>
                     Close

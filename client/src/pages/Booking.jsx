@@ -50,7 +50,7 @@ const Booking = (props) => {
     }
     return 0;
   }).map((book) => {
-    if(book.hostel_id.status === 'available') {
+    if(book.hostel_id.status === 'Open') {
       return (
         <tr className="pointTR">
               <th scope="row" onClick={() => history.push(`/hostel_detail/${book.hostel_id._id}`)}>{book._id}</th>

@@ -104,7 +104,7 @@ const HostelDetail = (props) => {
                             <br/>
                             <div>Review by {hostel_visiting} {hostel_visiting > 1 ? "users" : "user"}</div>
                             <hr/>
-                            {status === 'available' && admin_approve
+                            {status === 'Open' && admin_approve
                                 &&
                                 <div>
                                     {

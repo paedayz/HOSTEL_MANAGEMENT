@@ -22,7 +22,7 @@ exports.getAllHostelList = (req, res) => {
 
 exports.getAllAvailableHostelList = (req, res) => {
     const user_id = req.user._id
-    Hostel.find({status: 'available', admin_approve: true}, async (err, hostels) => {
+    Hostel.find({status: 'Open', admin_approve: true}, async (err, hostels) => {
         if(err) {
             res.status(500).json({error: err})
         } else {
@@ -413,7 +413,7 @@ exports.searchAPI = async (req, res) => {
     const user_id = req.user._id
     const search_term = req.params.search_term
 
-    Hostel.find({status: 'available', admin_approve: true}, async (err, hostels) => {
+    Hostel.find({status: 'Open', admin_approve: true}, async (err, hostels) => {
         if(err) {
             res.status(500).json({error: err})
         } else {
