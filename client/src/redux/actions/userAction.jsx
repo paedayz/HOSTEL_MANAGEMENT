@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {CLEAR_ERRORS, SET_ERRORS, SET_UNAUTHENTICATED} from '../types'
+import {CLEAR_ERRORS, SET_ERRORS, SET_UNAUTHENTICATED, EDIT_PROFILE} from '../types'
 
 export const login = (user_data) => (dispatch) => {
   dispatch({ type: CLEAR_ERRORS });
@@ -38,3 +38,15 @@ const setAuthorizationHeader = (token) => {
   localStorage.setItem("UserIdToken", UserIdToken);
   axios.defaults.headers.common["Authorization"] = UserIdToken;
 };
+
+export const editProfile = (edit_data) =>(dispatch) => {
+  axios.post('/auth/editProfile', {...edit_data})
+    .then((res) => {
+      setAuthorizationHeader(res.data.token)
+      dispatch({type: EDIT_PROFILE, payload: res.data.data})
+      window.alert('Edit Profile Successfully')
+    })
+    .catch((err) => {
+      dispatch({ type: SET_ERRORS, payload: err.response.data.message });
+    });
+}

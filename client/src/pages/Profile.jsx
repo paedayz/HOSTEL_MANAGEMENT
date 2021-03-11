@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 
 // redux
 import {useSelector, useDispatch} from 'react-redux'
-import {register} from '../redux/actions/userAction'
+import {editProfile} from '../redux/actions/userAction'
 import {CLEAR_ERRORS} from '../redux/types'
 
 /**
@@ -38,7 +38,7 @@ const Auth = (props) => {
             && phone
         ) {
             let flag = 0
-            let register_data = {
+            let edit_profile_data = {
                 first_name,
                 last_name,
                 date_of_birth,
@@ -47,7 +47,8 @@ const Auth = (props) => {
             }
 
             if(flag === 0) {
-                // dispatch(register(register_data))
+                console.log(edit_profile_data)
+                dispatch(editProfile(edit_profile_data))
             }
 
         } else {
@@ -55,7 +56,7 @@ const Auth = (props) => {
         }
         
     }
-
+console.log(date_of_birth)
 
     return(
         <div className="box">
@@ -76,7 +77,7 @@ const Auth = (props) => {
                 </div>
                 <div className="mb-3">
                     <label >Date of birth <span style={{color:'red'}}>*</span></label>
-                    <input className="form-control editInput" type="date" id="example-date-input" value={date_of_birth} onChange={e => setDate_of_birth(e.target.value)}/>
+                    <input className="form-control editInput" type="date" id="example-date-input" value={date_of_birth.toString().split('T')[0]} onChange={e => setDate_of_birth(e.target.value)}/>
                 </div>
                 <input type="submit" className="btn" value="EDIT" onClick={(e) => onSubmitEdit(e)}/>
                 {error && <div className="textError">{error}</div>}

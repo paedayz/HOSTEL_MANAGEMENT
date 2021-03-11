@@ -98,3 +98,19 @@ exports.login = (req, res, next) => {
             res.status(403).json({error: err})
         })
 }
+
+exports.editProfile = (req, res) => {
+    User.findOneAndUpdate({username: req.user.username}, {$set: {...req.body}})
+        .then((data) => {
+            let res_data = {
+                ...data._doc,
+                ...req.body
+            }
+            let token = jwt.sign({credentials: res_data}, 'verySecretValue', {expiresIn: '1h'})
+            res.status(200).json({data: res_data, token})
+        })
+        .catch((err) => {
+            console.log(err)
+            res.status(500).json({error: err})
+        })
+}
