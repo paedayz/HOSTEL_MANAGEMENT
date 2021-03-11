@@ -37,7 +37,8 @@ const HostelDetail = (props) => {
         check_in, 
         check_out, 
         hostel_rating,
-        hostel_visiting
+        hostel_visiting,
+        owner_data
     } = single_hostel_detail
 
     const {hostelId} = useParams()
@@ -86,23 +87,44 @@ const HostelDetail = (props) => {
                     <div class="row">
                     
                         <div class="col-sm-8">
-                            <Image src={`${image}`} alt="image"/>
+                            <div style={{display:'flex', flexDirection:'column'}}>
+                                <Image src={`${image}`} alt="image"/>
+                            
+                            
+                            <Description><b>Description:</b> {detail}</Description>
+                            </div>
+                        <div style={{textAlign:'left', marginTop:'40px'}}><h2>Locations : </h2></div>
+                            <HostelMap latitude={location.latitude} longitude={location.longitude}/>
                         </div>
                         <div class="col-sm-4">
                             <BookingSide>
-                            <div>Owner : {owner}</div>
-                            <br/>
-                            <div>Price : {(price).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} Baht/Day</div>
-                            <br/>
-                            <br/>
+                            <div style={{fontSize:'20px'}}>
+                                <div><b>Owner :</b> {owner}</div>
+                                <br/>
+                                <div><b>Price :</b> {(price).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} Baht/Day</div>
+                                <br/>
+                            </div>
+                            
                             <StarRatings
                                 rating={parseInt(hostel_rating, 10)}
                                 starRatedColor="#ECD700"
                                 numberOfStars={5}
                             />
+                            
+                            <div style={{marginTop:'10px'}}>Review by {hostel_visiting} {hostel_visiting > 1 ? "users" : "user"}</div>
                             <br/>
+                            <hr/>
+                            <h2>Owner Detail</h2>
+                            <OwnerDataWraper>
+                                <OwnerImage src={owner_data.image} />
+                                <OwnerDescription>
+                                    <div><b>Username : </b>{owner_data.username}</div>
+                                    <div><b>Name : </b>{owner_data.first_name} {owner_data.last_name}</div>
+                                    <div><b>Email : </b>{owner_data.email}</div>
+                                    <div><b>Phone : </b>{owner_data.phone}</div>
+                                </OwnerDescription>
+                            </OwnerDataWraper>
                             <br/>
-                            <div>Review by {hostel_visiting} {hostel_visiting > 1 ? "users" : "user"}</div>
                             <hr/>
                             {status === 'Open' && admin_approve
                                 &&
@@ -150,18 +172,7 @@ const HostelDetail = (props) => {
                                 
                             </BookingSide>
                         </div>
-                        <div class="col-sm-6">
-                        <Description><b>Description:</b> {detail}</Description>
-                        <div style={{textAlign:'left', marginTop:'40px'}}><h2>Locations : </h2></div>
-                            <HostelMap latitude={location.latitude} longitude={location.longitude}/>
-                            
-                        </div>
-                            
-                        <div class="col-sm-6">
-                                
-                            <br/>
-                            <br/>
-                        </div>
+                    
                     </div>
                 </div>
                 
@@ -174,6 +185,27 @@ const HostelDetail = (props) => {
     }
   
   }
+
+  
+
+const OwnerDescription = styled.div`
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  margin-left: 15px;
+`
+
+const OwnerImage = styled.img`
+  width: 100px;
+  height: 100px;
+  border-radius: 20px;
+`
+
+const OwnerDataWraper = styled.div`
+  width: 400px;
+  display: flex;
+  flex-direction: row;
+`
 
 const DateBox = styled.div`
     margin-top: 20px;
@@ -189,7 +221,7 @@ const BookingForm = styled.div`
 
 const BookingSide = styled.div`
   text-align: left;
-  margin-top: 30px
+  margin-top: 30px;
 `
 
 const Image = styled.img`
@@ -203,9 +235,10 @@ const Image = styled.img`
   float: left;
 `
 
-const Description = styled.p`
+const Description = styled.div`
   text-align: left;
   margin-top: 20px;
+  width: 82%;
 `
 
 export default HostelDetail

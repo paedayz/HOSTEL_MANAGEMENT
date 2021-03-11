@@ -72,13 +72,22 @@ exports.getHostelDetail = (req, res) => {
                                                     })
                                                     res.status(200).json({data: res_data, user_booking: data})
                                                 } else {
-                                                    res.status(200).json({data: res_data, owner_data})
+                                                    res.status(200).json({data: res_data})
                                                 }
                                             })
                 
             } else if(hostel && hostel.owner !== req.user.username) {
                 let res_data = await checkBooking(user_id, hostel._id, hostel)
-                res.status(200).json({data: res_data})
+                let owner_data = await User.findOne({username: hostel.owner})
+                                        .then((data) => {
+                                            data.password = null
+                                            data.status = 'user'
+                                            data._id = null
+                                            return data
+                                        })
+                let final_res_data = res_data
+                final_res_data.owner_data = owner_data
+                res.status(200).json({data: final_res_data})
             } else {
                 res.status(404).json({error: 'Not found hostel data'})
             }
