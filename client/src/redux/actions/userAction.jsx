@@ -1,7 +1,8 @@
 import axios from 'axios'
-import {CLEAR_ERRORS, SET_ERRORS, SET_UNAUTHENTICATED, EDIT_PROFILE} from '../types'
+import {CLEAR_ERRORS, SET_ERRORS, SET_UNAUTHENTICATED, EDIT_PROFILE, DATA_LOADING} from '../types'
 
 export const login = (user_data) => (dispatch) => {
+  dispatch({ type: DATA_LOADING });
   dispatch({ type: CLEAR_ERRORS });
   axios.post('/auth/login', {...user_data})
     .then((res) => {
@@ -15,6 +16,7 @@ export const login = (user_data) => (dispatch) => {
 };
 
 export const register = (register_data) => (dispatch) => {
+  dispatch({ type: DATA_LOADING });
   dispatch({ type: CLEAR_ERRORS });
   axios.post('/auth/register', {...register_data})
     .then((res) => {

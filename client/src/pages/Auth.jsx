@@ -24,6 +24,7 @@ const Auth = (props) => {
     const [phone, setPhone] = useState('')
     
     const error = useSelector(state => state.user.error)
+    const loading = useSelector(state => state.data.loading)
 
     const dispatch = useDispatch()
 
@@ -97,6 +98,14 @@ const Auth = (props) => {
             dispatch({type:'SET_ERRORS',payload:'Some data are missing'})
         }
         
+    }
+
+    if(loading) {
+        return (
+            <div>
+                Loading . . .
+            </div>
+        )
     }
 
     if(isLogin) {
