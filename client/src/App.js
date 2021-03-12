@@ -27,7 +27,7 @@ import Sidebar from './component/layout/Sidebar'
 
 let axiosDefaults = require("axios/lib/defaults");
 axiosDefaults.baseURL =
-  "http://localhost:5000/api";
+  "https://hostel-managements.herokuapp.com/api";
 
 const token = localStorage.UserIdToken;
 
