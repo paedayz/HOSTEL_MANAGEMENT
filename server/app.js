@@ -1,5 +1,6 @@
 const express = require('express')
 const app = express()
+const PORT = process.env.PORT || 5000
 
 const cors = require("cors");
 
@@ -30,4 +31,4 @@ mongoose.connect(process.env.DB_CONNECTION ,
     console.log('connected to mongoDB!')
 })
 
-app.listen(5000)
+app.listen(PORT)
