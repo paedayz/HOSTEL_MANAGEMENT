@@ -85,7 +85,7 @@ const HostelDetail = (props) => {
                   owner={owner} 
                   price={price} 
                   hostel_rating={hostel_rating} 
-                  hostel={hostel_visiting} 
+                  hostel_visiting={hostel_visiting} 
                   />
 
                 <OwnerDetail 

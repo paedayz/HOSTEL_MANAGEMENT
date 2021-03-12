@@ -18,6 +18,8 @@ const Home = (props) => {
   const [search_term, setSearchTerm] = useState('')
   const [filter_star, setFilter_star] = useState(0)
   const [filter_sort, setFilter_sort] = useState('Star')
+  const [sort_order, setSort_order] = useState('first')
+  const [again, setAgain] = useState(false)
   const [price_rate_max, setPrice_rate_max] = useState(null)
   const [price_rate_min, setPrice_rate_min] = useState(null)
   const dispatch = useDispatch()
@@ -34,14 +36,57 @@ const Home = (props) => {
     // eslint-disable-next-line
   },[search_term])
 
+  const onClickSortBy = (sort) => {
+    console.log('xxxxxxxxxxxxxxxxxxxxxxxxxx')
+    console.log(filter_sort)
+    console.log(sort)
+    console.log(filter_sort === sort)
+    if(filter_sort === sort ) {
+      setAgain(true)
+      if(sort_order=== 'first') setSort_order('second')
+      if(sort_order=== 'second') setSort_order('first')
+    }
+    else {
+      setAgain(false)
+      setSort_order('first')
+    }
+    console.log(again)
+    console.log(sort_order)
+    console.log('xxxxxxxxxxxxxxxxxxxxxxxxxx')
+
+    setFilter_sort(sort)
+  }
+
   // .sort((x, y) => {return parseInt(y.hostel_rating, 10) - parseInt(x.hostel_rating, 10)})
 
   const sortData = (sort_by, data) => {
     let return_data
-    if(sort_by === 'Star') {
-      return_data = data.sort((x, y) => {return parseInt(y.hostel_rating, 10) - parseInt(x.hostel_rating, 10)})
-    } else if(sort_by === 'Price') {
-      return_data = data.sort((x, y) => {return y.price - x.price})
+    
+    if(again && sort_order==='first'){
+      if(sort_by === 'Star') {
+        return_data = data.sort((x, y) => {return parseInt(y.hostel_rating, 10) - parseInt(x.hostel_rating, 10)})
+      } else if(sort_by === 'Price') {
+        return_data = data.sort((x, y) => {return y.price - x.price})
+      } else if(sort_by === 'Visiting') {
+        return_data = data.sort((x, y) => {return y.hostel_visiting - x.hostel_visiting})
+      }
+
+    } else if(again && sort_order==='second') {
+      if(sort_by === 'Star') {
+        return_data = data.sort((x, y) => {return parseInt(x.hostel_rating, 10) - parseInt(y.hostel_rating, 10)})
+      } else if(sort_by === 'Price') {
+        return_data = data.sort((x, y) => {return x.price - y.price})
+      } else if(sort_by === 'Visiting') {
+        return_data = data.sort((x, y) => {return x.hostel_visiting - y.hostel_visiting})
+      }
+    } else {
+      if(sort_by === 'Star') {
+        return_data = data.sort((x, y) => {return parseInt(y.hostel_rating, 10) - parseInt(x.hostel_rating, 10)})
+      } else if(sort_by === 'Price') {
+        return_data = data.sort((x, y) => {return y.price - x.price})
+      } else if(sort_by === 'Visiting') {
+        return_data = data.sort((x, y) => {return y.hostel_visiting - x.hostel_visiting})
+      }
     }
 
     return return_data
@@ -152,15 +197,21 @@ const Home = (props) => {
               Sort by
               
               <div class="form-check">
-                <input class="form-check-input" type="radio" checked={filter_sort==='Star' ? true : false} onClick={() => setFilter_sort('Star')}/>
+                <input class="form-check-input" type="radio" checked={filter_sort==='Star' ? true : false} onClick={() => onClickSortBy('Star')}/>
                 <label class="form-check-label" for="flexRadioDefault1">
                   Star
                 </label>
               </div>
               <div class="form-check">
-                <input class="form-check-input" type="radio" checked={filter_sort==='Price' ? true : false} onClick={() => setFilter_sort('Price')}/>
+                <input class="form-check-input" type="radio" checked={filter_sort==='Price' ? true : false} onClick={() => onClickSortBy('Price')}/>
                 <label class="form-check-label" for="flexRadioDefault2">
                   Price
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" checked={filter_sort==='Visiting' ? true : false} onClick={() => onClickSortBy('Visiting')}/>
+                <label class="form-check-label" for="flexRadioDefault2">
+                  Visiting
                 </label>
               </div>
             </FormGroup>
