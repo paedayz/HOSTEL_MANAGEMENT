@@ -1,0 +1,19 @@
+{
+  "name": "hostel-management",
+  "version": "1.0.0",
+  "description": "\":star: In Progress :star:\"",
+  "main": "index.js",
+  "scripts": {
+    "test": "cd server | npm start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/paedayz/HOSTEL_MANAGEMENT.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/paedayz/HOSTEL_MANAGEMENT/issues"
+  },
+  "homepage": "https://github.com/paedayz/HOSTEL_MANAGEMENT#readme"
+}
