@@ -29,7 +29,7 @@ const HostelSchema = mongoose.Schema({
     },
     status: {
         type: String,
-        default: 'available'
+        default: 'Open'
     },
     admin_approve: {
         type: Boolean,

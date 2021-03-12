@@ -175,6 +175,7 @@ export default function (state = initialState, action) {
             let new_rating_current_hostel = state.single_hostel_detail
             new_rating_current_hostel.is_booking = false
             new_rating_current_hostel.hostel_rating = action.payload.rating
+            new_rating_current_hostel.hostel_visiting = new_rating_current_hostel.hostel_visiting + 1
             return {
                 ...state,
                 booking_list: state.booking_list.filter((booking) => {return booking._id !== action.payload.booking_id}),
