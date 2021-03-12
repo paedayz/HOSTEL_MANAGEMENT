@@ -37,10 +37,6 @@ const Home = (props) => {
   },[search_term])
 
   const onClickSortBy = (sort) => {
-    console.log('xxxxxxxxxxxxxxxxxxxxxxxxxx')
-    console.log(filter_sort)
-    console.log(sort)
-    console.log(filter_sort === sort)
     if(filter_sort === sort ) {
       setAgain(true)
       if(sort_order=== 'first') setSort_order('second')
@@ -50,9 +46,6 @@ const Home = (props) => {
       setAgain(false)
       setSort_order('first')
     }
-    console.log(again)
-    console.log(sort_order)
-    console.log('xxxxxxxxxxxxxxxxxxxxxxxxxx')
 
     setFilter_sort(sort)
   }

@@ -47,7 +47,6 @@ const Auth = (props) => {
             }
 
             if(flag === 0) {
-                console.log(edit_profile_data)
                 dispatch(editProfile(edit_profile_data))
             }
 
@@ -56,7 +55,6 @@ const Auth = (props) => {
         }
         
     }
-console.log(date_of_birth)
 
     return(
         <div className="box">

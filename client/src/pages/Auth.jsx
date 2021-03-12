@@ -28,7 +28,6 @@ const Auth = (props) => {
     const dispatch = useDispatch()
 
     const changeMode = (e) => {
-        console.log('change')
         dispatch({type:CLEAR_ERRORS})
         setEmail('')
         setPassword('')

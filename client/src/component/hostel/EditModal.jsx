@@ -39,7 +39,6 @@ const Modal = ({ showModal, setShowModal, defaultData }) => {
       e => {
         if (e.key === 'Escape' && showModal) {
           setShowModal(false);
-          console.log('I pressed');
         }
       },
       [setShowModal, showModal]
@@ -109,21 +108,18 @@ const Modal = ({ showModal, setShowModal, defaultData }) => {
   }
 
   const onChangeAddPrice = (e) => {
-    console.log(e.target.value)
     if(e.target.value >= 0) {
       setPrice(e.target.value)
     }
   }
 
   const onChangeAddLat = (e) => {
-    console.log(e.target.value)
     if(e.target.value >= -90 && e.target.value <= 90) {
       setLatitude(e.target.value)
     }
   }
 
   const onChangeAddLong = (e) => {
-    console.log(e.target.value)
     if(e.target.value >= -90 && e.target.value <= 90) {
       setLatitude(e.target.value)
     }

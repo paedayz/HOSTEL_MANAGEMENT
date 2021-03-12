@@ -31,7 +31,6 @@ const Modal = ({ showModal, setShowModal, booking_id, hostel_id }) => {
       e => {
         if (e.key === 'Escape' && showModal) {
           setShowModal(false);
-          console.log('I pressed');
         }
       },
       [setShowModal, showModal]
@@ -51,8 +50,6 @@ const Modal = ({ showModal, setShowModal, booking_id, hostel_id }) => {
         booking_id,
         hostel_id
       }
-
-      console.log(rating_data)
 
       dispatch(ratingHostel(rating_data))
       setRating(0)
