@@ -41,7 +41,7 @@ export const getHostelDetail = (hostelId) => (dispatch) => {
 
 export const booking = (hostelId, checkIn, checkOut) => (dispatch) => {
     dispatch({type: DATA_LOADING})
-    axios.post('/hostel/booking',{hostel_id : hostelId, check_in: checkIn, check_out: checkOut})
+    axios.post('/booking/booking',{hostel_id : hostelId, check_in: checkIn, check_out: checkOut})
         .then((res) => {
             console.log(res.data.data)
             dispatch({type: BOOKING, payload: res.data.data})
@@ -54,7 +54,7 @@ export const booking = (hostelId, checkIn, checkOut) => (dispatch) => {
 export const cancelBooking = (booking_id) => (dispatch) => {
     dispatch({type: DATA_LOADING})
     console.log(booking_id)
-    axios.post('/hostel/cancelBooking',{bookingId : booking_id})
+    axios.post('/booking/cancelBooking',{bookingId : booking_id})
         .then((res) => {
             dispatch({type: CANCEL_BOOKING, payload: res.data.data})
         })
@@ -65,7 +65,7 @@ export const cancelBooking = (booking_id) => (dispatch) => {
 
 export const getBookingList = () => (dispatch) => {
     dispatch({type: DATA_LOADING})
-    axios.get('/hostel/getBookingList')
+    axios.get('/booking/getBookingList')
         .then((res) => {
             dispatch({type: SET_BOOKING_LIST, payload: res.data.data})
         })

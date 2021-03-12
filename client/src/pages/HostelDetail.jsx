@@ -172,7 +172,7 @@ const HostelDetail = (props) => {
                 </div>
                 <br />
                 <hr />
-                <h2>Owner Detail</h2>
+                <h4>Owner Detail</h4>
                 <OwnerDataWraper>
                   <OwnerImage src={owner_data.image} />
                   <OwnerDescription>

@@ -8,6 +8,8 @@ import StarRatings from 'react-star-ratings'
 * @function HostelCardShow
 **/
 
+
+
 const HostelCardShow = (props) => {
     const history = useHistory()
   return(
@@ -40,6 +42,7 @@ const HostelCardShow = (props) => {
             <SecondDetail>
                 <div>owner: {props.owner}</div>
                 <div>Price: {(props.price).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} Baht/Day</div>
+                <div>Visiting by {props.hostel_visiting > 1 ?` ${props.hostel_visiting} users` : ` ${props.hostel_visiting} user`}</div>
             </SecondDetail>
             {/* eslint-disable-next-line */}
             <a onClick={() => history.push(`/hostel_detail/${props._id}`)} class="btn btn-primary">View Detail</a>

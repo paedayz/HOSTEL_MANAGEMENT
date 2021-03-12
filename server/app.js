@@ -16,10 +16,12 @@ app.use(cors());
 // Import Routes
 const authRoute = require('./routes/auth')
 const hostelRoute = require('./routes/hostel')
+const bookingRoute = require('./routes/booking')
 
 // Router
 app.use('/api/auth', authRoute)
 app.use('/api/hostel', hostelRoute)
+app.use('/api/booking', bookingRoute)
 
 // Connect to DB
 mongoose.connect(process.env.DB_CONNECTION , 

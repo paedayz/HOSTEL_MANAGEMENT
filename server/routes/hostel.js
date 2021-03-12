@@ -9,10 +9,7 @@ const {
     addHostel, 
     getOwnerUserHostel, 
     editHostel, 
-    deleteHostel, 
-    booking, 
-    cancelBooking, 
-    getBookingList,
+    deleteHostel,
     setHostelStatus,
     adminApproveHostelRequest,
     searchAPI,
@@ -27,9 +24,6 @@ router.post('/addHostel', UserAuth, addHostel)
 router.get('/getOwnerUserHostel', UserAuth, getOwnerUserHostel)
 router.post('/editHostel', UserAuth, editHostel)
 router.delete('/deleteHostel/:hostelId', UserAuth, deleteHostel)
-router.post('/booking', UserAuth, booking)
-router.post('/cancelBooking', UserAuth, cancelBooking)
-router.get('/getBookingList', UserAuth, getBookingList)
 router.post('/setHostelStatus', UserAuth, setHostelStatus)
 router.post('/adminApproveHostelRequest', UserAuth, adminApproveHostelRequest)
 router.get('/searchAPI/:search_term', UserAuth, searchAPI)
