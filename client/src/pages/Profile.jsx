@@ -70,7 +70,7 @@ const Auth = (props) => {
                     <input type="number" className="form-control editInput" value={phone} onChange={(e) => setPhone(e.target.value)}/>
                 </div>
                 <div className="mb-3">
-                    <label for="exampleFormControlTextarea1" className="form-label">Image (URL) <span style={{color:'red'}}>*</span></label>
+                    <label for="exampleFormControlTextarea1" className="form-label">Profile Image (URL) <span style={{color:'red'}}>*</span></label>
                     <input type="text" className="form-control editInput" value={image} onChange={(e) => setImage(e.target.value)}/>
                 </div>
                 <div className="mb-3">

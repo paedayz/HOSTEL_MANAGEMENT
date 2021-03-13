@@ -64,7 +64,7 @@ const Booking = (props) => {
                     Review
                 </button>
                 <button type="button" class="btn btn-danger" onClick={() => onCancelBookingClick(book._id)} style={{marginRight:10}}>
-                    Cancle
+                    Cancel
                 </button>
               </td>
         </tr>
