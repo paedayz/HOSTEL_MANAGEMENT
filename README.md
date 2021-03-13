@@ -59,10 +59,10 @@ deployed on https://hostel-managements.herokuapp.com/
 | `/api/hostel/getHostelDetail/:hostelId`            | GET      |    Private     | Get hostel data by hostel id |  |
 | `/api/hostel/addHostel`            | POST      |    Private     | Add new hostel with data | name<br/>price<br/>detail<br/>latitude<br/>longitude |
 | `/api/hostel/getOwnerUserHostel`            | GET      |    Private     | Get all hostel data that you are owner |  |
-| `/api/hostel/editHostel`            | POST      |    Private     | Edit hostel | <div>_id<div/><br/>detail |
+| `/api/hostel/editHostel`            | POST      |    Private     | Edit hostel | <div>_id<div/>detail |
 | `/api/hostel/deleteHostel/:hostelId`            | DELETE      |    Private     | Delete hostel by id and you must be owner or admin to delete that hostel |  |
-| `/api/hostel/setHostelStatus`            | POST      |    Private     | Owner can set hostel status to Open or Close | <div>_id<div/><br/>status |
-| `/api/hostel/adminApproveHostelRequest`            | POST      |    Private     | Approve hostel by user that have admin status | <div>_id<div/><br/>admin_approve |
+| `/api/hostel/setHostelStatus`            | POST      |    Private     | Owner can set hostel status to Open or Close | <div>_id<div/>status |
+| `/api/hostel/adminApproveHostelRequest`            | POST      |    Private     | Approve hostel by user that have admin status | <div>_id<div/>admin_approve |
 | `/api/hostel/searchAPI/:search_term`            | GET      |    Private     | Get all of the hostels in database, if hostel name and detail match to search_term it will return that hostel data to hostel list page |  |
 | `/api/hostel/rating`            | POST      |    Private     | Rating hostel by star | rating<br/>hostel_id<br/>booking_id<br/>booker |
 
