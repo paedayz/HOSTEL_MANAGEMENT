@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
-
 // Redux
 import { useDispatch, useSelector } from "react-redux";
 import {getHostelDetail} from "../redux/actions/dataAction";

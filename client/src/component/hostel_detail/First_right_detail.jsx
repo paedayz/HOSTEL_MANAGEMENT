@@ -33,7 +33,6 @@ const First_right_detail = ({owner, price, hostel_rating, hostel_visiting}) => {
                   {hostel_visiting > 1 ? "users" : "user"}
                 </div>
                 <br />
-                <hr />
     </div>
    )
   }

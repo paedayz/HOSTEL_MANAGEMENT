@@ -32,7 +32,6 @@ const Owner_detail = ({owner_data}) => {
                   </OwnerDescription>
                 </OwnerDataWraper>
                 <br />
-                <hr />
     </div>
    )
   }

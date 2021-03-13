@@ -64,31 +64,34 @@ const Modal = ({ showModal, setShowModal, booking_id, hostel_id }) => {
   return (
     <>
       {showModal ? (
-        <Background onClick={closeModal} ref={modalRef}>
-          <animated.div style={animation}>
-            <ModalWrapper showModal={showModal}>
-              <ModalContent>
-                <br/>
-                <br/>
-                <br/>
-                <h3>Give we some STAR</h3>
-                <StarRatings
-                  rating={rating}
-                  starRatedColor="#ECD700"
-                  numberOfStars={5}
-                  starHoverColor="#ECD700"
-                  changeRating={(newRating) => setRating(newRating)}
-                  name='rating'
-                />
-                <br/>
-                <div style={{marginTop:'50px'}}>
-                  <button onClick={() => onClickSubmit()} id="addSubmit" class="btn btn-success addHostelSubmit">Submit</button>
-                  <button onClick={() => onClickCancel()} id="addSubmit" class="btn btn-success addHostelSubmit">Cancel</button>
-                </div>
-                </ModalContent>
-            </ModalWrapper>
-          </animated.div>
-        </Background>
+        <div>
+          <Background>
+          </Background>
+          <animated.div style={animation} onClick={closeModal} ref={modalRef}>
+              <ModalWrapper showModal={showModal}>
+                <ModalContent>
+                  <br/>
+                  <br/>
+                  <br/>
+                  <h3>Give we some STAR</h3>
+                  <StarRatings
+                    rating={rating}
+                    starRatedColor="#ECD700"
+                    numberOfStars={5}
+                    starHoverColor="#ECD700"
+                    changeRating={(newRating) => setRating(newRating)}
+                    name='rating'
+                  />
+                  <br/>
+                  <div style={{marginTop:'50px'}}>
+                    <button onClick={() => onClickSubmit()} id="addSubmit" class="btn btn-success addHostelSubmit">Submit</button>
+                    <button onClick={() => onClickCancel()} id="addSubmit" class="btn btn-success addHostelSubmit">Cancel</button>
+                  </div>
+                  </ModalContent>
+              </ModalWrapper>
+            </animated.div>
+        </div>
+        
       ) : null}
     </>
   );
@@ -97,7 +100,7 @@ const Modal = ({ showModal, setShowModal, booking_id, hostel_id }) => {
 const Background = styled.div`
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.8);
+  background-color: rgba(222, 222, 222, 0.3);
   position: fixed;
   display: flex;
   justify-content: center;
@@ -110,8 +113,10 @@ const ModalWrapper = styled.div`
   box-shadow: 0 5px 16px rgba(0, 0, 0, 0.2);
   background: #fff;
   color: #000;
-  z-index: 10;
   border-radius: 10px;
+  position: absolute;
+  left: 25%;
+  top: 350px;
 `;
 
 const ModalContent = styled.div`

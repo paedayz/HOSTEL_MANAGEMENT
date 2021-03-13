@@ -176,7 +176,7 @@ const Auth = (props) => {
                         <input type="password" class="form-control" id="exampleConfirmPassword" value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)}/>
                     </div>
                     <div class="mb-3">
-                        <label for="exampleFormControlTextarea1" class="form-label">Image (URL) <span style={{color:'red'}}>*</span></label>
+                        <label for="exampleFormControlTextarea1" class="form-label">Profile Image (URL) <span style={{color:'red'}}>*</span></label>
                         <input type="text" class="form-control" value={image} onChange={(e) => setImage(e.target.value)}/>
                     </div>
                     <div class="mb-3">

@@ -61,7 +61,7 @@ function App() {
             <AuthRoute exact path="/booking" component={Booking} />
             <AuthRoute exact path="/my_hostel" component={MyHostel} />
             <AdminRoute exact path="/admin" component={Admin} />
-            <AdminRoute exact path="/profile" component={Profile} />
+            <AuthRoute exact path="/profile" component={Profile} />
             <AuthRoute exact path="/hostel_detail/:hostelId" component={HostelDetail} />
           </Switch>
         </Router>
